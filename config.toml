@@ -1,0 +1,57 @@
+baseurl = "/"
+languageCode = "en-us"
+title = "A Hugo website"
+theme = "hugo-lithium-theme"
+googleAnalytics = ""
+disqusShortname = ""
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+enableEmoji = true
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "About"
+    pre = ""
+    url = "/about/"
+    weight = 1
+[[menu.main]]
+    name = "LinkedIn"
+    pre = "fa-linkedin"
+    url = "https://www.linkedin.com/in/ivan-privalko-8a790743/"
+    weight = 2
+[[menu.main]]
+    name = "Twitter"
+    pre = "fa-twitter"
+    url = "https://twitter.com/privlko"
+    weight = 3
+[[menu.main]]
+    name = "Blog Posts"
+    pre = "fa-bullhorn"
+    url = "/post/"
+    weight = 4
+    
+
+[params]
+    
+    description = "Truly a brave baguette"
+    customCSS = ["css/rladies.css", "css/font-awesome.min.css"]
+    chapter = "Portland, Oregon"
+
+
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.11.0"
+    highlightjsCDN = "//cdn.bootcss.com"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
+
+    MathJaxCDN = "//cdn.bootcss.com"
+    MathJaxVersion = "2.7.1"
+
+
+    [params.logo]
+    url = "rladies-r-logo.png"
+    width = 50
+    height = 50
+    alt = "Logo"
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gender on A Hugo website</title>
+    <link>/tags/gender/</link>
+    <description>Recent content in Gender on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/gender/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Industry Differences in Pay</title>
+      <link>/2017/12/30/gender-parental/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/12/30/gender-parental/</guid>
+      <description>In this post I outline industry differences in pay, with a special focus on gender. I already listed the occupational differences in a previous post. Here, I follow the same idea, but substitute industry for occupations.
+As before, I use the Russian Longitudinal Monitoring Survey for data on participants in 2015. I use a measure for gender, industry, the number of weekly hours worked, and gross wages.
+I do not limit the industry codes, but focus on industry as it appears in the survey.</description>
+    </item>
+    
+    <item>
+      <title>Gender and Occupational Differences in Pay</title>
+      <link>/2017/12/18/gender-and-occupational-differences-in-pay/</link>
+      <pubDate>Mon, 18 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/12/18/gender-and-occupational-differences-in-pay/</guid>
+      <description>In this post, I look at a small chart breaking down pay by gender and occupation. Russian wages are particularly flexible, employers have significant freedom in setting the earnings of “inefficient” workers. There’s also a lot of “hidden unemployment”, where workers see their hours deducted at times of low demand (or at the discretion of employers) and where unpaid leave is common. These reasons may contribute to Russia’s gender pay gap.</description>
+    </item>
+    
+  </channel>
+</rss>

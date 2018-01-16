@@ -12,7 +12,7 @@ enableEmoji = true
 
 [[menu.main]]
     name = "About"
-    pre = ""
+    pre = "fa-bullhorn"
     url = "/about/"
     weight = 1
 [[menu.main]]
@@ -25,11 +25,6 @@ enableEmoji = true
     pre = "fa-twitter"
     url = "https://twitter.com/privlko"
     weight = 3
-[[menu.main]]
-    name = "Blog Posts"
-    pre = "fa-bullhorn"
-    url = "/post/"
-    weight = 4
     
 
 [params]

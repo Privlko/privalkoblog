@@ -34,9 +34,6 @@ enableEmoji = true
 
 [params]
     
-    description = "Truly a brave baguette"
-    customCSS = ["css/rladies.css", "css/font-awesome.min.css"]
-    chapter = "Portland, Oregon"
 
 
     # options for highlight.js (version, additional languages, and theme)

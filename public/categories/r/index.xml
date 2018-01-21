@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on A Hugo website</title>
+    <title>R on tupac lives in moscow</title>
     <link>/categories/r/</link>
-    <description>Recent content in R on A Hugo website</description>
+    <description>Recent content in R on tupac lives in moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 20 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/2015/07/23/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>Gender, occupations, and pay</title>
+      <link>/2017/12/20/gender-occupations-and-pay/</link>
+      <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2015/07/23/hello-r-markdown/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <guid>/2017/12/20/gender-occupations-and-pay/</guid>
+      <description>In this post, I look at a small chart breaking down pay by gender and occupation. Russian wages are particularly flexible, employers have significant freedom in setting the earnings of “inefficient” workers. There’s also a lot of “hidden unemployment”, where workers see their hours deducted at times of low demand (or at the discretion of employers) and where unpaid leave is common. These reasons may contribute to Russia’s gender pay gap.</description>
+    </item>
+    
+    <item>
+      <title>My First Post</title>
+      <link>/2017/12/10/my-first-post/</link>
+      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/12/10/my-first-post/</guid>
+      <description>Thanks for visiting my blog. I’m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I’m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
     </item>
     
   </channel>

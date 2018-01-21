@@ -1,0 +1,36 @@
+---
+title: "Industry Differences in Pay"
+author: "Ivan Privalko"
+date: '2017-12-30'
+slug: gender-parental
+tags:
+- gender
+- pay
+categories: gender
+---
+
+
+
+<p>In this post I outline industry differences in pay, with a special focus on gender. I already listed the occupational differences in a previous post. Here, I follow the same idea, but substitute industry for occupations.</p>
+<p>As before, I use the <a href="http://www.cpc.unc.edu/projects/rlms-hse">Russian Longitudinal Monitoring Survey</a> for data on participants in 2015. I use a measure for gender, industry, the number of weekly hours worked, and gross wages.</p>
+<p>I do not limit the industry codes, but focus on industry as it appears in the survey. I limit the analysis to women and men who work between thirty and sixty hours per week, although this experience is not representative of all women.</p>
+<p>I arrange the data in order of earnings and focus on gender differences in average pay by industry. The data is organised in the following way.</p>
+<pre class="r"><code>  gender_ind_earnings &lt;- gender %&gt;%
+   group_by(ind, gndr1) %&gt;%
+   filter(hours &gt; 30 &amp; hours &lt; 60) %&gt;%
+   summarise(earnings = mean(pay, na.rm = TRUE)) %&gt;%
+   filter(!is.na(earnings)) %&gt;%
+   filter(!is.na(ind)) %&gt;%
+   ungroup() %&gt;%
+   mutate(ind = factor(ind, levels = industry_income$ind))</code></pre>
+<p>The resulting graph looks like the plot in Figure <a href="#fig:dot">1</a>.</p>
+<div class="figure"><span id="fig:dot"></span>
+<img src="/post/2017-12-20-gender-and-industry_files/figure-html/dot-1.png" alt="Dot plot showing gender differences in pay" width="672" />
+<p class="caption">
+Figure 1: Dot plot showing gender differences in pay
+</p>
+</div>
+<p>A number of interesting differences are worth mentioning. First, women in each industry earn less than men (the only exception is education). This could be the product of differences in working time, women are more likely to work lower hours than men. Importantly, the data above does not consider part-time workers. Only those who work 30+ hours per week are included. However, differences in working time can also be at play, with money working fewer hours on the available scale.</p>
+<p>Second, there are several industries with higher premiums for men than women. Real estate, finances, and science and cutlural industries have the highest premiums. Here, the differences in pay may stem from differences in occupation. Women may rely on lower paid occupations in each industry, while the managerial roles may be more dominated by men. The results for finance, are not surprising, since the industry has a masculine culture, however the resutls for science are surprising. Here, I would expect a culture of meritocracy to keep wages equal between genders, instead men are often paid a 70% higher wage than women. A number of other industries contain smaller bonuses. The military sector typically rewards men more than women. This is interesting since the military typically relies on pay similar to public administration, yet that sector of the economy appears to have a smaller gender gap. Further, the industry “Army and internal affairs”, appears to have no pay differences.</p>
+<p>Last, a number of sectors contain no large difference between genders. Public health, education, and public administration. Here the gap in pay between genders appear relatively minor.</p>
+<p>There are a number of other topics to research here. First, there may be gender differences in the numbers of hours worked. Second, it’s possible that women are facing increased discrimination in the labour market, where their labour is undervalued. Lastly, it may be that women receive less training and grooming for higher positions than men. I explore these in another post.</p>

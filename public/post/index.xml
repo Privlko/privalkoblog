@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on A Hugo website</title>
+    <title>Posts on tupac lives in moscow</title>
     <link>/post/</link>
-    <description>Recent content in Posts on A Hugo website</description>
+    <description>Recent content in Posts on tupac lives in moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Dec 2016 21:49:57 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 30 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>A Plain Markdown Post</title>
-      <link>/2016/12/30/a-plain-markdown-post/</link>
-      <pubDate>Fri, 30 Dec 2016 21:49:57 -0700</pubDate>
+      <title>Industry Differences in Pay</title>
+      <link>/2017/12/30/gender-parental/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2016/12/30/a-plain-markdown-post/</guid>
-      <description>This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
- You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.  There are many differences in syntax between Blackfriday&amp;rsquo;s Markdown and Pandoc&amp;rsquo;s Markdown.</description>
+      <guid>/2017/12/30/gender-parental/</guid>
+      <description>In this post I outline industry differences in pay, with a special focus on gender. I already listed the occupational differences in a previous post. Here, I follow the same idea, but substitute industry for occupations.
+As before, I use the Russian Longitudinal Monitoring Survey for data on participants in 2015. I use a measure for gender, industry, the number of weekly hours worked, and gross wages.
+I do not limit the industry codes, but focus on industry as it appears in the survey.</description>
     </item>
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/2015/07/23/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>Gender, occupations, and pay</title>
+      <link>/2017/12/20/gender-occupations-and-pay/</link>
+      <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2015/07/23/hello-r-markdown/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <guid>/2017/12/20/gender-occupations-and-pay/</guid>
+      <description>In this post, I look at a small chart breaking down pay by gender and occupation. Russian wages are particularly flexible, employers have significant freedom in setting the earnings of “inefficient” workers. There’s also a lot of “hidden unemployment”, where workers see their hours deducted at times of low demand (or at the discretion of employers) and where unpaid leave is common. These reasons may contribute to Russia’s gender pay gap.</description>
     </item>
     
     <item>
-      <title>Lorem Ipsum</title>
-      <link>/2015/01/01/lorem-ipsum/</link>
-      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
+      <title>My First Post</title>
+      <link>/2017/12/10/my-first-post/</link>
+      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2015/01/01/lorem-ipsum/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
+      <guid>/2017/12/10/my-first-post/</guid>
+      <description>Thanks for visiting my blog. I’m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I’m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
     </item>
     
   </channel>

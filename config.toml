@@ -41,6 +41,7 @@ enableEmoji = true
     MathJaxVersion = "2.7.1"
 
 
+
     [params.logo]
     url = "rladies-r-logo.png"
     width = 50

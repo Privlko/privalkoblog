@@ -17,7 +17,7 @@ In this post, I look at a small chart breaking down pay by gender and occupation
 
 Gender pay typically varies for several reasons, not all of these are tied to [statistical discrimination](https://www.thoughtco.com/the-economics-of-discrimination-1147202). Women are more likely to work part-time than men, they also more likely to join feminized occupations (like teaching and nursing). Further, women are expected to carry out the bulk of the work tied to parenting, especially in Russia, where traditional gender norms are strongly reinforced. Below, I explore some of these by unpacking pay by gender and occupation. Most noticeably, gender gaps still remain within most occupations, even when limiting the sample to women who work full time (30+ hours per week).
 
-I use the [Russian Longitudinal Monitoring Survey](http://www.cpc.unc.edu/projects/rlms-hse) for data on participants in 2015. Specifically, I use a measure for gender, occupation, the number of weekly hours worked, and gross wages. I set up the data frame in the following way;
+I use the [Russian Longitudinal Monitoring Survey](http://www.cpc.unc.edu/projects/rlms-hse) for data on participants in 2015. Specifically, I use a measure for gender, occupation, the number of weekly hours worked, and gross wages.
 ```{r, include=FALSE}
 
 library(readxl)         # for reading in Excel data

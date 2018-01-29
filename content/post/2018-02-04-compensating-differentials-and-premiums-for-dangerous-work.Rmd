@@ -1,0 +1,104 @@
+---
+title: Compensating Differentials and Premiums for "Dangerous Work"
+author: Ivan Privalko
+date: '2018-02-04'
+slug: compensating-differentials-and-premiums-for-dangerous-work
+categories:
+  - work
+  - pay
+  - conditions
+tags:
+  - work
+  - pay
+  - compensating differentials
+  - sociology
+  - Russia
+  - RLMS
+---
+
+A key theory predicting differences in pay, and explaining pay inequality, lies in compensating differentials. This is the idea that pay premiums are attached to jobs that have unfavourable or dangerous working conditions. Thus, workers who are at risk earn more than equally skilled workers in safer jobs. The theory often gets cited by critics of the gender pay gap. Here, it is argued that women accept lower pay in trying to "buy" better working conditions (or simply more favourable conditions).
+
+In this post, I explore the pay difference of those working in "dangerous jobs" against those who do not work in dangerous conditions. Papers have found mixed results in studies testing "compensating differentials", [some find the effect applies only to men but not to women](https://www.jstor.org/stable/2782402). Others find that the effect of compensating differentials relies heavily on the occupation of the worker. 
+
+Again, I use the [Russian Longitudinal Monitoring Survey](http://www.cpc.unc.edu/projects/rlms-hse) for data on participants in 2015. Specifically, I use a measure for gender, dangerous work, occupation, the number of weekly hours worked, and gross wages.
+
+```{r, include=FALSE}
+
+library(readxl)         # for reading in Excel data
+library(dplyr)          # for data manipulation
+library(tidyr)          # for data shaping
+library(ggplot2)        # for generating the visualizations
+
+
+
+gender <- load("C:/Users/Administrator.admin-PC2/Desktop/Directory/Blog Ideas/gender/adult2015x.RData")
+
+
+### IXGENDER, ilopjb, IXPWRKHR, IXPJPAYT IWPWRKWH
+
+dangerous <- x %>%
+  select(gndr = ixgender,
+         danger = ixdanger,
+         isco = ixilpjb8,
+         hours = ixpwrkwh, 
+         pay = ixpjpayt) %>%
+  filter(isco<9999) %>%
+  mutate(i10 = isco / 1000)
+
+
+dangerous$i10 <- round(dangerous$i10, digits = -0)
+
+
+```
+
+
+```{r, include=FALSE}
+
+# recode danger -------------------------------------------------------------------
+
+dangerous$danger = factor(dangerous$danger)
+
+dangerous$danger = factor(dangerous$danger,labels=c("Yes","No"))
+
+# recode gender -------------------------------------------------------------------
+dangerous$gndr= factor(dangerous$gndr)
+
+dangerous$gndr = factor(dangerous$gndr,labels=c("Male","Female"))
+
+
+# recode isco -------------------------------------------------------------------
+dangerous$i10= factor(dangerous$i10)
+
+dangerous$i10 = factor(dangerous$i10,labels=c("Army","Legislator","Professional", "Tech", "Clerks", "Service workers", "Agriculture", "Craft and related", "Plant and machinery", "Elementary", "Other"))
+
+ 
+# all set up --------------------------------------------------------------
+
+ occ <- dangerous %>%
+   group_by(i10) %>%
+   filter(hours > 30 & hours < 60) %>%
+   filter(!is.na(i10)) %>%
+   summarise(earn = mean(pay, na.rm = TRUE)) %>%
+   arrange(earn)
+
+ 
+
+ 
+occ_danger <- dangerous %>%
+   group_by(i10, danger) %>%
+   filter(!is.na(i10)) %>%
+  filter(!is.na(danger)) %>%
+   filter(hours > 30 & hours < 60)%>%
+   summarise(earnings = mean(pay, na.rm = TRUE)) %>%
+   ungroup()
+
+
+```
+
+First, it is worth checking what portion of the sample work in dangerous jobs, or how common dangerous jobs are among Russians.
+
+```{r, echo=FALSE,warning=FALSE}
+ggplot(dangerous, aes(x=danger)) + geom_bar()+ xlim("Yes", "No")
+```
+
+The majority of respondents do not work in officially work in dangerous positions. 

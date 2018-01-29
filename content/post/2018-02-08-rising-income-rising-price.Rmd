@@ -1,0 +1,119 @@
+---
+title: Rising Income, Rising Price
+author: Ivan Privalko
+date: '2018-02-08'
+slug: rising-income-rising-price
+categories:
+  - housing
+  - ireland
+  - dublin
+tags:
+  - housing
+  - ireland
+  - income
+---
+
+#Rising Income, Rising Price
+
+A recent [report by myhome.ie](https://media.myhome.ie/content/propertyreport/2017/MyHome-Property-Report-Q4-2017.pdf) (Q4 2017) listed several reasons for the sharp rise in house prices, especially in Dublin. The most noticeable was "rising incomes" and "strong job growth". This *may* suggest the following; wages rose significantly in recent years, more disposable income meant more bidding between buyers which pushed the price of housing. I may be nitpicking; the report also lists *other* good reasons for the growth in price. Among them is the first time buyers scheme which gave access to many FTB's looking to enter the market. However, the chief concern of this post is the income argument. In a nut-shell, I think the causality of this claim is backwards.  
+
+MyHome rely on data from the [Bank and Payments Federation if Ireland](), who collect indicators on mortgage approvals and drawdowns in several regions (including Dublin and its commuter towns). They also consider data from First Time Buyers, Movers, and Investors separately. Using this data MyHome.ie claim, *"The price increases of 2017 were largely driven by strong jobs growth, rising incomes and increasing competition among buyers for the limited number of homes available"*. Again, myhome.ie do not repeat this claim, and later use the data to highlight the issue of affordability; showing that the price to income ratio for Dublin is greater than the other parts of the country.
+
+BPFI show, the median borrower income of first time buyers (in Dublin) was  &euro;76,700 in q3 2017. The same figure was  &euro;74,400 in q3 2016, suggesting a significant increase. In fact, BPFI provide the measure since  q1 2012, when the (stated) median income of FTB's was &euro;52,700, significantly lower than the incomes in Q3 2017. These changes are graphed below by region.
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(lubridate)
+
+
+
+inc <- read.csv("C:/Users/Administrator.admin-PC2/Desktop/Directory/Blog Ideas/housing/income.csv")
+
+
+inc2 <- inc %>%
+  mutate(change_dub = dublin / dublin[1]*100,
+         change_comm = dublin.commuter/dublin.commuter[1]*100,
+         change_national = national/national[1]*100,
+         change_leinster = rest.of.leinster/rest.of.leinster[1]*100)
+
+inc2$yr <- inc2$year
+inc2$time <- make_date(inc2$yr, inc2$q)
+
+p <-  ggplot(data = inc2) 
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+p + geom_line(mapping = aes(x=time, y=change_dub, colour="% change Dublin income")) +
+  geom_line(mapping = aes(x=time, y=change_comm, colour="% change Dub Commuter income")) +
+  geom_line(mapping = aes(x=time, y=change_national, colour="% change National income")) +
+geom_line(mapping = aes(x=time, y=change_leinster, colour="% change Leinster income")) + 
+  scale_color_discrete(labels = c("Dublin Commuter Areas", "Dublin", "Rest of Leinster", "National")) + 
+                labs(title = "Change in Stated Income",
+                subtitle = "Since 2012 the stated income of first time buyers has risen, \nespecially in Dublin.") +
+  theme_minimal() +
+        theme(axis.title = element_blank(),
+              panel.grid.major.x = element_blank(),
+              panel.grid.minor = element_blank(),
+              legend.title = element_blank(),
+              plot.title = element_text(size = 15, margin = margin(b = 14)),
+              plot.subtitle = element_text(size = 12, color = "darkslategrey", margin = margin(b = 14)),
+              plot.caption = element_text(size = 8, margin = margin(t = 10), color = "grey70", hjust = 0))
+
+
+
+```
+
+According to the output, the incomes of first time buyers increased significantly since 2012. Nationally, median income increased by over 25%, as has the income of those living in "Rest of Leinster" (Excluding Dublin and commuter towns). The most impressive income growth occured in Dublin, where stated income of first time buyers increased year on year since 2012, and is today over 40% of that in 2012. It should be noted that the graph above does not look at "real income", in that it is not adjusted for changes in purchasing power. Further, it's important to note that the table above lists the income only of those with mortgages.
+
+With this in mind, what could be happening is a delayed entry into the market for FTB's. This case is a backwards version of the claim made in the report. Instead, the characteristics of FTB's are changing. First time buyers must rent longer, save more, and take on greater levels of debt than they did in previous years (most likely due to the low supply). From a class perspective, the rise of the "median stated income" measure may be capturing a decline in basic workers' ability to enter the property market, especially in Dublin. This would explain the sharp rise in *stated median income* in Dublin but not the rest of the country.   
+
+Beyond this, those who are entering the market may find, their income is not high enough to maintain mortgage repayment. In short, affordability is being stretched. Here it is also fair to say that myhome.ie note the issue of affordability in Dublin. 
+
+#Affordability and Debt to Income
+
+Of those who are getting a mortgage, does their "high income" make housing affordable? Since the chart above does not consider real incomes, or nominal incomes, it may be worth checking the level of debt equity taken on by first time buyers. This was mentioned briefly by MyHome.ie, although they focused only one a single year. Luckily, the BPFI track the series for first time buyers and further splits the series by region.
+
+```{r, include=FALSE}
+
+ratio <- read.csv("C:/Users/Administrator.admin-PC2/Desktop/Directory/Blog Ideas/housing/ratio.csv")
+ratio$yr <- ratio$year
+ratio$time <- make_date(ratio$yr, ratio$q)
+
+
+x <- ggplot(data = ratio) 
+
+```
+
+Below, I list the quarterly debt to income ratio for Dublin, Dublin commuter areas, and the rest of Leinster. 
+
+
+```{r, include=FALSE}
+y <- x + geom_line(mapping = aes(x=time, y= Dublin, colour="Dublin ratio")) +
+  geom_line(mapping = aes(x=time, y= Dublin.Commuter, colour= "Dublin commuter ratio")) +
+  geom_line(mapping = aes(x=time, y= Rest.of.Leinster, colour= "Leinster ratio"))
+```
+
+
+```{r, echo=FALSE,warning=TRUE}
+
+y + scale_color_discrete(labels = c("Dublin Commuter Areas", "Dublin", "Rest of Leinster")) + 
+                labs(title = "Ratio House Price to Income",
+                subtitle = "Since 2012 the ratio between house price and income has increased. \nThis suggests First Time Buyers accumulate more debt, despite a rise \nin stated income.") +
+  theme_minimal() +
+        theme(axis.title = element_blank(),
+              panel.grid.major.x = element_blank(),
+              panel.grid.minor = element_blank(),
+              legend.title = element_blank(),
+              plot.title = element_text(size = 15, margin = margin(b = 14)),
+              plot.subtitle = element_text(size = 12, color = "darkslategrey", margin = margin(b = 14)),
+              plot.caption = element_text(size = 8, margin = margin(t = 10), color = "grey70", hjust = 0))
+
+
+```
+
+In Dublin the ratio between income and house price has been steadily rising since 2012, with only a minor fall in mid 2013 (which may have been seasonal). Ultimately those buying in Dublin are purchasing homes valued at over 4 times their stated income. In the commuter areas the ratio has grown since 2013 quite steadily, despite some seasonal effects. In the rest of Leinster the ratio has also grown since 2014, despite a steady fall leading up to 2013. Here it seems that income cannot keep up with the price of housing, and that affordability is being spread wider in the three regions. In short, it seems that incomes are not able to keep up with the price of housing which has risen steadily. 
+
+I think the data is telling two stories here. Firstly, there are changes in the profile of a first time buyer, this is especially true in Dublin. The first time buyer of 2012 does not resemble the one of 2017, Since incomes have remained relatively stable, what may be happening is a migration of higher earners into Dublin to buy property. Second, those who are becoming first time buyers, are slowly accummulating more debt in order to become homeowners. This is at odds with the narrative that house price inflation are pushed by changes in income and job growth.  

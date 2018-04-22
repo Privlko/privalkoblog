@@ -1,0 +1,199 @@
+---
+title: Vacancy and the CSO
+author: Ivan Privalko
+date: '2018-04-18'
+slug: vacancy-and-the-cso
+categories:
+  - housing
+  - CSO
+  - Dublin
+tags:
+  - housing
+  - vacancy
+  - ggplot
+---
+
+
+This post addresses the issue of housing vacancy. The views below are mine alone and represent my opinion and interpretation of the data; other interpretations exist.   
+
+#tl;dr
+
+I think housing vacancy is misunderstood, and often over-simplified. The current government is pursuing vacant homes in an effort to increase social housing supply. The strategy is unlikely to yield significant returns in Dublin, since the nature of Dublin's vacancy may be misunderstood. 
+
+Rebuilding Ireland sees vacant homes as a homogeneous pool of available and unused housing. The data suggests that much of Dublin's vacancy is made up of empty apartments sitting in high price areas, which the government likely cannot afford, and which owners are unlikely to want to sell. The type of vacancy presented here closer resembles asset hoarding, or rental market turnover, than underused and unoccupied space.  
+
+#Context 
+
+Vacancy is a key area in Irish housing research. Refurbishing vacant homes is a key part of the government's strategy of boosting housing supply. Of the five "pillars" in the [Rebuilding Ireland report](http://rebuildingireland.ie/Rebuilding%20Ireland_Action%20Plan.pdf), "Pillar 5" contains a detailed strategy for "Utilizing Existing Housing" to increase the stock of social housing. Specifically, the government launched two schemes to re purpose vacant housing as social housing. More on these later.
+
+The focus on vacant housing stems from the [Census 2016 finding](http://www.cso.ie/en/csolatestnews/pressreleases/2017pressreleases/pressstatementcensus2016resultsprofile1-housinginireland/) that there are 183,000+ vacant homes in Ireland. The figures presented by the CSO suggest that Ireland's vacancy rates are far higher than what should exist in a "functioning" housing market. The lowest rate of vacancy was reported in South Dublin, the highest rate was reported in Leitrim. However, in terms of raw numbers, Dublin has the highest number of vacant homes, more than most other areas of Ireland. These findings, combined with the sharp rise in rental costs and house prices, encouraged the government to pursue vacancy as a means of increasing the supply of social housing.
+
+# A brief sidenote on Census Data
+The Census' data is robust and considers two major types of vacancy. The first is temporary vacancy. It should be noted that few are concerned with this vacancy type, which is largely irrelevant. It enumerates homes which are briefly unoccupied. From what I can tell, this vacancy type only exists to ensure that the second vacancy rate is not polluted by this type of vacancy. The second vacancy type is the concern of this post. These homes are vacant dwellings where no one lives. This is confirmed through repeat visits over a 9 week period, where no contact is made, and where neighbours or non-occupants cannot confirm that someone is living in the home. *Importantly, the Census' figures on vacancy only focus on the latter group of homes*. In other words, none of the 183,000+ homes, mentioned above, are temporarily vacant. With this data in mind, the government focused significant attention and resources to renovating vacant homes, and restoring them for use for social housing.
+
+#Issues with proposed schemes
+
+Despite intentions, both of the above schemes [struggle](https://www.irishexaminer.com/ireland/cork-among-councils-who-fail-to-hire-vacant-homes-staff-466305.html). The minister for housing commented that vacant homes are ["not the low hanging fruit"](https://www.irishtimes.com/news/social-affairs/number-of-vacant-homes-in-dublin-said-to-be-between-900-and-1-000-1.3368771) the government had expected. Further, council officials in Dublin routinely question the validity of the Census' data, finding fewer vacant properties than that reported by the CSO. For example, [Dun Laoghaire-Rathdown](https://www.irishtimes.com/news/social-affairs/number-of-vacant-homes-in-dublin-said-to-be-between-900-and-1-000-1.3368771) council explored the number of vacancies in their area. The CSO placed the number of vacant homes at 4,000+. The council could only identify 1,500+. The issue with these figures is not that the CSO are wrong, but that councils lack the resources and access needed to properly enumerate vacancy.
+
+#Two questions
+
+This post is concerned with two questions. First, why can't councils locate the vacant homes noted by the CSO. Second, if the CSO is correct in enumerating vacancy, why are the schemes outlined by the government underused? I think the answer to both questions lies in a misreading of the Census' definition of a vacant home. Vacancy is not homogeneous and occurs for many reasons. The Census, was tasked with a massive challenge; to measure a non-existence. As a result, their data contains a broad definition of vacant homes. The government, and several stakeholders conflated the census' definition of vacancy with non-occupancy, and availability.
+
+I use the CSO's [Electoral divisions data to illustrate the freuqency of vacancy](http://www.cso.ie/en/census/census2016reports/census2016smallareapopulationstatistics/). For the purpose of this blog post, I focus on 20 ED's in Dublin which have the highest number of vacant dwellings. Since both schemes are focused on finding as many vacant properties as possible, I do not comment on the rate of vacancy. Instead I show the raw number of vacant dwellings in a given ED.
+
+#Top 20 Electoral Divisions
+
+```{r, include=FALSE}
+
+
+library(readxl)         # for reading in Excel data
+library(dplyr)          # for data manipulation
+library(tidyverse)          # for data shaping
+library(ggplot2)        # for generating the visualizations
+library(reshape)
+
+
+
+# define your file --------------------------------------------------------
+
+vacancy <- read.csv(file = "C:/Users/Administrator.admin-PC2/Desktop/Vacant_Housing_Data_2016.csv")
+
+
+# replace missing values with 0's -----------------------------------------
+
+vacancy[is.na(vacancy)] <- 0
+
+
+
+# define the work space ---------------------------------------------------
+
+
+dublin <- vacancy %>%
+  filter(CTY_31_LABEL=="Dublin City")%>%
+  select(ed = ED_2016_LABEL,
+         total = VT1_TOT_TOT,
+         v_detach = VT1_TOT_DET,
+         v_semi = VT1_TOT_SEM,
+         v_terr = VT1_TOT_TER,
+         v_app_pur = VT1_TOT_PUR,
+         v_app_conv = VT1_TOT_CON,
+         v_bedsit = VT1_TOT_BED) %>%
+  mutate(house= v_detach + v_semi + v_terr,
+         flat = v_app_pur + v_app_conv + v_bedsit,
+         p_house = house/total,
+         p_flat = flat/total)
+
+
+
+
+# melt --------------------------------------------------------------------
+melt(dublin, id ="ed")
+
+melt_vacancy <- melt(dublin, id = "ed", na.rm = TRUE)
+
+
+
+# define the data frame and shape -----------------------------------------
+
+frame <- melt_vacancy %>%
+  filter(variable == "total") %>%
+  group_by(ed) %>%
+  summarise(total = sum(value, na.rm = TRUE)) %>%
+  arrange(total) %>%
+  mutate(ed = factor(ed, levels = .$ed)) %>%
+  top_n(20)
+
+
+ggplot(frame, aes(ed,total)) +
+  geom_bar(stat = "identity") +
+  coord_flip()
+
+frame2 <- melt_vacancy %>%
+  filter(  variable == "house" | variable == "flat") %>%
+  group_by(ed, variable) %>%
+  summarise(total = sum(value, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(ed = factor(ed, levels = frame$ed)) %>%
+  filter(!is.na(ed)) 
+
+p <- ggplot(frame2, aes(ed, total, fill = variable)) +
+  geom_bar(stat = "identity") +
+  coord_flip() 
+
+```
+
+A chart of twenty ED's is listed below. These are areas of Dublin with the highest numbers of vacant dwellings. 
+
+```{r, echo=FALSE}
+
+p +  
+  scale_fill_discrete(name="Dwelling Type",
+                         breaks=c("flat", "house"),
+                         labels=c("Flat", "House")) +
+  theme_minimal() +
+  labs(title = "Top 20 Dublin ED's with the highest number \nof vacancies",
+       subtitle = "The ED's with the highest raw numbers of vacancy \nmostly contain vacant flats, few vacant houses exist in \nDublin's vacant areas.",
+       caption= "Source: Census 2016, Vacant Housing Data") +
+    theme(axis.title = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.title = element_blank(),
+        legend.justification = c(1, 0),
+        legend.direction="horizontal",
+        plot.title = element_text(size = 13, colour = "darkslategrey", margin = margin(b = 5)),
+        plot.subtitle = element_text(size = 10, color = "darkslategrey", margin = margin(b = 15)),
+        plot.caption = element_text(size = 10, margin = margin(t = 7), color = "darkgrey"))
+
+```
+
+The most obvious point from the chart above, is that Dublin's vacancy is the product of vacant apartments. Identifying a vacant apartment means having legal access to a building, where occupants have a legal obligation to participate. The Census is better placed to identify such homes, since everyone has a legal obligation to participate in the Census honestly. It is far harder for other researchers to determine if an apartment in vacant, because they have no legal access to an apartment block, and where occupants have no obligation to participate in the enumeration of vacancy.
+
+So, in terms of why council workers cannot find the vacancy rate reported by the Census, the answer is pretty straightforward, the council has zero access to the majority of vacant homes in Dublin. 
+
+In terms of the second question; why are the schemes proposed by the government so underused, the chart above also has insight. When thinking of areas in Dublin with the highest numbers of vacant homes, one might think of areas where the demand for housing is low. However, many of the areas above are high price parts of the city. South Dock, holds the highest number of vacant homes, but also happens to be a high price area. The same is true for North Dock B, where the number of vacant homes is high, but so is are the average prices for purchase and rental. 
+
+Thus the nature of Dublin's vacancy may be closer tied to property hoarding or the natural turnover of property in a rental or a sales market. The CSO allude to this in a [supplementary analysis](http://www.cso.ie/en/releasesandpublications/ep/p-cp1hii/cp1hii/vac/) which was carried out using enumerators' field notes. However, this analysis was not generalisable for various reasons, although it contained important insight.
+
+#A closer look at vacancy types in Dublin
+
+We can break vacancy down to more detailed types to hammer home the point. I do this in the graph below.
+
+```{r, echo=FALSE}
+flats <- melt_vacancy %>%
+  filter(variable == "house" | variable == "v_app_pur"|
+         variable== "v_app_conv" | variable=="v_bedsit") %>%
+  group_by(ed, variable) %>%
+  summarise(total = sum(value, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(ed = factor(ed, levels = frame$ed)) %>%
+  filter(!is.na(ed)) 
+
+q <-ggplot(flats, aes(ed, total, fill = variable)) +
+  geom_bar(stat = "identity") +
+  coord_flip() 
+
+q + 
+  scale_fill_discrete(name="Dwelling Type",
+                         breaks=c("v_app_pur", "v_app_conv",
+                                  "v_bedsit","house"),
+                         labels=c("Purpose built flat", "Converted flat",
+                                  "Bedsit", "House")) +
+  theme_minimal() +
+  labs(title = "Top 20 Dublin ED's with the highest number \nof vacancies",
+       subtitle = "The ED's with the highest raw numbers of vacancy \nmostly contain vacant flats, few vacant houses exist in \nthe areas.",
+       caption= "Source: Census 2016, Vacant Housing Data") +
+  theme(axis.title = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.title = element_blank(),
+        legend.justification = c(1, 0),
+        plot.title = element_text(size = 13, colour = "darkslategrey", margin = margin(b = 5)),
+        plot.subtitle = element_text(size = 10, color = "darkslategrey", margin = margin(b = 15)),
+        plot.caption = element_text(size = 10, margin = margin(t = 7), color = "darkgrey"))
+```
+
+Most of the vacancy in the top 20 ED's lies in Purpose built apartments, which are common among landlords and property investors. In 5 ED's the majority of vacant homes are converted flats (Wood Quay B, Rathmines West, Ballybough B, St. Kevin's, Cabra East, and Ballybaugh B), which are also favoured by smaller landlords who typically convert terraced homes into smaller apartments. 
+
+Thus this blog post has highlighted the importance of apartments in the context of Dublin's vacancy and outlined the importance of high price areas, when considering the prevalence of vacant homes. 
+
+There is still a lot I hope to explore in the CSO's figures, including the variance surrounding vacancy rates at the ED and County level, and the importance of ED socio-economic indicators in predicting vacancy numbers. 

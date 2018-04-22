@@ -95,10 +95,6 @@ occ_danger <- dangerous %>%
 
 ```
 
-First, it is worth checking what portion of the sample work in dangerous jobs, or how common dangerous jobs are among Russians.
-
-```{r, echo=FALSE,warning=FALSE}
-ggplot(dangerous, aes(x=danger)) + geom_bar()+ xlim("Yes", "No")
-```
+First, 
 
 The majority of respondents do not work in officially work in dangerous positions. 

@@ -24,14 +24,14 @@ Again, I use the [Russian Longitudinal Monitoring Survey](http://www.cpc.unc.edu
 
 ```{r, include=FALSE}
 
+library(blogdown)
 library(readxl)         # for reading in Excel data
 library(dplyr)          # for data manipulation
 library(tidyr)          # for data shaping
 library(ggplot2)        # for generating the visualizations
 
 
-
-gender <- load("C:/Users/Administrator.admin-PC2/Desktop/Directory/Blog Ideas/gender/adult2015x.RData")
+load("C:/Users/Ivan/Desktop/dir/data/rlms/adult2015x.RData")
 
 
 ### IXGENDER, ilopjb, IXPWRKHR, IXPJPAYT IWPWRKWH
@@ -94,7 +94,5 @@ occ_danger <- dangerous %>%
 
 
 ```
-
-First, 
 
 The majority of respondents do not work in officially work in dangerous positions. 

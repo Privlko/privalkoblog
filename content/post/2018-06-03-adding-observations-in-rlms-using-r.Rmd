@@ -1,0 +1,178 @@
+---
+title: Adding Observations in RLMS using R
+author: Ivan
+date: '2018-06-03'
+slug: adding-observations-in-rlms-using-r
+categories:
+  - Rstats
+tags:
+  - tidydata
+  - append
+  - merge
+---
+
+
+In this update, I want to update the blog with a practical post. I'll try to group observations in the [Russian Longitudinal Monitoring Survey](http://www.cpc.unc.edu/projects/rlms-hse) by individual. In a nutshell, every year, the survey asks people a series of questions, but some respondents are revisited and asked the same questions at another point in time. This is the basis for longitudinal data. 
+
+I should add a disclaimer, I have a limited knowledge of the Russia Longitudinal Monitoring Survey, and it's possible that other, better methods exist. For the moment, I am trying to understand some of R's methods for putting together panel observations for individuals. In Stata, you can group observations by individuals using the command "append". What does this look like in R?
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(plm)
+
+```
+
+
+# Loading the data
+
+In this example, I'll group two years of observations, RLMS's 2015 survey with the 2014 survey. I'm using the [tidyverse package](https://www.tidyverse.org), and the instructions from Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz). Firstly, I dowload the survey years from the RLMS website, in R format. No need to take the Stata version and convert it to R. Both years are now sitting in my desktop. I begin by loading the data for 2015.
+
+```{r, include=TRUE}
+
+load("C:/Users/Ivan/Desktop/dir/data/rlms/adult2015x.RData")
+y2015 <- x %>%
+  select(round, 
+         id = tid,
+         gndr = ixgender,
+         income = ixinclmo)
+
+
+```
+
+The **load** command saves the entire file to a variable called x. I'm not interested in using the whole file, so I use some commands from [dplyr](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) to pick out the measures I need. RLMS contains some arbitrary prefixes for variables, which I also edit out. The most important variable in the set is the id, which I'll use as a "key" for matching measures in both years to the same individuals. 
+
+Before moving on, it's worth checking if the file was uploaded correctly. 
+
+```{r, include=TRUE}
+as.tibble(y2015)
+```
+
+The first column, running from 1 to 10 lists the observations. The vector *round*, notes that all observations are from the 24th round of data collection (back in 2015). The *id* variable capture's a respondents unique identifier. The last two measures capture their gender, and their age. Since gender is a factor, we can recode this, but I will leave this for another update. For now, I have the data for 2015 loaded, and it seems to have about 15,000+ observations with measures of gender and income. I now consider the data for 2014.
+
+```{r, include=TRUE}
+
+load("C:/Users/Ivan/Desktop/dir/data/rlms/adult2014w.RData")
+y2014 <- x %>%
+  select(round, 
+         id = sid,
+         gndr = iwgender,
+         income = iwinclmo)
+```
+
+The code above is slightly different to the previous year's. The variables which capture gender, income and ID are different from the previous dataset, and have a different set of prefixes. I delete these and give the variables names that are similar to the previous dataset. Again, I only use a subset of measures here, to keep things simple. The data from 2014 looks like this.
+
+```{r, include=TRUE}
+as.tibble(y2014)
+```
+
+Again, the numbers running 1 to 10 are observations. The number for **round** has changed, since we are now dealing with round 23 (the data from 2014). The ID's are somewhat similar than in 2015. The person 1000101 seems to answer some questions in both 2015 (row 1), and 2014 (row 1). It seems this person is a woman, and her income also increased between the two years. But how do we group this person's answers together into the same data frame? I discuss this next.
+
+# Joining data
+
+If you're interested in relational data, you should read Hadley Wickham's chapter in [R4DS](http://r4ds.had.co.nz/relational-data.html) on the topic. He has a great way of explaining the concept and some nice illustrations of exactly what R is doing when joining data.
+
+If we wanted to take *all* the observations from 2015 and combine them with observations from 2014 (*excluding those not relevant to 2015*), we would use the left join command. I'll call this dataframe j1.
+
+
+```{r, warning=FALSE}
+j1 <- y2015 %>%
+  left_join(y2014, by = "id")
+```
+
+The resulting data frame looks like this
+
+```{r}
+as.tibble(j1)
+```
+
+In total, there are 15,000+ individuals (rows) in the table above, identical to the number of rows in round 24 data above. A number of the observations from 2014 made it in, and a few others did not. For example, in 2014's data there was a respondent with the number 1000103. Since that respondent didn't answer the survey in 2015, he never made it into the dataframe above. This frame only contains data from 2015 and the 2014 observations that are relevant to 2015. Note that the variables for gender, round, and income are now split in two. One for 2015 and one for 2014. More on this later.
+
+We can also a do the opposite of above. If we had the 2015 data, we could combine it with data from 2014, giving priority to 2014. In this way, we would take all of 2014 data, and only the 2015 observations that are relevant to 2014. The code below shows this, the data is labeled j2. 
+
+```{r, warning=FALSE}
+
+j2 <- y2015 %>%
+  right_join(y2014, by = "id")
+
+as.tibble(j2)
+```
+
+
+In total, there are also, 15,000+ individuals (rows) above, same as in the 2014 data frame shown previously. The outcome is similar to the previous table, respondent number 1000103 is now back, but is missing the observations for 2015, a year where he didn't take part. 
+
+All in all, we could just combine both datasets together. We could say, just lump all observations from both years together, and we will work from there. In this way the frame will hold individuals with values for either year, but not necessarily both years. The data below shows the process.
+
+
+```{r, warning=FALSE}
+
+j3 <- y2015 %>%
+  full_join(y2014, by = "id")
+
+as.tibble(j3)
+```
+
+
+There are 17,000+ individuals in the frame above.
+This frame is larger than the previous ones, since it contains observations from individuals as long as they gave an answer in either year. Finally, we could do the opposite of above, and only focus on those respondents who have an answer in both years. This approach will reduce our data, but will contain a "pure" group of individuals who participated in both years. This is called an inner join, and looks like this.
+
+```{r, warning=FALSE}
+
+j4 <- y2015 %>%
+  inner_join(y2014, by = "id")
+
+as.tibble(j4)
+```
+
+This frame is smaller than the previous ones, with 12,000+ individuals (rows) present. 
+
+One annoying thing about the tables above, is the split between gender, income and round. There are now two variables for each measure, one for 2014 and one for 2015. Can we combine these?
+
+# Panel
+
+We can let Rstudio know that the data above is a panel data frame using the [plm package](https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf). Here, we declare the data to be repeated-measured. Before doing this, we have to convert the data from a wide to a long format, we can do this using the reshape package.
+
+```{r, warning=FALSE}
+
+long1<-reshape(j4,
+               varying=c("round.x",
+                         "round.y",
+                         "gndr.x",
+                         "gndr.y",
+                         "income.x",
+                         "income.y"),
+               direction="long", 
+               idvar="id",
+               sep=".")
+
+as.tibble(long1)
+
+```
+
+
+Finally, we can declare the data to be panel data using the following.
+
+```{r}
+p1 <- pdata.frame(long1, c("id", "round"))
+as.tibble(p1)
+```
+
+ID now appears twice, for round 23 and round 24. Since we used the inner join data, mentioned earlier, each individual has two observations, from 2014 and from 2015. After some cleaning, we would be able to estimate some interesting things, like the change in income for men and women between rounds. 
+
+For now, it is possible to plot some of the panel data by changes in year, using a lag variable.
+
+```{r, warning=FALSE, echo=FALSE}
+p1$lag.income <- lag(p1$income)
+p1$gndr <- factor(p1$gndr, levels = c(1,2),
+                  labels = c("Male", "Female"))
+
+
+ggplot(data = p1, 
+       mapping = aes(x= log10(lag.income), 
+                   y=log10(income))) +
+  geom_point(alpha=.3, aes(colour=gndr)) +
+  geom_smooth(width=5, aes(colour=gndr))
+
+
+```
+
+That's it for combining observations in RLMS. I hope to move add some more practical posts soon.

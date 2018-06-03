@@ -6,10 +6,19 @@
     <description>Recent content in Tags on tupac lives in moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Append</title>
+      <link>/tags/append/</link>
+      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/append/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Blogdown</title>
@@ -93,6 +102,15 @@
     </item>
     
     <item>
+      <title>Merge</title>
+      <link>/tags/merge/</link>
+      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/merge/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Occupations</title>
       <link>/tags/occupations/</link>
       <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
@@ -134,6 +152,15 @@
       <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/sociology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tidydata</title>
+      <link>/tags/tidydata/</link>
+      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidydata/</guid>
       <description></description>
     </item>
     

@@ -6,10 +6,20 @@
     <description>Recent content in Posts on tupac lives in moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Adding Observations in RLMS using R</title>
+      <link>/2018/06/03/adding-observations-in-rlms-using-r/</link>
+      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/06/03/adding-observations-in-rlms-using-r/</guid>
+      <description>In this update, I want to update the blog with a practical post. I’ll try to group observations in the Russian Longitudinal Monitoring Survey by individual. In a nutshell, every year, the survey asks people a series of questions, but some respondents are revisited and asked the same questions at another point in time. This is the basis for longitudinal data.
+I should add a disclaimer, I have a limited knowledge of the Russia Longitudinal Monitoring Survey, and it’s possible that other, better methods exist.</description>
+    </item>
     
     <item>
       <title>Vacancy and the CSO</title>

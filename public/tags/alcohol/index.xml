@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tidydata on tupac lives in moscow</title>
-    <link>/tags/tidydata/</link>
-    <description>Recent content in Tidydata on tupac lives in moscow</description>
+    <title>Alcohol on tupac lives in moscow</title>
+    <link>/tags/alcohol/</link>
+    <description>Recent content in Alcohol on tupac lives in moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 Jun 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/tidydata/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/alcohol/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <description>I started taking part in the #Tidytuesday challenge and have had a great time so far, working through the challenges and learning from others. I highly recommend getting involved, especially if you’re just starting out with ggplot and R studio.
 This week the data came from a FiveThirtyEight article on alcohol consumption. The data looked like this.
 ## # A tibble: 193 x 5## country beer_servings spirit_servings wine_servings total_litres_of_~## &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;## 1 Afghanis~ 0 0 0 0 ## 2 Albania 89 132 54 4.</description>
-    </item>
-    
-    <item>
-      <title>Adding Observations in RLMS using R</title>
-      <link>/2018/06/03/adding-observations-in-rlms-using-r/</link>
-      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/06/03/adding-observations-in-rlms-using-r/</guid>
-      <description>In this update, I want to update the blog with a practical post. I’ll try to group observations in the Russian Longitudinal Monitoring Survey by individual. In a nutshell, every year, the survey asks people a series of questions, but some respondents are revisited and asked the same questions at another point in time. This is the basis for longitudinal data.
-I should add a disclaimer, I have a limited knowledge of the Russia Longitudinal Monitoring Survey, and it’s possible that other, better methods exist.</description>
     </item>
     
   </channel>

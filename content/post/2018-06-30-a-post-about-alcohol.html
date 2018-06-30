@@ -1,0 +1,55 @@
+---
+title: A Post About Alcohol
+author: 'Ivan '
+date: '2018-06-30'
+slug: a-post-about-alcohol
+categories:
+  - tidytuesday
+  - r4ds
+tags:
+  - alcohol
+  - tidydata
+---
+
+
+
+<p>I started taking part in the #Tidytuesday challenge and have had a great time so far, working through the challenges and learning from others. I highly recommend <a href="https://github.com/rfordatascience/tidytuesday">getting involved</a>, especially if you’re just starting out with ggplot and R studio.</p>
+<p>This week the data came from a <a href="">FiveThirtyEight</a> article on alcohol consumption. The data looked like this.</p>
+<pre><code>## # A tibble: 193 x 5
+##    country   beer_servings spirit_servings wine_servings total_litres_of_~
+##    &lt;fct&gt;             &lt;int&gt;           &lt;int&gt;         &lt;int&gt;             &lt;dbl&gt;
+##  1 Afghanis~             0               0             0               0  
+##  2 Albania              89             132            54               4.9
+##  3 Algeria              25               0            14               0.7
+##  4 Andorra             245             138           312              12.4
+##  5 Angola              217              57            45               5.9
+##  6 Antigua ~           102             128            45               4.9
+##  7 Argentina           193              25           221               8.3
+##  8 Armenia              21             179            11               3.8
+##  9 Australia           261              72           212              10.4
+## 10 Austria             279              75           191               9.7
+## # ... with 183 more rows</code></pre>
+<p>I decided to pick out the top twenty alcohol consumers and list these by servings. This is easy enough to do using <code>dplyr</code>, but first you need to create a variable for “total servings”. That’s also easy, I add the three vectors above into a new one called “total servings”.</p>
+<pre class="r"><code>c &lt;- alc %&gt;%  
+  mutate(servings = beer_servings + spirit_servings + wine_servings) %&gt;%
+  arrange(desc(servings)) %&gt;%
+  top_n(20, servings)
+
+c$country &lt;- factor(c$country, levels = c$country[order(c$servings)])</code></pre>
+<p>At this point, I could just list the number of servings per country, pointing out which countries drink the most servings. I can do this ggplot.</p>
+<pre class="r"><code>ggplot(c, aes(x= country,
+              y=servings))+
+  geom_bar(stat=&quot;identity&quot;) +
+  coord_flip()</code></pre>
+<p><img src="/post/2018-06-30-a-post-about-alcohol_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Both Russia and Ireland feature in the graph above. Surprisingly, most of the countries are European, none of the American countries feature. However, the data frame also has measures for the type of alcohol countries consume. These break down to bear, wine, and spirits.</p>
+<p>We can graph we data in the same way, but ask ggplot, to fill the bars by alcohol type.</p>
+<pre class="r"><code>z</code></pre>
+<p><img src="/post/2018-06-30-a-post-about-alcohol_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>The graph now has a little more nuance, breaking countries down by the type of alcohol they consume. Russia tends to consumer more spirits, while Ireland seems to consume more beer. We can clean up the graph a little by including some titles and cleaning up the graph. The end result looks like this.</p>
+<p><img src="/post/2018-06-30-a-post-about-alcohol_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre><code>## Saving 7 x 5 in image</code></pre>
+<p>I’m looking forward to exploring the datasets further. Someone on twitter suggested breaking down the countries by their favourite alcohol, instead of the busy colours in the graph above.</p>
+<p>This plot is slightly different because the countries ordered specifically by the amount of pure alcohol they consume in litres of pure alcohol.</p>
+<pre class="r"><code>print(top15_plot)</code></pre>
+<p><img src="/post/2018-06-30-a-post-about-alcohol_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>

@@ -1,0 +1,155 @@
+---
+title: A Post About Alcohol
+author: 'Ivan '
+date: '2018-06-30'
+slug: a-post-about-alcohol
+categories:
+  - tidytuesday
+  - r4ds
+tags:
+  - alcohol
+  - tidydata
+---
+
+
+I started taking part in the #Tidytuesday challenge and have had a great time so far, working through the challenges and learning from others. I highly recommend [getting involved](https://github.com/rfordatascience/tidytuesday), especially if you're just starting out with ggplot and R studio. 
+
+```{r, echo=FALSE,warning=FALSE, include=FALSE}
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggthemes)
+library(lubridate)
+library(ggplot2)
+library(showtext)
+
+
+
+
+alc<- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/week13_alcohol_global.csv")
+alc$country <- as.factor(alc$country)
+```
+
+
+This week the data came from a [FiveThirtyEight]() article on alcohol consumption. The data looked like this.
+
+```{r, echo=FALSE, warning=FALSE}
+
+alc
+
+```
+
+I decided to pick out the top twenty alcohol consumers and list these by servings. This is easy enough to do using `dplyr`, but first you need to create a variable for "total servings". That's also easy, I add the three vectors above into a new one called "total servings".
+
+```{r, warning=FALSE, include=TRUE}
+c <- alc %>%  
+  mutate(servings = beer_servings + spirit_servings + wine_servings) %>%
+  arrange(desc(servings)) %>%
+  top_n(20, servings)
+
+c$country <- factor(c$country, levels = c$country[order(c$servings)])
+  
+```
+
+At this point, I could just list the number of servings per country, pointing out which countries drink the most servings. I can do this ggplot.
+
+```{r}
+ggplot(c, aes(x= country,
+              y=servings))+
+  geom_bar(stat="identity") +
+  coord_flip()
+```
+
+Both Russia and Ireland feature in the graph above. Surprisingly, most of the countries are European, none of the American countries feature. However, the data frame also has measures for the type of alcohol countries consume. These break down to bear, wine, and spirits.
+
+```{r, include=FALSE}
+d <- gather(c, key = type, value = num,
+       beer_servings,  spirit_servings,  wine_servings)
+  
+d
+z <- ggplot(d, aes(x= country,
+              y=num))+
+  geom_bar(stat="identity", aes(fill = type))+
+  coord_flip()
+```
+
+We can graph we data in the same way, but ask ggplot, to fill the bars by alcohol type.
+
+```{r}
+
+
+z
+
+```
+
+The graph now has a little more nuance, breaking countries down by the type of alcohol they consume. Russia tends to consumer more spirits, while Ireland seems to consume more beer. We can clean up the graph a little by including some titles and cleaning up the graph. The end result looks like this.
+
+```{r, echo=FALSE, warning=FALSE}
+z +
+  scale_x_discrete(expand = c(.02, 0)) +
+  labs(title = "Top 20 Alcohol Consumers, by Type",
+       subtitle = "The largest consumers of alcohol differ in preference for beer, wine, or spirits",
+       caption= "Data:FiveThirtyEight \nPlot: @privlko",
+       x = "Top 20 Consumers",
+       y = "Servings of Alcohol",
+       fill = "Alcohol Type") +
+  scale_fill_discrete(breaks = c("beer_servings", 
+                                 "spirit_servings",
+                                 "wine_servings"),
+                      labels = c("Beer", "Spirits", "Wine")) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  margin = margin(b = 10),
+                                  colour= "black"),
+        axis.text= element_text(size = 12, 
+                                margin = margin(b = 10),
+                                colour= "black"))
+
+ggsave("week13.jpg")
+  
+```
+
+I'm looking forward to exploring the datasets further. Someone on twitter suggested breaking down the countries by their favourite alcohol, instead of the busy colours in the graph above.
+
+```{r, include=FALSE}
+# Calculate servings of each type relative to other types of alcohol
+alc$total_servings = alc$beer_servings + alc$wine_servings + alc$spirit_servings
+
+alc$beer = alc$beer_servings / alc$total_servings
+alc$spirits = alc$spirit_servings / alc$total_servings
+alc$wine = alc$wine_servings / alc$total_servings
+
+# Determine most popular type of alcohol by country
+highest = ifelse(alc$total_servings > 10, max.col(alc[,7:9]), NA)
+
+
+alc$main_type = c("beer", "spirits", "wine")[highest] 
+alc$max = apply(alc[,7:9], 1, max)
+
+top15 = alc[order(alc$total_litres_of_pure_alcohol, decreasing = T),][1:15,]
+
+
+top15_plot = ggplot() + 
+  geom_bar(data=top15, aes(x=reorder(country, total_litres_of_pure_alcohol, sum), y=total_litres_of_pure_alcohol, fill=main_type), stat="identity", width=0.8) +
+  coord_flip() +
+  guides(fill = guide_legend(keywidth = 4, keyheight = 1, title=NULL, label.position = "top", label.hjust = 0.5)) +
+  labs(title="\nTop 15 alcohol consuming countries", subtitle="Color shows the preferred drink for each country", y="Litres of pure alcohol consumed per capita", x="") +
+  theme_minimal(16) +
+  theme(legend.position = "top",
+        plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5)
+  )
+
+
+
+
+```
+
+
+This plot is slightly different because the countries ordered specifically by the amount of pure alcohol they consume in litres of pure alcohol.
+
+```{r}
+print(top15_plot)
+```
+

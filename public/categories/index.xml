@@ -120,6 +120,15 @@
     </item>
     
     <item>
+      <title>R4ds</title>
+      <link>/categories/r4ds/</link>
+      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/r4ds/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Rstats</title>
       <link>/categories/rstats/</link>
       <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
@@ -134,6 +143,15 @@
       <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/sociology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tidytuesday</title>
+      <link>/categories/tidytuesday/</link>
+      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/tidytuesday/</guid>
       <description></description>
     </item>
     

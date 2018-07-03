@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "tupac lives in moscow"
+title = "Tupac Lives in Moscow"
 theme = "hugo-lithium-theme"
 googleAnalytics = "UA-112836068-1"
 disqusShortname = ""
@@ -43,7 +43,7 @@ enableEmoji = true
 
 
     [params.logo]
-    url = "rladies-r-logo.png"
+    url = "tupac.jpg"
     width = 50
     height = 50
     alt = "Logo"

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Levada on Tupac Lives in Moscow</title>
-    <link>/categories/levada/</link>
-    <description>Recent content in Levada on Tupac Lives in Moscow</description>
+    <title>Migrants on Tupac Lives in Moscow</title>
+    <link>/categories/migrants/</link>
+    <description>Recent content in Migrants on Tupac Lives in Moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 27 Aug 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/levada/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/migrants/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,17 +18,6 @@
       
       <guid>/2018/08/27/xenophobia-towards-migrants/</guid>
       <description>In this post I want to look at data on xenophobia and attitudes to migrants; collected by the Levada center. This dataset was recently updated and widely shared, there are some interesting trends in the graphs below, some of which tell conflicting stories about migrants and ethnicities. Mainly, the graphs show an increase in xenophobic attitudes, after a period of falling xenophobia. However, subtle signs of acceptance also emerge, which could indicate a willingness to live and work with migrants once Russians get to know such (hypothetical) people.</description>
-    </item>
-    
-    <item>
-      <title>Parents&#39; Expectations 2004-2018</title>
-      <link>/2018/07/02/parents-expectations-2004-2018/</link>
-      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/07/02/parents-expectations-2004-2018/</guid>
-      <description>A recent post from Russia’s Levada Centre caught my attention. On the topic of school and future careers, parents are asked what they would like their children to do, what professions they prefer them to choose.
-Levada collected this data from 2004, so it’s possible to track parents’ expectations of their kids over time (somewhat).
-The format is not ideal, occuaptions seem to be in broad categories, not all of which are related.</description>
     </item>
     
   </channel>

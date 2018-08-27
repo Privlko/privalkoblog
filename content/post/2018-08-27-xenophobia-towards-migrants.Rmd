@@ -1,0 +1,298 @@
+---
+title: Xenophobia towards migrants
+author: Ivan
+date: '2018-08-27'
+slug: xenophobia-towards-migrants
+categories:
+  - Levada
+  - migrants
+tags:
+  - ggplot
+  - tidydata
+  - Levada
+---
+
+In this post I want to look at data on xenophobia and attitudes to migrants; collected by the Levada center. This dataset was recently updated and widely shared, there are some interesting trends in the graphs below, some of which tell conflicting stories about migrants and ethnicities. Mainly, the graphs show an increase in xenophobic attitudes, after a period of falling xenophobia. However, subtle signs of acceptance also emerge, which could indicate a willingness to live and work with migrants once Russians get to know such (hypothetical) people. 
+
+The original post was listed in Russian, [you can find it here](https://www.levada.ru/2018/08/27/monitoring-ksenofobskih-nastroenij/). Not all of the charts were graphed, which is a shame; several patterns are not clearly visible and could be shown better. I try to update these here and do some translating. 
+
+The sample contains 1,600 Russian citizens over the age of 18, interviewed from all over the country. They took part in brief interviews in July 2018; their answers were recorded and merged together. The survey itself contains a number of interesting operatiolasations of xenophobia, which focus on the rights of certain ethnicities to live and work in Russia, as well as some hypothetical questions on respondents' feelings towards migrants. 
+
+```{r, include=FALSE}
+library(tidyverse)
+
+
+z<- tribble(~rate, ~nationality,
+        #--/--,
+        15, "Jewish",
+        22, "Ukrainian",
+        27, "Chinese",
+        27, "Chechen",
+        30, "Central Asian",
+        33, "African",
+        43, "Romani")
+
+
+gg1_title <- "Ethnicities respondents 'would not allow' into the country"
+gg1_subtitle <- "Seven most common ethnicities listed"
+gg1_caption <- "Source: Levada Centre. Plot: @privlko"
+
+gg1<- ggplot(z,aes(fct_reorder(nationality,rate),rate)) +
+  geom_bar(stat="identity") +
+    labs(title=gg1_title,
+       subtitle=gg1_subtitle,
+       caption=gg1_caption)
+  
+
+
+##attitudes towards jews
+
+jews<- tribble(~m, ~aug2010, ~jul2016,
+            #--/--,--
+            "Accept into family", 2, 6,
+            "Accept as a friend", 3, 8,
+            "Accept as a neighbour", 8, 13,
+            "Accept as a work colleague", 9, 6,
+            "Accept as a Russian resident", 27, 32,
+            "Allow to live in Russia only temporarily", 17, 11,
+            "Would not allow to live in Russia", 17, 15,
+            "Don't know", 16, 10)
+
+
+j_title <- "Attitudes to Jews improved somewhat"
+j_subtitle <- "Differences are slight but minor improvements \nin attitudes to Jewish migrants can be seen since 2010."
+j_caption <- "Source: Levada Centre. Plot:@privlko"
+
+gg2 <- ggplot(jews) +
+  geom_point(aes(m,aug2010, colour="2010"))+
+  geom_point(aes(m,jul2016, colour="2016"))+
+  coord_flip()+
+  scale_x_discrete("Measure")+
+  scale_y_continuous("Percentage in agreement")+
+  labs(title=j_title,
+       subtitle=j_subtitle,
+       caption=j_caption)
+
+
+
+
+##attitudes towards chinese
+
+chinese<- tribble(~m, ~aug2010, ~jul2016,
+               #--/--,--
+               "Accept into family", 1, 2,
+               "Accept as a friend", 1, 5,
+               "Accept as a neighbour", 5, 8,
+               "Accept as a work colleague", 5, 4,
+               "Accept as a Russian resident", 13, 20,
+               "Allow to live in Russia only temporarily", 30, 27,
+               "Would not allow to live in Russia", 32, 27,
+               "Don't know", 13, 9)
+
+
+##plot
+
+c_title <- "Attitudes to Chinese"
+c_subtitle <- "Differences are slight, but minor improvements emerge"
+c_caption <- "Source: Levada Centre. Plot:@privlko"
+
+gg3 <- ggplot(chinese) +
+  geom_point(aes(m,aug2010, colour="2010"))+
+  geom_point(aes(m,jul2016, colour="2016"))+
+  coord_flip()+
+  scale_x_discrete("Measure")+
+  scale_y_continuous("Percentage in agreement")+
+  labs(title=c_title,
+       subtitle=c_subtitle,
+       caption=c_caption)
+
+
+##attitudes towards ukrainians
+
+ukr<- tribble(~m, ~aug2010, ~jul2016,
+                  #--/--,--
+                  "Accept into family", 5, 6,
+                  "Accept as a friend", 4, 6,
+                  "Accept as a neighbour", 10, 8,
+                  "Accept as a work colleague", 6, 3,
+                  "Accept as a Russian resident", 31, 29,
+                  "Allow to live in Russia only temporarily", 20, 21,
+                  "Would not allow to live in Russia", 13, 22,
+                  "Don't know", 12, 7)
+
+
+##plot
+
+u_title <- "Attitudes to Ukrainians"
+u_subtitle <- "Some differences have emerged, most likely due to geopolitical tension"
+u_caption <- "Source: Levada Centre. Plot:@privlko"
+
+gg4<- ggplot(ukr) +
+  geom_point(aes(m,aug2010, colour="2010"))+
+  geom_point(aes(m,jul2016, colour="2016"))+
+  coord_flip()+
+  scale_x_discrete("Measure")+
+  scale_y_continuous("Percentage in agreement")+
+  labs(title=u_title,
+       subtitle=u_subtitle,
+       caption=u_caption)
+
+
+####timeline
+
+tl<- tribble(~nationality, ~time, ~m,
+              #--/--,--
+              "Romani", "01/08/2004", 32,
+             "Romani", "01/08/2006", 29,
+             "Romani", "01/08/2009", 22,
+             "Romani", "01/08/2010", 30,
+             "Romani", "01/08/2011", 18,
+             "Romani", "01/08/2012", 29,
+             "Romani", "01/10/2013", 32,
+             "Romani", "01/07/2014", 23,
+             "Romani", "01/08/2015", 22,
+             "Romani", "01/07/2016", 21,
+             "Romani", "01/07/2017", 17,
+             "Romani", "01/07/2018", 18,
+             "Chinese", "01/08/2004", 39,
+             "Chinese", "01/08/2006", 41,
+             "Chinese", "01/08/2009", 34,
+             "Chinese", "01/08/2010", 36,
+             "Chinese", "01/08/2011", 30,
+             "Chinese", "01/08/2012", 37,
+             "Chinese", "01/08/2013", 45,
+             "Chinese", "01/07/2014", 33,
+             "Chinese", "01/08/2015", 24,
+             "Chinese", "01/07/2016", 24,
+             "Chinese", "01/07/2017", 15,
+             "Chinese", "01/07/2018", 31,
+             "Ukrainian", "01/08/2004", 8,
+             "Ukrainian", "01/08/2006", 7,
+             "Ukrainian", "01/08/2009", 7,
+             "Ukrainian", "01/08/2010", 6,
+             "Ukrainian", "01/08/2011", 5,
+             "Ukrainian", "01/08/2012", 6,
+             "Ukrainian", "01/10/2013", 5,
+             "Ukrainian", "01/07/2014", 8,
+             "Ukrainian", "01/08/2015", 14,
+             "Ukrainian", "01/07/2016", 13,
+             "Ukrainian", "01/07/2017", 8,
+             "Ukrainian", "01/07/2018", 17,
+             "Jewish", "01/08/2004", 15,
+             "Jewish", "01/08/2006", 13,
+             "Jewish", "01/08/2009", 6,
+             "Jewish", "01/08/2010", 11,
+             "Jewish", "01/08/2011", 8,
+             "Jewish", "01/08/2012", 10,
+             "Jewish", "01/10/2013", 8,
+             "Jewish", "01/07/2014", 8,
+             "Jewish", "01/08/2015", 7,
+             "Jewish", "01/07/2016", 6,
+             "Jewish", "01/07/2017", 4,
+             "Jewish", "01/07/2018", 12,
+             "No to migration limits", "01/08/2004", 21,
+             "No to migration limits", "01/08/2006", 25,
+             "No to migration limits", "01/08/2009", 19,
+             "No to migration limits", "01/08/2010", 21,
+             "No to migration limits", "01/08/2011", 17,
+             "No to migration limits", "01/08/2012", 18,
+             "No to migration limits", "01/10/2013", 11,
+             "No to migration limits", "01/07/2014", 21,
+             "No to migration limits", "01/08/2015", 25,
+             "No to migration limits", "01/07/2016", 20,
+             "No to migration limits", "01/07/2017", 28,
+             "No to migration limits", "01/07/2018", 28)
+             
+        
+tl
+tl$time <- parse_date(tl$time, "%d/%m/%Y")
+
+tl %>% 
+  count(nationality)
+
+l_nation <- c("Chinese", "Jewish", "Romani", "Ukrainian", "No to migration limits")
+
+tl$nationality <- parse_factor(tl$nationality,levels = l_nation)
+tl
+
+tl %>% 
+  count(nationality)
+
+
+gg5 <- ggplot(tl, aes(x=time, y=m, group=nationality))+
+  geom_line(aes(colour=nationality))+
+  geom_point(aes(colour=nationality))+
+  scale_y_continuous("Percent agreeing to limit migration for...")
+```
+
+
+# Least welcome ethnicities
+
+The first section asks respondents to list the ethnicities they are the least likely to welcome to Russia. The top 7 results are listed below.
+
+
+```{r, echo=FALSE}
+gg1
+```
+
+The most obvious issue is the appearance of Chechens. Chechens are technically Russian citizens themselves, but are not considered ethnically "Russian" (whatever this means) by many. The Roma population is the least welcome, while Jews are the least unwelcome. The only ethnically "white" category is that of Ukrainians.  The next section shows subtle changes in these relationships. It contains *some* good news, although this is limited.
+
+# Social attitudes to migrant ethnicities over time
+
+This section asks respondents to rate their attitude to certain ethnicities on a more personal level. This measure was taken last in 2010, as a result, it's possible to compare how attitudes have evolved over time among respondents.
+
+## Jews
+
+Starting with Jewish migrants, respondents are asked a series of hypothetical questions. Results are listed below.
+
+```{r, echo=FALSE}
+gg2
+```
+
+Starting from the top, the portion of Russian who would prevent Jews from living in Russia has fallen only slightly, the figure remains at roughly 15-16% of respondents. 
+
+However, there has been a fall in the portion of respondents who would limit the amount of time granted to Jews to live and work in Russia. There has also been an increase in the portion of respondents who would accept Jewish people into their family, their neighbourhoods, and their circle of friends. Finally, there has been an increase in the portion of respondents who would grant Russian residency to Jewish migrants. 
+
+Despite positive results, strangely, there was a fall in the portion of Russians who would accept Jews as work colleagues. This is a strange result.
+
+## Chinese
+
+Regarding Chinese migrants, respondents are asked the same set of questions. Results are graphed below. 
+
+```{r, echo=FALSE}
+gg3
+```
+
+Here, attitudes to Chinese migrants have also changed since 2010. There has been a fall in the portion of respondents calling for limits on Chinese migration, and a fall in the portion of Russian who believe their access to Russia should be limited or temporary. Further, there has been an increase in the portion of Russians who believe Chinese migrants should have access to Russian residency. 
+
+However, few Russians would accept Chinese migrants into their family or working life, which is strange given the other measures. There has also been an increase in the portion of respondents who would welcome Chinese migrants into other, less formal circles (neighbours/friends).
+
+## Ukrainians 
+
+The next section consider Ukrainian migrants; respondents are asked a similar set of questions. Results are graphed below. 
+
+```{r, echo=FALSE}
+gg4
+```
+
+First, a large portion of Russians would limit Ukrainian migration to Russia. This figure has grown since 2010. A large portion of Russians would also only grant temporary access to Ukrainians who want to live and work in Russia. 
+
+However, a significant portion would grant Russian citizenship to Ukrainians, and this figure does not appear to have changed since 2010, despite geopolitical tension. Strangely, few respondents would accept Ukrainian migrants into their family or circle of friends, which is a strange result. The number of RUssians who would accept Ukrainians as neighbours, also remains low. 
+
+## Limits on migration, over time
+
+The survey asks respondents to list the ethnicities they feel should be limited in access to Russia. The survey itself samples several countries, I list only a few below. It seems like after a slow and gradual fall in xenophobia, an increase appears from 2015. The graph is listed below.
+
+```{r, echo=FALSE}
+gg5
+```
+
+The chart above considers respondents who would limit migration access to Chinese, Jewish, Romani, and Ukrainian migrants. Another section of the survey tracks respondents who are against ethnicity-based migration limits. 
+
+Gradually levels of xenophobia have fallen for the listed groups. However, around 2015, an upward trend emerged, most prominent towards Ukrainian, Chinese and Jewish migrants. However, there has also been a leap in the portion of respondents who disagree with ethnicity based limits on migration. It could be that a split is emerging among RUssians, with one (small) side growing for their distate for ethnica and racial discrimination, and the other increasing the number of categories that they feel should have only limited access to Russia.  
+
+The portion of respondents who would limit migration from China is surprising, and seems to go against previous charts, where respondents have grown in their likelihood of recognising Chinese migrants as Russian residence. It's possible that ethnicity based attitudes towards migrants are subtle and complex. Russians may be more willing to grant citizenship to certain ethnicities, while wanting to limit te inflow of migrants from the same ethnicities. 
+
+This would reflect the attitude to Ukrainian migrants. There has been a large increase in the number of migrants coming to Russia from Ukraine since the conflict in Eastern Ukraine. It's possible that increased volumes of migrants are changing Russian attitudes to migrants in the country, which reflect their willingness to recognise Ukrainians as Russian citizens, while wanting to limit the flow of migrants from Ukraine. 
+
+Overall, recent changes in attitude should be noted. Part of the increase can be attributed to political parties, which have increased their anti-migrant rhetoric. This is true of both liberals and established political parties. The sharp in attitudes to migrants could also reflect the sharp change in wages and working conditions, brought on through Western Sanctions. Something to note.

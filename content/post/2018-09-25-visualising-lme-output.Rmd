@@ -1,0 +1,68 @@
+---
+title: Visualising LME output
+author: Ivan
+date: '2018-09-25'
+slug: visualising-lme-output
+categories:
+  - dataviz
+  - R
+  - Rstats
+tags: []
+---
+
+In this post I want to summarise a quick method for summarising random-effects output.
+
+I've been working with multi-level models recently. During grad school I spent a lot of time using fixed-effects methods, which are less prone to bias but [drop lots of information between cluster groups](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/S2049847014000077). Random effects models also have issues, but new methods have made it easier to overcome these. 
+
+There are tonnes of interesting courses and books on random effects modelling, which are worth reading. One point that's rarely mentioned is how to visualise the output from a random effects model. This is particularly annoying because the estimates don't contain p-values, and there are issues with using `broom()` (click [here](https://github.com/tidymodels/broom/issues/96) for a thread).
+
+
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE,message=FALSE}
+library(tidyverse)
+library(lme4)
+
+load('C:/Users/Ivan/Desktop/dir/papers/ru_mobility/data.Rda')
+
+m1 <- lmer(wage ~ gender + mob + (1|id), q2)
+```
+
+
+```{r, echo=TRUE, warning=FALSE}
+summary(m1)
+
+```
+
+The output above has no p-values. You could use the standard errors to gage what's significant, but generally it's hard to unpick what's important and what's not. If this was an LM function, we could use `broom()` but `broom()` is a bit complex when the data is hierarchical. Instead we can use `fixef()` and `confint()` to save some estimates in a data frame, before plotting. 
+
+```{r,echo=TRUE, message=FALSE}
+dataPlot <- data.frame(cbind( fixef(m1), confint(m1)[ 3:6, ]))
+rownames(dataPlot)[1] <- "Intercept"
+colnames(dataPlot) <- c("mean", "l95", "u95")
+dataPlot$parameter <- rownames(dataPlot)
+
+dataPlot
+```
+
+
+Using the newly created `dataPlot`, we can send the coefficients to `ggplot()` and visualise these.
+
+```{r, message=FALSE,echo=FALSE,warning=FALSE,error=FALSE}
+# Plot the results using ggplot2
+ggplot(dataPlot, aes(x = parameter, 
+                     y = mean,
+                     ymin = l95, ymax = u95)) +
+  geom_hline( yintercept = 0, color = 'red' ) +
+  geom_linerange() + 
+  geom_point() + 
+  coord_flip() + 
+  theme_minimal() +
+  labs(title='Coefficients from a Random-Intercept Model',
+       subtitle='The coefficients below also contain confidence intervals',
+       caption='Plot by @privlko')
+```
+
+
+The resulting plot makes it easier to point out significant estimates. For example above, the chart above suggests that quitting has no impact on wages, but promotions do. Gender has a negative impact on pay and the pay for men who stay in the same job for a given year is roughly 25,000 rubles.
+
+I'm looking forward to using these plots further. For now, they are a great way to illustrate the data and single out important estimates.

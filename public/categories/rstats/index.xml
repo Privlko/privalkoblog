@@ -6,10 +6,21 @@
     <description>Recent content in Rstats on Tupac Lives in Moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/rstats/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Visualising LME output</title>
+      <link>/2018/09/25/visualising-lme-output/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/09/25/visualising-lme-output/</guid>
+      <description>In this post I want to summarise a quick method for summarising random-effects output.
+I’ve been working with multi-level models recently. During grad school I spent a lot of time using fixed-effects methods, which are less prone to bias but drop lots of information between cluster groups. Random effects models also have issues, but new methods have made it easier to overcome these.
+There are tonnes of interesting courses and books on random effects modelling, which are worth reading.</description>
+    </item>
     
     <item>
       <title>Adding Observations in RLMS using R</title>

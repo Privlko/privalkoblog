@@ -39,6 +39,15 @@
     </item>
     
     <item>
+      <title>Dataviz</title>
+      <link>/categories/dataviz/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/dataviz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Dublin</title>
       <link>/categories/dublin/</link>
       <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
@@ -149,7 +158,7 @@
     <item>
       <title>R</title>
       <link>/categories/r/</link>
-      <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/r/</guid>
       <description></description>
@@ -167,7 +176,7 @@
     <item>
       <title>Rstats</title>
       <link>/categories/rstats/</link>
-      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/rstats/</guid>
       <description></description>

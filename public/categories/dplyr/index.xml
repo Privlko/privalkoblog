@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Work on Tupac Lives in Moscow</title>
-    <link>/categories/work/</link>
-    <description>Recent content in Work on Tupac Lives in Moscow</description>
+    <title>Dplyr on Tupac Lives in Moscow</title>
+    <link>/categories/dplyr/</link>
+    <description>Recent content in Dplyr on Tupac Lives in Moscow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 07 Oct 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/work/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/dplyr/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <guid>/2018/10/07/job-mobility-in-russia/</guid>
       <description>This post explores job mobility data in the Russian labour market. Sociologists tend to see country differences in job mobility as stemming from country differences in institutions. I think these can be summarised into three cateogries.
 First, there are differences in job protection and the freedom to fire or hire workers. Liberal countries, like the UK, have more mobility because hiring and firing workers is just easier. By the same token, coordinated economies like Germany, tend to have less mobility because firing workers, and the process of hiring, takes longer and contains more obstacles.</description>
-    </item>
-    
-    <item>
-      <title>Compensating Differentials and Premiums for &#34;Dangerous Work&#34;</title>
-      <link>/2018/02/04/compensating-differentials-and-premiums-for-dangerous-work/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/02/04/compensating-differentials-and-premiums-for-dangerous-work/</guid>
-      <description>A key theory predicting differences in pay, and explaining pay inequality, lies in compensating differentials. This is the idea that pay premiums are attached to jobs that have unfavourable or dangerous working conditions. Thus, workers who are at risk earn more than equally skilled workers in safer jobs. The theory often gets cited by critics of the gender pay gap. Here, it is argued that women accept lower pay in trying to “buy” better working conditions (or simply more favourable conditions).</description>
     </item>
     
   </channel>

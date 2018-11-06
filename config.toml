@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "Tupac Lives in Moscow"
+title = "Privalko Blog"
 theme = "hugo-lithium-theme"
 googleAnalytics = "UA-112836068-1"
 disqusShortname = ""

@@ -1,0 +1,91 @@
+---
+title: Russian Opinion of Ukraine and Ukrainian Opinion of Russia
+author: Ivan
+date: '2018-11-26'
+slug: collective-opinion-in-russia-and-ukraine
+categories:
+  - sociology
+  - society
+  - Levada
+tags:
+  - dplyr
+  - ggplot
+  - Russia
+---
+
+
+Levada recently updated statistics on what [Russian and Ukrainian citizens think of each other](https://www.levada.ru/2018/10/10/rossijsko-ukrainskie-otnosheniya-4/). I saw the update but forgot to dig into the numbers; yesterday's events in Kerch reminded me to revisit these. 
+
+It seems like conflict between both countries is on the rise, but it's worth looking back on how public opinion changed over the quieter months. In this post I merge the data gathered by Levada, and use some dplyr commands to simplify things, I then make a graph using ggplot.
+
+A small disclaimer; I know almost nothing about Ukraine, and have no interest in Ukrainian politics. This post just summarises public opinion, I'll leave interpretation to one side.
+
+Levada collects Russian public opinion data multiple times per year. They summarise public opinion of Ukraine in a small table, and offer a second table, from a Ukrainian source listing public opinion of Russia. However, there's no reason why you can't just combine both of these together by adding a column which lists the source for either table. I add one of those to each table, translate the columns, add some dates and store these on github. I list a sample of the Russian data below.
+
+```{r, warning=FALSE, echo=FALSE, message=FALSE}
+library(tidyverse)
+
+ru <- read_csv('https://raw.githubusercontent.com/Privlko/ru_ukr_conflict/master/ru_op.csv', skip=2)
+
+ukr<- read_csv('https://raw.githubusercontent.com/Privlko/ru_ukr_conflict/master/ukr_op.csv', skip=2)
+
+tbl_df(ru)
+
+```
+
+A few issues exist with the measures above; these can be fixed once the Russian and Ukrainian figures are combined. I use `bind_rows()` here, and save a new dataframe called `conflict`.
+
+```{r}
+
+conflict <- ru %>% 
+  bind_rows(ukr)
+
+tbl_df(conflict)
+```
+
+Now both frames are combined, with one column listing whether the source is Russian or Ukrainian. Before moving on, I parse two variables, the date and the source of the data. I want these saved in their respective formats, which'll make plotting easier. I also want to add labels for the `source` variable. 
+
+```{r}
+
+conflict$date<- parse_date(conflict$date, '%d/%m/%Y')
+conflict$source <- factor(conflict$source)
+
+labels <- c('ru-opinion of ukr' = "Russians on Ukrainians", 'ukr opinion of ru' = "Ukrainians on Russians")
+
+
+```
+
+
+Two issues remain with the way Levada presents this data. First, it measures 'good' and 'very good' separately to 'bad' and 'very bad'. This crowds the graph with unnecessary noise, and should just be comined into measures of 'good' and 'bad'. This will make things easier to read. I use `transmute()` to combine some measures and simiplify things. Second, the frame contains separate columns for those who say they have a 'very good', 'good', 'bad', or 'very bad' opinion of the other country. Yet, these are different presentations of the same measure. In order to make things easier, I use `gather()` to combine these into one measure. 
+
+Finally, I use `ggplot()` to graph the data and add some titles, splitting both trends by their respective sources. 
+
+```{r}
+
+conflict %>% 
+  transmute(date=date,
+            good=v_good+good,
+            bad= bad+v_bad,
+            dont_know=dont_know,
+            source=source) %>% 
+  gather(key=measure, value=value,
+         good, bad, dont_know) %>% 
+  ggplot(aes(x=date, y=value, colour= measure)) +
+  geom_point()+
+  geom_line()+
+  facet_wrap(~source, labeller=labeller(source=labels))+
+  labs(title='Russian opinion of Ukraine is steady, Ukrainian opinion of Russia is Dynamic',
+       subtitle= 'Graph captures portion of respondents who see either country as good or bad. \nUkrainians recently saw a minor improvement in their attitude towards Russia, \nalthough skepticism also growing.',
+       x= 'Date',
+       y='') +
+  scale_y_continuous(labels = scales::dollar_format(suffix = "%", prefix = "")) +
+  scale_colour_discrete(name="Collapsed opinion",
+                        breaks=c("bad", "dont_know", "good"),
+                        labels=c("Bad", "Don't know", "Good"))+
+  theme_minimal()
+
+```
+
+Three things stand out from the graph. First, a high portion of respondents in both countries had favourable views of each country in 2013; this approval fell suddenly over just a few months. Second, Russian rates appear fixed since 2015, but Ukrainian approval fluctuates during the same period. Ironically, Ukrainians recently saw an uplift in approval for Russia and Russians, while also seeing a fall in the likelihood of having 'bad' views of the country. Third, there is a growth in Ukrainians who are skeptical or who don't know what to make of Russia and Russians. The opposite can't be said of Russian citizens. 
+
+Recent events with likely push both countries to further dissaprove of each other.

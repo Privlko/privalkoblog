@@ -1,6 +1,10 @@
 baseurl = "/"
 languageCode = "en-us"
+<<<<<<< HEAD
 title = "Privalko blog"
+=======
+title = "Privalko Blog"
+>>>>>>> b2871b37a73608b2082f4ecd307986e538a7ec2a
 theme = "hugo-lithium-theme"
 googleAnalytics = "UA-112836068-1"
 disqusShortname = ""

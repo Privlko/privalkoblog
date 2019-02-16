@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Tupac Lives in Moscow</title>
+    <title>Tags on Privalko blog</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on Tupac Lives in Moscow</description>
+    <description>Recent content in Tags on Privalko blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 Jun 2018 00:00:00 +0000</lastBuildDate>
@@ -48,6 +48,15 @@
     </item>
     
     <item>
+      <title>Dplyr</title>
+      <link>/tags/dplyr/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/dplyr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Gender</title>
       <link>/tags/gender/</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
@@ -59,7 +68,7 @@
     <item>
       <title>Ggplot</title>
       <link>/tags/ggplot/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/ggplot/</guid>
       <description></description>
@@ -167,7 +176,7 @@
     <item>
       <title>Russia</title>
       <link>/tags/russia/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/russia/</guid>
       <description></description>

@@ -6,10 +6,20 @@
     <description>Recent content on Privalko Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Migration</title>
+      <link>/2019/02/16/migration/</link>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/02/16/migration/</guid>
+      <description>In this post I look at migration figures released by Rosstat. A number of debates are happening in Russia about the inflow and outflow of migrants from former Soviet countries, and the effect these migrants have on wages. Separately, there is an argument that migration from Ukraine is falling, which likely has its own challenges. What do these inflows look like?
+Rosstat releases data on this, but it’s awkward for three reasons.</description>
+    </item>
     
     <item>
       <title>Russian Opinion of Ukraine and Ukrainian Opinion of Russia</title>

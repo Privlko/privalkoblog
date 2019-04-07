@@ -93,6 +93,15 @@
     </item>
     
     <item>
+      <title>Household Composition</title>
+      <link>/categories/household-composition/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/household-composition/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Housing</title>
       <link>/categories/housing/</link>
       <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
@@ -224,6 +233,15 @@
       <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/tidytuesday/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Wages</title>
+      <link>/categories/wages/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/wages/</guid>
       <description></description>
     </item>
     

@@ -15,7 +15,7 @@ Generally, [Russia's wages are famously low](https://wageindicator.co.uk/pay/glo
 
 However, the stats presented by Rosstat are particularly strange because they capture other measures of deprivation, which suggest that homes are comfortable with larger expenses but less comfortable paying for shoes. I translate and illustrate these below.
 
-```{r, warning=FALSE,echo=FALSE,error=FALSE}
+```{r, warning=F, echo=FALSE, message=FALSE, error=FALSE}
 library(tidyverse)
 
 s1<- read_csv('C:/Users/Ivan/Desktop/dir/data/rosstat/2019/shoes-simple1.csv') %>% 
@@ -25,8 +25,6 @@ s1<- read_csv('C:/Users/Ivan/Desktop/dir/data/rosstat/2019/shoes-simple1.csv') %
 
 ```
 
-
-A brief graph summarises the results for all households together.
 
 ```{r, warning=FALSE,echo=FALSE,error=FALSE}
 ggplot(s1, 
@@ -40,39 +38,62 @@ ggplot(s1,
   
 ```
 
-Over half of all households could not replace furniture or pay for a sudden cost like a medical procedure. A significant majority could not take a week's holiday at a second home or with friends or family. The cost of new shoes registers as a significant issue for 33% of households, even though a holiday break at a dacha would be relatively inexpensive but may consist of taking time off work. Furtherseasonal clothing for the family only registers as an issue for roughly 10% of households, although this cost is likely comparable to shoes. 
+Over half of all households could not replace furniture or pay for a sudden cost like a medical procedure. A significant majority could not take a week's holiday at a second home or with friends or family. The cost of new shoes registers as a significant issue for 33% of households, even though a holiday break at a dacha would be relatively inexpensive but may consist of taking time off work. Further seasonal clothing for the family only registers as an issue for roughly 10% of households, although this cost is likely comparable to two pairs of shoes. 
 
 What's strangest is that one in five households claim to not be able to buy fruit at any time of the year, but one in ten claim to not be able to buy pharamceuticals, which are obviously more expensive than meat, fruit or fish. 
 
-In general the data from Rosstat seems strange and at times, counter intuitive. One issue may lie with the wording of the question. The deprivation question about clothes focuses on a single family member, the question about shoes focuses on each member of the family. This is a stretch, but could impact theway questions are answered. 
+In general the data from Rosstat seems strange and at times, counter intuitive. One issue may be how the question is phrased. The deprivation question about clothes focuses on a single family member, the question about shoes focuses on each member of the family. This is a stretch, but could impact the way questions are answered. 
 
 It's worth briefly looking at the shoe question spreads across urban and rural Russia. 
 
-```{r, warning=FALSE,echo=FALSE,error=FALSE}
+```{r, warning=F, echo=FALSE, message=FALSE, error=FALSE}
 
-read_csv('C:/Users/Ivan/Desktop/dir/data/rosstat/2019/shoes-simple2.csv') %>%
+q<- read_csv('C:/Users/Ivan/Desktop/dir/data/rosstat/2019/shoes-simple2.csv') %>%
   rename(cantafford=`Cannot afford`) %>%
   filter(cantafford=='change of seasonal shoes for each member of the family') %>% 
-  gather(key=region, value = percent, -cantafford) %>%
+  gather(key=region, value = percent, -cantafford)
+
+
+q$region <- factor(q$region, levels = c('all households', 'in urban areas', 'over 1000k', '500k-999k', '250k-499k', '100k-249k', '50k-99k', 'area with under 50k people'))
+```
+
+```{r, echo=FALSE,warning=FALSE}
+q %>% 
   ggplot(aes(x=region, y=percent))+
   geom_col()+
-  coord_flip()
+  coord_flip()+
+  labs(title='Population differences where households \ncannot pay for shoes',
+       subtitle='More populated areas tend to have fewer issues',
+       caption='Source: Rosstat \nPlot: @privlko',
+       x='Region',
+       y='')
   
 ```
-Looking at urband regions first, it seems like a singificant portion of households had issues paying for shoes. regions with over a million people (over 1000k) reported near 30% of households had the issue, while ares with less than 40k people had a higher percent.
+
+Looking at urband regions first, it seems like a singificant portion of households had issues paying for shoes. Regions with over a million people (over 1000k) reported almost 30% of households listed the issue, while ares with less than 40k people had a higher percent.
 
 
-```{r, warning=FALSE,echo=FALSE,error=FALSE}
-read_csv('C:/Users/Ivan/Desktop/dir/data/rosstat/2019/shoes-simple3.csv') %>%
+```{r, warning=F, echo=FALSE, message=FALSE, error=FALSE}
+q2<- read_csv('C:/Users/Ivan/Desktop/dir/data/rosstat/2019/shoes-simple3.csv') %>%
   rename(cantafford=`Cannot afford`) %>%
   filter(cantafford=='change of seasonal shoes for each member of the family') %>% 
   gather(key=region, value = percent, -cantafford) %>% 
-  filter(region!='X2')%>%
+  filter(region!='X2')
+
+q2$region <- factor(q2$region, levels = c('all households', 'in rural areas', 'over 5000', 'between1001-5000', 'between 201-1000', 'areas with under 200'))
+
+q2 %>% 
+  filter(!is.na(region)) %>% 
   ggplot(aes(x=region, y=percent))+
   geom_col()+
-  coord_flip()
+  coord_flip()+
+  labs(title='Population differences where households \ncannot pay for shoes',
+       subtitle='More populated areas tend to have fewer issues',
+       caption='Source: Rosstat \nPlot: @privlko',
+       x='Region',
+       y='')
 ```
 
-Rural areas are particularly affecte dby the measure with areas with less than 200 people reporting 50% of households struggle to pay for shoes, while more densely populated areas report greater ease (between 1001-5000).
+Rural areas are particularly affected by the measure with areas with less than 200 people reporting 50% of households struggle to pay for shoes, while more densely populated areas report greater ease (between 1001-5000).
 
-The measures may be capturing deprivation accurately, it seems to vary by urban and rural settings, but the uestion may have to be rephrased in future work. 
+The measures may be capturing deprivation accurately, it seems to vary by urban and rural settings, but the question may have to be rephrased in future work. More widely, the answer is consistent with what's expected between rural and urban areas.  

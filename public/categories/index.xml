@@ -39,6 +39,15 @@
     </item>
     
     <item>
+      <title>Data</title>
+      <link>/categories/data/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/data/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Dataviz</title>
       <link>/categories/dataviz/</link>
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
@@ -206,6 +215,15 @@
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/rstats/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Russia</title>
+      <link>/categories/russia/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/russia/</guid>
       <description></description>
     </item>
     

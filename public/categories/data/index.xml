@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data on Privalko Blog</title>
+    <link>/categories/data/</link>
+    <description>Recent content in Data on Privalko Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/data/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Poverty, shoes, and Rosstat</title>
+      <link>/2019/04/08/poverty-shoes-and-rosstat/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/08/poverty-shoes-and-rosstat/</guid>
+      <description>Rosstat, Russia’s main authority on state figures, recently released a summary of poverty and deprivation. One of the main findings suggests that 33% of households cannot afford two pairs of seasonally appropriate shoes for everyone in the home. A few publications picked up on the finding, and the Kremlin supposedly rejects the body’s figures..
+Generally, Russia’s wages are famously low the median hourly wage works out at roughly 0.91 net per hour in British pounds.</description>
+    </item>
+    
+  </channel>
+</rss>

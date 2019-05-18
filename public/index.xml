@@ -6,10 +6,19 @@
     <description>Recent content on Privalko Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Job mobility with promotions</title>
+      <link>/2019/05/05/job-mobility-with-promotions/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/05/job-mobility-with-promotions/</guid>
+      <description>I’ve been thinking a lot about capturing internal and external mobility types in the RLMS. I previously wrote a small note on one measure in the RLMS. That particular post was kind of disappointing, the data suggested that mobility was extremely uncommon, and although Russia is a famously immobile labour market, where respondents stay in the same job even when employers decide to stop paying wages, it seems like this question may be skewed somehow.</description>
+    </item>
     
     <item>
       <title>Poverty, shoes, and Rosstat</title>

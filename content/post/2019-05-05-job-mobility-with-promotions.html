@@ -1,0 +1,42 @@
+---
+title: Job mobility with promotions
+author: Ivan
+date: '2019-05-05'
+slug: job-mobility-with-promotions
+categories: []
+tags:
+  - mobility
+  - Russia
+---
+
+
+
+<p>I’ve been thinking a lot about capturing internal and external mobility types in the RLMS. <a href="https://privalko.netlify.com/2018/10/07/job-mobility-in-russia/">I previously wrote a small note on one measure in the RLMS.</a> That particular post was kind of disappointing, the data suggested that mobility was extremely uncommon, and although Russia is a famously immobile labour market, where respondents stay in the same job <a href="https://www.thetimes.co.uk/article/russian-workers-protest-over-unpaid-wages-ql65wxjg7zz">even when employers decide to stop paying wages</a>, it seems like this question may be skewed somehow. I revist the post here, using two additional measures in the dataset.</p>
+<p>I’m still not sure how to code the data, but this is another attempt at capturing job changes in the Russian Longitudinal Monitoring Survey. Basically, the measure <code>ixnewjob</code>, which I used previously, asks workers if they recently changed their profession, their employer, both, or neither. After this question additional measures appear which asks if they were promoted or whether they left the firm, <code>ixpromo</code> and <code>ixmovao</code> respectively. I’m going to use these three measures togeth, to hopefully capture a better measure. In short, I’m defining mobility like this…</p>
+<pre class="r"><code>ru1 &lt;- mutate(ru1, mobility= case_when((internal==&#39;No change&#39; &amp; promotion==&#39;No&#39;) ~ &quot;same&quot;,
+                                    (promotion==&#39;Yes&#39;) ~ &quot;promotion&quot;,
+                                    (internal==&#39;External&#39;) ~ &quot;quit&quot;,
+                                    (internal==&#39;Internal&#39; &amp; promotion==&#39;Non&#39;)~ &#39;lateral&#39;))</code></pre>
+<p>This formulation has a few more mobility observations, but I am not sure why the majority of respondents who cite a promotion, claim to have remained in the profession with the same employer in the previous question (<code>ixnewjob</code>).</p>
+<pre class="r"><code>table(ru1$mobility, ru1$internal)</code></pre>
+<pre><code>##            
+##             Internal External No change
+##   promotion       52        0       234
+##   quit             0     1053         0
+##   same             0        0      6463</code></pre>
+<p>From the table above 234 respondents said that they had a promotion <strong>and</strong> that they stayed in the profession with the same employer.</p>
+<pre class="r"><code>table(ru1$internal, ru1$quit)</code></pre>
+<pre><code>##            
+##              Yes   No
+##   Internal    55   58
+##   External     0    0
+##   No change   91 6606</code></pre>
+<p>Further, there are 55 respondents who claimed to quit their job in one measure, and then cited a no change in the next measure. Further, 55 respondents cited an internal move and then claimed to have quit their job in the second variable. In short, measuring job mobility is not easy and the measures may not be exploring mutually exclusive events. I list the new variable below.</p>
+<p><img src="/post/2019-05-05-job-mobility-with-promotions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>There is a minor increase in mobility events, with 3% of respondents citing a promotion, and near 14% of respondents citing a quit. There is still very little mobility in the sample. We can break this figure down by gender below.</p>
+<p><img src="/post/2019-05-05-job-mobility-with-promotions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>The output looks similar to the previous post, in that men are more mobile and women are less mobile. The only difference is the increase in mobility rates or events.</p>
+<p>There is one more check worth considering, splitting mobility chances by age. A common finding in job mobility research in sociology and economics is that the chance of job change correlates with age. The older the worker the less likely she is to change jobs.</p>
+<p><img src="/post/2019-05-05-job-mobility-with-promotions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>The results above show that correlation well, the older the respondent the less likely they are to change their job or take a promotion. The results for women also reflect the previous chart; they are less mobile than men.</p>
+<p>I’m still not convinced that this is the best way to measure mobility. It’s possible that using some combination of <code>ixpromot</code> and <code>ixmovoa</code> would be a better approach than relying on <code>ixnewjob</code> at all. I revisit this question in another post.</p>

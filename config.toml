@@ -27,7 +27,7 @@ enableEmoji = true
     weight = 3
 [[menu.main]]
     name = "Working Papers"
-    pre = "fa-heart"
+    pre = "fa-battery-2"
     url = "/workingpaper/"
     weight = 4
     

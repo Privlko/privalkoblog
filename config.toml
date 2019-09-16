@@ -25,6 +25,11 @@ enableEmoji = true
     pre = "fa-twitter"
     url = "https://twitter.com/privlko"
     weight = 3
+[[menu.main]]
+    name = "Working Papers"
+    pre = "fa-heart"
+    url = "/workingpaper/"
+    weight = 4
     
 
 [params]

@@ -48,7 +48,7 @@ enableEmoji = true
 
 
     [params.logo]
-    url = "tupac.jpg"
+    url = "ggplot2.png"
     width = 50
     height = 50
     alt = "Logo"

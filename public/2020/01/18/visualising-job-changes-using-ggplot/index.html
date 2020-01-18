@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.41" />
+
+
+<title>Visualising job changes using ggplot - Privalko Blog</title>
+<meta property="og:title" content="Visualising job changes using ggplot - Privalko Blog">
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+<script src="https://use.fontawesome.com/dc8f5495c2.js"></script>
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/ggplot2.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+  <ul class="nav-links">
+    
+    <li><a href="/about/"><i class="fa fa-bullhorn fa-lg fa-fw" aria-hidden="true"></i>&nbsp; About</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/ivan-privalko-8a790743/"><i class="fa fa-linkedin fa-lg fa-fw" aria-hidden="true"></i>&nbsp; LinkedIn</a></li>
+    
+    <li><a href="https://twitter.com/privlko"><i class="fa fa-twitter fa-lg fa-fw" aria-hidden="true"></i>&nbsp; Twitter</a></li>
+    
+    <li><a href="/workingpaper/"><i class="fa fa-battery-2 fa-lg fa-fw" aria-hidden="true"></i>&nbsp; Working Papers</a></li>
+    
+  </ul>
+</nav>
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Visualising job changes using ggplot</h1>
+
+    
+    <span class="article-date">2020/01/18</span>
+    
+
+    <div class="article-content">
+      <p>I started working on a new paper, one that looks at job mobility in the <a href="https://www.cpc.unc.edu/projects/rlms-hse">RLMS</a> data-set.
+In general, I’m really interested in the effects of job changes on wages, but often reviewers ask about predicting mobility and the factors that correlate with mobility, so in this paper I’m trying to look at both of these things, which can get a bit convoluted.</p>
+<p>Anyway, in this blog post I list a few visualisations from this paper which I’m including instead of tables.
+Basically, I had two problems.
+The first was tied to Standard Errors of estimates, which is why I want to use <code>ggplot</code>.
+When coming up with summary stats I felt like just listing the mean or median wasn’t enough, and maybe some standard errors would show a bit more in terms of statistical significance or maybe even the relationship between events.
+So standard errors were a bit of a pain, and in the end I just calculated them myself using <code>dplyr::mutate()</code>, but I wanted to present them in a visualisation.
+The second issue was tied to showing the number after I put everything together.
+While tables don’t visualise the data, they do list the nubmer, while ggplot visualises the data but doesn’t list the exact number.
+Anyway, this can be done using <code>geom_text()</code>.</p>
+<p>Before I say anything else, I should mention; in previous blog posts (like <a href="https://privalko.netlify.com/2019/05/05/job-mobility-with-promotions/">here</a> and <a href="https://privalko.netlify.com/2018/10/07/job-mobility-in-russia/">here</a>), I had a hard time coding job mobility into one measure. I’ll eventually write a post about this measure which turned out to be a bit more complicated than I thought when I wrote those posts.</p>
+<p>The final results for job mobility look like this.</p>
+<p><img src="/post/2020-01-18-visualising-job-changes-using-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>So there are probably two things worth noting. First, most respondents are not mobile, in that the vast majority work in the same job with the same employer. There is a minor differece between men and women, with men being more mobile and women being less mobile (by this I mean that women have a higher likelihood of saying they remain in the same job (0.814), when comapred to men (0.761)). Second, is that the difference in mobility between genders seems to mainly stem from a difference in Job Exit. Due to data limitations we can’t say whether the change was voluntary or involutnary, but the literature says that exits are most often voluntary.</p>
+<p><img src="/post/2020-01-18-visualising-job-changes-using-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>There are also wage differences between those who move and those who do not, it’s also important to note that I’m just looking at average wages of people who list a move, but in reality, most respondents list each of these mobility types at least once.</p>
+<p>Generally ther is a big premium that comes from promotions and a minor penlty that comes from exit, although this only applies to men. Also in general there is a significant difference between men and women in terms of earnings.</p>
+<p>For the time being I’m still writing the review and thinking about the wider models, but I wanted to show how useful ggplot can be when considering summary statistics.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-112836068-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  </body>
+</html>
+

@@ -6,10 +6,20 @@
     <description>Recent content on Privalko Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Visualising job changes using ggplot</title>
+      <link>/2020/01/18/visualising-job-changes-using-ggplot/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/01/18/visualising-job-changes-using-ggplot/</guid>
+      <description>I started working on a new paper, one that looks at job mobility in the RLMS data-set.In general, I’m really interested in the effects of job changes on wages, but often reviewers ask about predicting mobility and the factors that correlate with mobility, so in this paper I’m trying to look at both of these things, which can get a bit convoluted.
+Anyway, in this blog post I list a few visualisations from this paper which I’m including instead of tables.</description>
+    </item>
     
     <item>
       <title>New Papers</title>

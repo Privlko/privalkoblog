@@ -1,0 +1,135 @@
+---
+title: Visualising job changes using ggplot
+author: Ivan Privalko
+date: '2020-01-18'
+slug: visualising-job-changes-using-ggplot
+categories:
+  - dataviz
+  - sociology
+tags: []
+---
+
+
+I started working on a new paper, one that looks at job mobility in the [RLMS](https://www.cpc.unc.edu/projects/rlms-hse) data-set.
+In general, I'm really interested in the effects of job changes on wages, but often reviewers ask about predicting mobility and the factors that correlate with mobility, so in this paper I'm trying to look at both of these things, which can get a bit convoluted. 
+
+Anyway, in this blog post I list a few visualisations from this paper which I'm including instead of tables.
+Basically, I had two problems. 
+The first was tied to Standard Errors of estimates, which is why I want to use `ggplot`. 
+When coming up with summary stats I felt like just listing the mean or median wasn't enough, and maybe some standard errors would show a bit more in terms of statistical significance or maybe even the relationship between events.
+So standard errors were a bit of a pain, and in the end I just calculated them myself using `dplyr::mutate()`, but I wanted to present them in a visualisation. 
+The second issue was tied to showing the number after I put everything together. 
+While tables don't visualise the data, they do list the nubmer, while ggplot visualises the data but doesn't list the exact number. 
+Anyway, this can be done using `geom_text()`.
+
+Before I say anything else, I should mention; in previous blog posts (like [here](https://privalko.netlify.com/2019/05/05/job-mobility-with-promotions/) and [here](https://privalko.netlify.com/2018/10/07/job-mobility-in-russia/)), I had a hard time coding job mobility into one measure. I'll eventually write a post about this measure which turned out to be a bit more complicated than I thought when I wrote those posts.
+
+```{r, echo=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(forcats) 
+library(gtools)
+library(knitr)
+library(kableExtra)
+library(nnet)
+library(broom)
+library(plm)
+
+
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+load("C:/Users/Ivan/Desktop/R projects/ru_mobility/genderpaper.RData")
+
+ru3 <- ru3 %>% 
+  mutate(age_groups=case_when(
+    age %in% 0:35 ~  "0-35",
+    age %in% 36:55 ~ "36-55",
+    age %in% 56:100 ~ "56+"
+  ))
+
+
+```
+
+
+The final results for job mobility look like this.
+
+```{r}
+
+sum1 <- ru3 %>%
+filter(!is.na(mob_final)) %>% 
+  group_by(gender, mob_final) %>%
+  summarise(n = n()) %>% 
+  mutate(prop = n/sum(n),
+         prop_dev =prop*(1-prop),
+         se=sqrt(prop_dev/n),
+         conf_up = prop + (se*1.96),
+         conf_low = prop -(se*1.96))  
+  
+right_label <- sum1 %>%
+  filter(gender=='Male')
+
+left_label <- sum1 %>% 
+  filter(gender=="Female")
+
+sum1 %>% 
+ggplot(aes(x=mob_final,
+             y=prop,
+             colour=gender))+
+  geom_point(aes(size=0.3))+
+  geom_errorbar(aes(ymin=conf_up,
+                    ymax=conf_low),
+                width=0.3,
+                size=0.3)+
+  labs(subtitle= "Estimates contain 95% confidence intervals (Standard error*1.96)",
+       x="Mobility type",
+       y="Proportion of respondents",
+       caption="RLMS rounds 2015 to 2011 \nAuthors own calculation")+
+  guides(size=FALSE)+
+  geom_text(data = right_label, aes(color = gender, label = round(prop, 3)),
+                               size = 3, hjust = -.6) +
+  geom_text(data = left_label, aes(color = gender, label = round(prop, 3)),
+            size = 3, hjust = 1.8)
+
+```
+
+So there are probably two things worth noting. First, most respondents are not mobile, in that the vast majority work in the same job with the same employer. There is a minor differece between men and women, with men being more mobile and women being less mobile (by this I mean that women have a higher likelihood of saying they remain in the same job (0.814), when comapred to men (0.761)). Second, is that the difference in mobility between genders seems to mainly stem from a difference in Job Exit. Due to data limitations we can't say whether the change was voluntary or involutnary, but the literature says that exits are most often voluntary.
+
+```{r}
+sum3 <- ru3 %>%
+  filter(!is.na(mob_final),
+         !is.na(wage)) %>% 
+  group_by(gender, mob_final) %>% 
+  summarise(wage_mean = mean(wage, na.rm=TRUE),
+            wage_sd = sd(wage, na.rm = TRUE),
+            n= n(),
+            wage_se = wage_sd/sqrt(n)) 
+ 
+
+sum3 %>% 
+ggplot(aes(x=mob_final, 
+             y= wage_mean,
+             col=gender))+
+  geom_line(aes(group=gender))+
+  geom_point(aes(group=mob_final,
+                 size=3))+
+  geom_errorbar(aes(ymin=wage_mean-(wage_se*1.96),
+                    ymax=wage_mean+(wage_se*1.96)),
+                width=0.25)+
+  scale_y_continuous(labels = scales::comma)+
+  labs(subtitle= "Estimates contain 95% confidence intervals (Standard error*1.96)",
+       y= "Average monthly wages in rubles",
+       x="Mobility type",
+       caption="RLMS rounds 2015 to 2011 \nAuthors own calculation")+
+  guides(size=FALSE)+
+  geom_text(data = sum3, aes(color = gender, label = round(wage_mean, 0)),
+            size = 3, hjust = -.6)
+
+
+```
+
+There are also wage differences between those who move and those who do not, it's also important to note that I'm just looking at average wages of people who list a move, but in reality, most respondents list each of these mobility types at least once. 
+
+Generally ther is a big premium that comes from promotions and a minor penlty that comes from exit, although this only applies to men. Also in general there is a significant difference between men and women in terms of earnings. 
+
+For the time being I'm still writing the review and thinking about the wider models, but I wanted to show how useful ggplot can be when considering summary statistics. 
+

@@ -1,0 +1,75 @@
+---
+title: A Note of Appreciation for case_when
+author: ''
+date: '2020-02-07'
+slug: a-note-of-appreciation-for-case-when
+categories:
+  - tidyverse
+  - dplyr
+tags:
+  - dplyr
+  - tidydata
+---
+
+
+
+<p>I wanted to make a quick post about the <code>dplyr::</code> function, <code>case_when()</code>.
+More for my own sanity than for public outreach.
+In Stata, recoding variables is relatively straight forward, at least to me.
+However, I’ve recently tried to use <code>recode()</code> in <code>dplyr::</code> and could not get my head around it.
+Someone on stackoverflow suggested using <code>case_when()</code> which is somewhat understandable.</p>
+<p>Here’s an example.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages ------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.2.1     v purrr   0.3.3
+## v tibble  2.1.3     v dplyr   0.8.3
+## v tidyr   1.0.0     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0</code></pre>
+<pre><code>## -- Conflicts ---------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>load(&quot;C:/Users/Ivan/Desktop/dir/data/rlms/adult2015x.RData&quot;)
+
+
+ix &lt;-  x %&gt;%
+  select(round, idind, wage = ixwagelm,
+         income=ixinclmo, marr_stat=ixmarist) %&gt;% 
+  mutate(year = 2015)
+
+ix &lt;- tbl_df(ix)
+
+
+ix %&gt;% 
+  count(marr_stat)</code></pre>
+<pre><code>## # A tibble: 7 x 2
+##   marr_stat     n
+##       &lt;int&gt; &lt;int&gt;
+## 1         1  3614
+## 2         2  6416
+## 3         3  1113
+## 4         4  1907
+## 5         5  1947
+## 6         6    87
+## 7        NA    34</code></pre>
+<p>I’ve got a basic measure of marriage status here, which ranges from 1 to 6.
+I want to simplify this down to an even simpler measure using the codebook.
+Instead of all the nuanced marriage categories, I’m looking for a basic measure ranging from 1 to 3.
+I can use <code>case_when()</code> to do this quickly.</p>
+<pre class="r"><code>ix &lt;- ix %&gt;% 
+  mutate(marr_stat= case_when(marr_stat %in% 1 ~ 1,
+            marr_stat %in% 2 ~ 2,
+            marr_stat %in% 3 ~ 2,
+            marr_stat %in% 4 ~ 3,
+            marr_stat %in% 5 ~ 3,
+            marr_stat %in% 6 ~ 3)) 
+ix %&gt;% 
+  count(marr_stat)</code></pre>
+<pre><code>## # A tibble: 4 x 2
+##   marr_stat     n
+##       &lt;dbl&gt; &lt;int&gt;
+## 1         1  3614
+## 2         2  7529
+## 3         3  3941
+## 4        NA    34</code></pre>
+<p>I could technically use the <code>fct_recode</code> function since the values are really factors, but I have something elese in mind for these.
+For the time being, this is a quick way of dealing with numeric variables that’s similar to Stata’s <code>recode</code> command.</p>

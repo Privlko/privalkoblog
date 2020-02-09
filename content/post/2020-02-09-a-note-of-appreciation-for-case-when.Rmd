@@ -1,0 +1,63 @@
+---
+title: A Note of Appreciation for case_when
+author: ''
+date: '2020-02-07'
+slug: a-note-of-appreciation-for-case-when
+categories:
+  - tidyverse
+  - dplyr
+tags:
+  - dplyr
+  - tidydata
+---
+
+
+I wanted to make a quick post about the `dplyr::` function, `case_when()`. 
+More for my own sanity than for public outreach.
+In Stata, recoding variables is relatively straight forward, at least to me.
+However, I've recently tried to use `recode()` in `dplyr::` and could not get my head around it. 
+Someone on stackoverflow suggested using `case_when()` which is somewhat understandable. 
+
+Here's an example.
+```{r, warning=FALSE}
+library(tidyverse)
+
+
+
+
+load("C:/Users/Ivan/Desktop/dir/data/rlms/adult2015x.RData")
+
+
+ix <-  x %>%
+  select(round, idind, wage = ixwagelm,
+         income=ixinclmo, marr_stat=ixmarist) %>% 
+  mutate(year = 2015)
+
+ix <- tbl_df(ix)
+
+
+ix %>% 
+  count(marr_stat)
+```
+
+I've got a basic measure of marriage status here, which ranges from 1 to 6. 
+I want to simplify this down to an even simpler measure using the codebook. 
+Instead of all the nuanced marriage categories, I'm looking for a basic measure ranging from 1 to 3. 
+I can use `case_when()` to do this quickly.
+
+
+```{r}
+ix <- ix %>% 
+  mutate(marr_stat= case_when(marr_stat %in% 1 ~ 1,
+            marr_stat %in% 2 ~ 2,
+            marr_stat %in% 3 ~ 2,
+            marr_stat %in% 4 ~ 3,
+            marr_stat %in% 5 ~ 3,
+            marr_stat %in% 6 ~ 3)) 
+ix %>% 
+  count(marr_stat)
+
+```
+
+I could technically use the `fct_recode` function since the values are really factors, but I have something elese in mind for these. 
+For the time being, this is a quick way of dealing with numeric variables that's similar to Stata's `recode` command.

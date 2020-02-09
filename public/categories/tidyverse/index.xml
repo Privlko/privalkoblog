@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Dplyr on Privalko Blog</title>
-    <link>/tags/dplyr/</link>
-    <description>Recent content in Dplyr on Privalko Blog</description>
+    <title>Tidyverse on Privalko Blog</title>
+    <link>/categories/tidyverse/</link>
+    <description>Recent content in Tidyverse on Privalko Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/dplyr/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/tidyverse/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <description>I wanted to make a quick post about the dplyr:: function, case_when().More for my own sanity than for public outreach.In Stata, recoding variables is relatively straight forward, at least to me.However, I’ve recently tried to use recode() in dplyr:: and could not get my head around it.Someone on stackoverflow suggested using case_when() which is somewhat understandable.
 Here’s an example.
 library(tidyverse)## -- Attaching packages ------------------- tidyverse 1.</description>
-    </item>
-    
-    <item>
-      <title>Russian Opinion of Ukraine and Ukrainian Opinion of Russia</title>
-      <link>/2018/11/26/collective-opinion-in-russia-and-ukraine/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/11/26/collective-opinion-in-russia-and-ukraine/</guid>
-      <description>Levada recently updated statistics on what Russian and Ukrainian citizens think of each other. I saw the update but forgot to dig into the numbers; yesterday’s events in Kerch reminded me to revisit these.
-It seems like conflict between both countries is on the rise, but it’s worth looking back on how public opinion changed over the quieter months. In this post I merge the data gathered by Levada, and use some dplyr commands to simplify things, I then make a graph using ggplot.</description>
     </item>
     
   </channel>

@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Privalko Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Transitions in Marriage and Earnings</title>
+      <link>/2020/02/09/transitions-in-marriage-and-earnings/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/02/09/transitions-in-marriage-and-earnings/</guid>
+      <description>I previously write a post about earnings and marriage.There, I briefly talked about the marriage premium and listed some stats from the RLMS dataset.But really, the marriage premium is supposed to work as a dynamic process, where we catch people before and after they get married and then estimate that effect on earnings.I’m still thinking about how best to do this, but there are some tips in Longhi and Nandi’s book on panel analysis.</description>
+    </item>
     
     <item>
       <title>A Note of Appreciation for case_when</title>

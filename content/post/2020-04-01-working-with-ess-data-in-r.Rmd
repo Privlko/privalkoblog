@@ -1,0 +1,130 @@
+---
+title: Working with ESS data in R
+author: Ivan
+date: '2020-04-01'
+slug: working-with-ess-data-in-r
+categories: []
+tags: [ESS]
+---
+
+
+I came across a good step by step guide for using [European Social Survey in R](http://dimiter.eu/Visualizations_files/ESS/Visualizing_ESS_data.html). 
+I had some issues with the code, and in the end I found that `tidyverse` has some nice alternatives to the code preseneted, like the stuff on weighting, but in general this was a really interesting post.
+I want to walk through some of my workflow here.
+We can start by loading some of the ESS data for the Russian Federation.
+
+```{r, echo=TRUE, results='hide', warning=FALSE, error=FALSE,message=FALSE}
+library(tidyverse)
+library(essurvey) # install from CRAN first
+set_email("privalki@tcd.ie") # set your registered email
+ru8 <- import_country(country = "Russian Federation",
+               rounds = c(8),
+               format = 'spss')
+
+
+```
+
+This is really easy with the new `essurvey` package which contains ESS data for all countries and all rounds considered.
+Importantly, I originally left the format option blank, and this lead the format to be loaded as Stata. 
+I am not exactly sure why but this led me to problems later on in the analysis, so I changed it. 
+
+We can then explore some of the measures and controls using functions from `labelled`. Here I want to look at measures which reference income. 
+
+```{r, echo=TRUE, results='hide', warning=FALSE, error=FALSE,message=FALSE}
+library(labelled)
+# explore and label -------------------------------------------------------
+
+labelled::look_for(ru8, 'income')
+attributes(ru8$dfincac)
+summary(ru8$dweight) 
+attributes(ru8$hinctnta)
+summary(ru8$dweight) 
+```
+
+
+
+Before we visualise, we can use the `to_factor()` command to create a factor with the appropriate labels.
+The code looks like this.
+
+
+```{r, echo=TRUE, results='hide', warning=FALSE, error=FALSE,message=FALSE}
+# recode ------------------------------------------------------------------
+
+ru8$ineq <- to_factor(ru8$dfincac, drop_unused_labels=TRUE, ordered=TRUE)
+table(ru8$ineq)
+
+
+ru8$incdecile <- to_factor(ru8$hinctnta, drop_unused_labels=TRUE, ordered=TRUE)
+table(ru8$incdecile)
+
+
+
+```
+
+
+
+We can also simplify the income agreement measure into a simpler measure, I'm just using it arbitrarily as an example for now.
+
+```{r, echo=TRUE, results='hide', warning=FALSE, error=FALSE,message=FALSE}
+# recode factor -----------------------------------------------------------
+
+ru8 <- ru8 %>% 
+  mutate(ineq = fct_recode(ineq, 
+                    "agree" ="Agree strongly", 
+                    "agree" = "Agree",
+                    "disagree" = "Disagree",
+                    "disagree" = "Disagree strongly")) 
+```
+
+
+We can then turn to `srvyr` to include survey weights in our results, which are slightly cumbersome, but will lead to weighted output.
+
+```{r, echo=TRUE, results='hide', warning=FALSE, error=FALSE,message=FALSE}
+# weighted data -----------------------------------------------------------
+library(srvyr)
+ru8_srvyr <- ru8 %>% 
+  filter(!is.na(ineq),
+         !is.na(incdecile)) %>% 
+  as_survey_design(ids = 1,
+                   weight = pspwght)
+
+
+out <- ru8_srvyr %>%
+  group_by(incdecile, ineq) %>% 
+  summarize(proportion = survey_mean(),
+            total = survey_total())
+
+```
+
+
+Having saved the weighted results of the proportion and survey total of the measure, we can then turn to graphing the results using `ggplot()`
+
+
+```{r, echo=FALSE, results='hide', warning=FALSE, error=FALSE,message=FALSE}
+
+out %>% 
+  ggplot(aes(x=incdecile,
+             y=proportion,
+             fill=ineq))+
+  geom_col()+
+  coord_flip()+
+  theme(legend.position="bottom")+
+  labs(title = "When asked whether large differences \nin income are acceptable to reward talents and \nefforts, most disagree.",
+       subtitle = "Even when we split the outcome by income decile, \nmost disagree.",
+       y="Proportion of income decile",
+       x="Income decile persone belongs to",
+       fill="",
+       caption = "Source: European Social Survey. \nPlot: @privlko")
+
+
+```
+
+There are still several things I want to try here, but the main point is that ESS data can quickly be ported into R and quickly analysed using weights with `srvyr`.
+
+
+
+
+
+
+
+

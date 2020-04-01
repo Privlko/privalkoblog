@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ess on Privalko Blog</title>
+    <link>/tags/ess/</link>
+    <description>Recent content in Ess on Privalko Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/ess/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Working with ESS data in R</title>
+      <link>/2020/04/01/working-with-ess-data-in-r/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/01/working-with-ess-data-in-r/</guid>
+      <description>I came across a good step by step guide for using European Social Survey in R.I had some issues with the code, and in the end I found that tidyverse has some nice alternatives to the code preseneted, like the stuff on weighting, but in general this was a really interesting post.I want to walk through some of my workflow here.We can start by loading some of the ESS data for the Russian Federation.</description>
+    </item>
+    
+  </channel>
+</rss>

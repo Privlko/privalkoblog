@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Hugo 0.41" />
+<meta name="generator" content="Hugo 0.72.0" />
 
 
 <title>Job mobility with promotions - Privalko Blog</title>
@@ -70,7 +70,10 @@
     
 
     <div class="article-content">
-      <p>I’ve been thinking a lot about capturing internal and external mobility types in the RLMS. <a href="https://privalko.netlify.com/2018/10/07/job-mobility-in-russia/">I previously wrote a small note on one measure in the RLMS.</a> That particular post was kind of disappointing, the data suggested that mobility was extremely uncommon, and although Russia is a famously immobile labour market, where respondents stay in the same job <a href="https://www.thetimes.co.uk/article/russian-workers-protest-over-unpaid-wages-ql65wxjg7zz">even when employers decide to stop paying wages</a>, it seems like this question may be skewed somehow. I revist the post here, using two additional measures in the dataset.</p>
+      
+
+
+<p>I’ve been thinking a lot about capturing internal and external mobility types in the RLMS. <a href="https://privalko.netlify.com/2018/10/07/job-mobility-in-russia/">I previously wrote a small note on one measure in the RLMS.</a> That particular post was kind of disappointing, the data suggested that mobility was extremely uncommon, and although Russia is a famously immobile labour market, where respondents stay in the same job <a href="https://www.thetimes.co.uk/article/russian-workers-protest-over-unpaid-wages-ql65wxjg7zz">even when employers decide to stop paying wages</a>, it seems like this question may be skewed somehow. I revist the post here, using two additional measures in the dataset.</p>
 <p>I’m still not sure how to code the data, but this is another attempt at capturing job changes in the Russian Longitudinal Monitoring Survey. Basically, the measure <code>ixnewjob</code>, which I used previously, asks workers if they recently changed their profession, their employer, both, or neither. After this question additional measures appear which asks if they were promoted or whether they left the firm, <code>ixpromo</code> and <code>ixmovao</code> respectively. I’m going to use these three measures togeth, to hopefully capture a better measure. In short, I’m defining mobility like this…</p>
 <pre class="r"><code>ru1 &lt;- mutate(ru1, mobility= case_when((internal==&#39;No change&#39; &amp; promotion==&#39;No&#39;) ~ &quot;same&quot;,
                                     (promotion==&#39;Yes&#39;) ~ &quot;promotion&quot;,
@@ -140,7 +143,7 @@
 
 
     
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

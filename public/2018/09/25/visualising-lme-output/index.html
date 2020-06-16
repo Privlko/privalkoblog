@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Hugo 0.41" />
+<meta name="generator" content="Hugo 0.72.0" />
 
 
 <title>Visualising LME output - Privalko Blog</title>
@@ -70,7 +70,10 @@
     
 
     <div class="article-content">
-      <p>In this post I want to summarise a quick method for summarising random-effects output.</p>
+      
+
+
+<p>In this post I want to summarise a quick method for summarising random-effects output.</p>
 <p>I’ve been working with multi-level models recently. During grad school I spent a lot of time using fixed-effects methods, which are less prone to bias but <a href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/S2049847014000077">drop lots of information between cluster groups</a>. Random effects models also have issues, but new methods have made it easier to overcome these.</p>
 <p>There are tonnes of interesting courses and books on random effects modelling, which are worth reading. One point that’s rarely mentioned is how to visualise the output from a random effects model. This is particularly annoying because the estimates don’t contain p-values, and there are issues with using <code>broom()</code> (click <a href="https://github.com/tidymodels/broom/issues/96">here</a> for a thread).</p>
 <pre class="r"><code>summary(m1)</code></pre>
@@ -159,7 +162,7 @@ dataPlot</code></pre>
 
 
     
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

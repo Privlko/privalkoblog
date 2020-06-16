@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Privalko Blog</title>
@@ -6,58 +6,13 @@
     <description>Recent content in Categories on Privalko Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>About</title>
-      <link>/categories/about/</link>
-      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/about/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Conditions</title>
-      <link>/categories/conditions/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/conditions/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cso</title>
-      <link>/categories/cso/</link>
-      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/cso/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data</title>
-      <link>/categories/data/</link>
-      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/data/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dataviz</title>
-      <link>/categories/dataviz/</link>
-      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/dataviz/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dplyr</title>
+      <title>dplyr</title>
       <link>/categories/dplyr/</link>
       <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
       
@@ -66,155 +21,38 @@
     </item>
     
     <item>
-      <title>Dublin</title>
-      <link>/categories/dublin/</link>
-      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
+      <title>tidyverse</title>
+      <link>/categories/tidyverse/</link>
+      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/categories/dublin/</guid>
+      <guid>/categories/tidyverse/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Ess</title>
-      <link>/categories/ess/</link>
-      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
+      <title>dataviz</title>
+      <link>/categories/dataviz/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>/categories/ess/</guid>
+      <guid>/categories/dataviz/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Gender</title>
-      <link>/categories/gender/</link>
-      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      <title>sociology</title>
+      <link>/categories/sociology/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>/categories/gender/</guid>
+      <guid>/categories/sociology/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Ggplot</title>
-      <link>/categories/ggplot/</link>
-      <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
+      <title>data</title>
+      <link>/categories/data/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/categories/ggplot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Household Composition</title>
-      <link>/categories/household-composition/</link>
-      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/household-composition/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Housing</title>
-      <link>/categories/housing/</link>
-      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/housing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ireland</title>
-      <link>/categories/ireland/</link>
-      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/ireland/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Labour Market</title>
-      <link>/categories/labour-market/</link>
-      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/labour-market/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Levada</title>
-      <link>/categories/levada/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/levada/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Migrants</title>
-      <link>/categories/migrants/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/migrants/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mobility</title>
-      <link>/categories/mobility/</link>
-      <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/mobility/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Occupations</title>
-      <link>/categories/occupations/</link>
-      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/occupations/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pay</title>
-      <link>/categories/pay/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/pay/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Politics</title>
-      <link>/categories/politics/</link>
-      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/politics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/categories/r/</link>
-      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/r/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R4ds</title>
-      <link>/categories/r4ds/</link>
-      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/r4ds/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rstats</title>
-      <link>/categories/rstats/</link>
-      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/rstats/</guid>
+      <guid>/categories/data/</guid>
       <description></description>
     </item>
     
@@ -228,43 +66,16 @@
     </item>
     
     <item>
-      <title>Society</title>
-      <link>/categories/society/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      <title>Household composition</title>
+      <link>/categories/household-composition/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>/categories/society/</guid>
+      <guid>/categories/household-composition/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Sociology</title>
-      <link>/categories/sociology/</link>
-      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/sociology/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tidytuesday</title>
-      <link>/categories/tidytuesday/</link>
-      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/tidytuesday/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tidyverse</title>
-      <link>/categories/tidyverse/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/tidyverse/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Wages</title>
+      <title>wages</title>
       <link>/categories/wages/</link>
       <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
       
@@ -273,11 +84,200 @@
     </item>
     
     <item>
-      <title>Work</title>
+      <title>Levada</title>
+      <link>/categories/levada/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/levada/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>society</title>
+      <link>/categories/society/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/society/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mobility</title>
+      <link>/categories/mobility/</link>
+      <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/mobility/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>work</title>
       <link>/categories/work/</link>
       <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/work/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/categories/r/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rstats</title>
+      <link>/categories/rstats/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/rstats/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>migrants</title>
+      <link>/categories/migrants/</link>
+      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/migrants/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Labour Market</title>
+      <link>/categories/labour-market/</link>
+      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/labour-market/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Occupations</title>
+      <link>/categories/occupations/</link>
+      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/occupations/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>r4ds</title>
+      <link>/categories/r4ds/</link>
+      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/r4ds/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidytuesday</title>
+      <link>/categories/tidytuesday/</link>
+      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/tidytuesday/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSO</title>
+      <link>/categories/cso/</link>
+      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/cso/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dublin</title>
+      <link>/categories/dublin/</link>
+      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/dublin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>housing</title>
+      <link>/categories/housing/</link>
+      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/housing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ireland</title>
+      <link>/categories/ireland/</link>
+      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/ireland/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>conditions</title>
+      <link>/categories/conditions/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/conditions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pay</title>
+      <link>/categories/pay/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/pay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ESS</title>
+      <link>/categories/ess/</link>
+      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/ess/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>politics</title>
+      <link>/categories/politics/</link>
+      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/politics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gender</title>
+      <link>/categories/gender/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/gender/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ggplot</title>
+      <link>/categories/ggplot/</link>
+      <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/ggplot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>about</title>
+      <link>/categories/about/</link>
+      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/about/</guid>
       <description></description>
     </item>
     

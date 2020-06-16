@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Privalko Blog</title>
@@ -6,58 +6,40 @@
     <description>Recent content in Tags on Privalko Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Alcohol</title>
-      <link>/tags/alcohol/</link>
-      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
+      <title>publication</title>
+      <link>/tags/publication/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/alcohol/</guid>
+      <guid>/tags/publication/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Append</title>
-      <link>/tags/append/</link>
-      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      <title>report</title>
+      <link>/tags/report/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/append/</guid>
+      <guid>/tags/report/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Blogdown</title>
-      <link>/tags/blogdown/</link>
-      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+      <title>stata</title>
+      <link>/tags/stata/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/blogdown/</guid>
+      <guid>/tags/stata/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Compensating Differentials</title>
-      <link>/tags/compensating-differentials/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/compensating-differentials/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dplyr</title>
-      <link>/tags/dplyr/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/dplyr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ess</title>
+      <title>ESS</title>
       <link>/tags/ess/</link>
       <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
       
@@ -66,16 +48,25 @@
     </item>
     
     <item>
-      <title>Gender</title>
-      <link>/tags/gender/</link>
-      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      <title>dplyr</title>
+      <link>/tags/dplyr/</link>
+      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/gender/</guid>
+      <guid>/tags/dplyr/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Germany</title>
+      <title>tidydata</title>
+      <link>/tags/tidydata/</link>
+      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidydata/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>germany</title>
       <link>/tags/germany/</link>
       <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
       
@@ -84,106 +75,7 @@
     </item>
     
     <item>
-      <title>Ggplot</title>
-      <link>/tags/ggplot/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ggplot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Housing</title>
-      <link>/tags/housing/</link>
-      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/housing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Income</title>
-      <link>/tags/income/</link>
-      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/income/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Introduction</title>
-      <link>/tags/introduction/</link>
-      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/introduction/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ireland</title>
-      <link>/tags/ireland/</link>
-      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ireland/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Labour Markets</title>
-      <link>/tags/labour-markets/</link>
-      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/labour-markets/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Levada</title>
-      <link>/tags/levada/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/levada/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Markdown</title>
-      <link>/tags/markdown/</link>
-      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Merge</title>
-      <link>/tags/merge/</link>
-      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/merge/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mobility</title>
-      <link>/tags/mobility/</link>
-      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/mobility/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Occupations</title>
-      <link>/tags/occupations/</link>
-      <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/occupations/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Paper</title>
+      <title>paper</title>
       <link>/tags/paper/</link>
       <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
       
@@ -192,20 +84,20 @@
     </item>
     
     <item>
-      <title>Pay</title>
-      <link>/tags/pay/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      <title>uk</title>
+      <link>/tags/uk/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/pay/</guid>
+      <guid>/tags/uk/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Rlms</title>
-      <link>/tags/rlms/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      <title>mobility</title>
+      <link>/tags/mobility/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rlms/</guid>
+      <guid>/tags/mobility/</guid>
       <description></description>
     </item>
     
@@ -219,34 +111,70 @@
     </item>
     
     <item>
-      <title>Sociology</title>
-      <link>/tags/sociology/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      <title>ggplot</title>
+      <link>/tags/ggplot/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/sociology/</guid>
+      <guid>/tags/ggplot/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tidydata</title>
-      <link>/tags/tidydata/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
+      <title>Levada</title>
+      <link>/tags/levada/</link>
+      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tidydata/</guid>
+      <guid>/tags/levada/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Uk</title>
-      <link>/tags/uk/</link>
-      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      <title>Labour Markets</title>
+      <link>/tags/labour-markets/</link>
+      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/uk/</guid>
+      <guid>/tags/labour-markets/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Vacancy</title>
+      <title>alcohol</title>
+      <link>/tags/alcohol/</link>
+      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/alcohol/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>append</title>
+      <link>/tags/append/</link>
+      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/append/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>merge</title>
+      <link>/tags/merge/</link>
+      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/merge/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>housing</title>
+      <link>/tags/housing/</link>
+      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/housing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vacancy</title>
       <link>/tags/vacancy/</link>
       <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
       
@@ -255,11 +183,110 @@
     </item>
     
     <item>
-      <title>Work</title>
+      <title>income</title>
+      <link>/tags/income/</link>
+      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/income/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ireland</title>
+      <link>/tags/ireland/</link>
+      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ireland/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>compensating differentials</title>
+      <link>/tags/compensating-differentials/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/compensating-differentials/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pay</title>
+      <link>/tags/pay/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/pay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RLMS</title>
+      <link>/tags/rlms/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rlms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sociology</title>
+      <link>/tags/sociology/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sociology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>work</title>
       <link>/tags/work/</link>
       <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/work/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gender</title>
+      <link>/tags/gender/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/gender/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>occupations</title>
+      <link>/tags/occupations/</link>
+      <pubDate>Wed, 20 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/occupations/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blogdown</title>
+      <link>/tags/blogdown/</link>
+      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/blogdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>introduction</title>
+      <link>/tags/introduction/</link>
+      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/introduction/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>markdown</title>
+      <link>/tags/markdown/</link>
+      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/markdown/</guid>
       <description></description>
     </item>
     

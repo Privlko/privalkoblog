@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Hugo 0.41" />
+<meta name="generator" content="Hugo 0.72.0" />
 
 
 <title>Russian Opinion of Ukraine and Ukrainian Opinion of Russia - Privalko Blog</title>
@@ -70,7 +70,10 @@
     
 
     <div class="article-content">
-      <p>Levada recently updated statistics on what <a href="https://www.levada.ru/2018/10/10/rossijsko-ukrainskie-otnosheniya-4/">Russian and Ukrainian citizens think of each other</a>. I saw the update but forgot to dig into the numbers; yesterday’s events in Kerch reminded me to revisit these.</p>
+      
+
+
+<p>Levada recently updated statistics on what <a href="https://www.levada.ru/2018/10/10/rossijsko-ukrainskie-otnosheniya-4/">Russian and Ukrainian citizens think of each other</a>. I saw the update but forgot to dig into the numbers; yesterday’s events in Kerch reminded me to revisit these.</p>
 <p>It seems like conflict between both countries is on the rise, but it’s worth looking back on how public opinion changed over the quieter months. In this post I merge the data gathered by Levada, and use some dplyr commands to simplify things, I then make a graph using ggplot.</p>
 <p>A small disclaimer; I know almost nothing about Ukraine, and have no interest in Ukrainian politics. This post just summarises public opinion, I’ll leave interpretation to one side.</p>
 <p>Levada collects Russian public opinion data multiple times per year. They summarise public opinion of Ukraine in a small table, and offer a second table, from a Ukrainian source listing public opinion of Russia. However, there’s no reason why you can’t just combine both of these together by adding a column which lists the source for either table. I add one of those to each table, translate the columns, add some dates and store these on github. I list a sample of the Russian data below.</p>
@@ -179,7 +182,7 @@ labels &lt;- c(&#39;ru-opinion of ukr&#39; = &quot;Russians on Ukrainians&quot;,
 
 
     
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

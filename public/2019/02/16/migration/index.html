@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Hugo 0.41" />
+<meta name="generator" content="Hugo 0.72.0" />
 
 
 <title>Migration - Privalko Blog</title>
@@ -70,7 +70,10 @@
     
 
     <div class="article-content">
-      <p>In this post I look at migration figures released by <a href="http://www.gks.ru/bgd/regl/b18_11/Main.htm">Rosstat</a>. A number of debates are happening in Russia about the inflow and outflow of migrants from former Soviet countries, and the effect these migrants have on wages. Separately, there is an argument that <a href="https://www.vedomosti.ru/opinion/articles/2019/02/12/793969-maidan-razvernul-migratsiyu">migration from Ukraine is falling</a>, which likely has its own challenges. What do these inflows look like?</p>
+      
+
+
+<p>In this post I look at migration figures released by <a href="http://www.gks.ru/bgd/regl/b18_11/Main.htm">Rosstat</a>. A number of debates are happening in Russia about the inflow and outflow of migrants from former Soviet countries, and the effect these migrants have on wages. Separately, there is an argument that <a href="https://www.vedomosti.ru/opinion/articles/2019/02/12/793969-maidan-razvernul-migratsiyu">migration from Ukraine is falling</a>, which likely has its own challenges. What do these inflows look like?</p>
 <p>Rosstat releases data on this, but it’s awkward for three reasons. First, the annual summary of statistics doesn’t cover all of the available years, there’s a separate file on the site that reports the full list of figures, but this can be hard to find. I’ll use it in a separate post. Second, these figures are presented in a <a href="https://socviz.co/makeplot.html#tidy-data">“wide format” table</a> which then has to be arranged into a tidy format and passed on to ggplot. Third, there are some annoying quirks in the rosstat tables, like their tendency to include a total row by region in the middle of a table. These rows are helpful when you’re just reading the table, but not really useful for feeding the data into <code>ggplot</code> for a graph. Further, linked to this, there is no “other” category, so adding the specific countries together say like so <code>data.frame %&gt;% group_by(Region, Year) %&gt;% summarise(total = sum(people))</code> does not add up to the total in the table. Generally, the table is messy, and looks like this if you just throw it in directly.</p>
 <pre><code>## # A tibble: 42 x 9
 ##    X1               `2000` `2005` `2010` `2013` `2014` `2015` `2016` `2017`
@@ -154,7 +157,7 @@
     
 
     
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

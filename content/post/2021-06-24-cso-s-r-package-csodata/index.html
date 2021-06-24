@@ -1,0 +1,104 @@
+---
+title: CSO's R package csodata
+author: ''
+date: '2021-06-24'
+slug: cso-s-r-package-csodata
+categories: []
+tags: []
+---
+
+
+
+<p>I’ve heard a lot about the CSO’s r package used to pull data directly to R, but to date I haven’t tried it.
+I decided to take a look recently after having some trouble downloading the data and trying to move it from Excel into Stata or R, and then back into Word.
+It turns out the package is pretty easy to use and lets you simplify workflow quite a bit.
+I think it’s especially good for blogging, because it makes write up quick and pain free.
+In this post I want to take a look at LFS data as a way of showing how easy getting some graphs up using the library.</p>
+<div id="load-the-data" class="section level1">
+<h1>Load the data</h1>
+<p>You can learn more about the package <a href="https://cran.r-project.org/web/packages/csodata/csodata.pdf">here</a>, including some of the more specific commands, in this example I want to run a quick analysis on employment figures using the LFS.</p>
+<pre class="r"><code>#install.packages(&#39;csodata&#39;)
+
+
+library(csodata)
+library(tidyverse)
+library(lubridate)</code></pre>
+<p>One you load the package, getting the data you need is pretty simple. Just use the <code>cso_get_data()</code> command.
+For this post, I went to the CSO’s website and found some LFS figures <a href="https://data.cso.ie/table/QLF01">here</a>.
+Once I had the relevant code, I was able to pull the data straight into RStudio.</p>
+<pre class="r"><code>tbl1 &lt;- cso_get_data(&quot;QLF01&quot;) %&gt;% 
+  tbl_df()
+
+
+head(tbl1)</code></pre>
+<pre><code>## # A tibble: 6 x 96
+##   Statistic Sex   ILO.Economic.St~ `1998Q1` `1998Q2` `1998Q3` `1998Q4` `1999Q1`
+##   &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Persons ~ Both~ All ILO economi~    2857.    2872.    2888.    2900.    2906.
+## 2 Persons ~ Both~ In labour force     1701.    1713.    1769.    1726.    1756.
+## 3 Persons ~ Both~ In employment       1550.    1572.    1636.    1616.    1644.
+## 4 Persons ~ Both~ In employment f~    1283.    1302     1361     1347.    1364.
+## 5 Persons ~ Both~ In employment p~     268.     270.     275.     269      281.
+## 6 Persons ~ Both~ In employment p~      NA       NA       NA       NA       NA 
+## # ... with 88 more variables: `1999Q2` &lt;dbl&gt;, `1999Q3` &lt;dbl&gt;, `1999Q4` &lt;dbl&gt;,
+## #   `2000Q1` &lt;dbl&gt;, `2000Q2` &lt;dbl&gt;, `2000Q3` &lt;dbl&gt;, `2000Q4` &lt;dbl&gt;,
+## #   `2001Q1` &lt;dbl&gt;, `2001Q2` &lt;dbl&gt;, `2001Q3` &lt;dbl&gt;, `2001Q4` &lt;dbl&gt;,
+## #   `2002Q1` &lt;dbl&gt;, `2002Q2` &lt;dbl&gt;, `2002Q3` &lt;dbl&gt;, `2002Q4` &lt;dbl&gt;,
+## #   `2003Q1` &lt;dbl&gt;, `2003Q2` &lt;dbl&gt;, `2003Q3` &lt;dbl&gt;, `2003Q4` &lt;dbl&gt;,
+## #   `2004Q1` &lt;dbl&gt;, `2004Q2` &lt;dbl&gt;, `2004Q3` &lt;dbl&gt;, `2004Q4` &lt;dbl&gt;,
+## #   `2005Q1` &lt;dbl&gt;, `2005Q2` &lt;dbl&gt;, `2005Q3` &lt;dbl&gt;, `2005Q4` &lt;dbl&gt;,
+## #   `2006Q1` &lt;dbl&gt;, `2006Q2` &lt;dbl&gt;, `2006Q3` &lt;dbl&gt;, `2006Q4` &lt;dbl&gt;,
+## #   `2007Q1` &lt;dbl&gt;, `2007Q2` &lt;dbl&gt;, `2007Q3` &lt;dbl&gt;, `2007Q4` &lt;dbl&gt;,
+## #   `2008Q1` &lt;dbl&gt;, `2008Q2` &lt;dbl&gt;, `2008Q3` &lt;dbl&gt;, `2008Q4` &lt;dbl&gt;,
+## #   `2009Q1` &lt;dbl&gt;, `2009Q2` &lt;dbl&gt;, `2009Q3` &lt;dbl&gt;, `2009Q4` &lt;dbl&gt;,
+## #   `2010Q1` &lt;dbl&gt;, `2010Q2` &lt;dbl&gt;, `2010Q3` &lt;dbl&gt;, `2010Q4` &lt;dbl&gt;,
+## #   `2011Q1` &lt;dbl&gt;, `2011Q2` &lt;dbl&gt;, `2011Q3` &lt;dbl&gt;, `2011Q4` &lt;dbl&gt;,
+## #   `2012Q1` &lt;dbl&gt;, `2012Q2` &lt;dbl&gt;, `2012Q3` &lt;dbl&gt;, `2012Q4` &lt;dbl&gt;,
+## #   `2013Q1` &lt;dbl&gt;, `2013Q2` &lt;dbl&gt;, `2013Q3` &lt;dbl&gt;, `2013Q4` &lt;dbl&gt;,
+## #   `2014Q1` &lt;dbl&gt;, `2014Q2` &lt;dbl&gt;, `2014Q3` &lt;dbl&gt;, `2014Q4` &lt;dbl&gt;,
+## #   `2015Q1` &lt;dbl&gt;, `2015Q2` &lt;dbl&gt;, `2015Q3` &lt;dbl&gt;, `2015Q4` &lt;dbl&gt;,
+## #   `2016Q1` &lt;dbl&gt;, `2016Q2` &lt;dbl&gt;, `2016Q3` &lt;dbl&gt;, `2016Q4` &lt;dbl&gt;,
+## #   `2017Q1` &lt;dbl&gt;, `2017Q2` &lt;dbl&gt;, `2017Q3` &lt;dbl&gt;, `2017Q4` &lt;dbl&gt;,
+## #   `2018Q1` &lt;dbl&gt;, `2018Q2` &lt;dbl&gt;, `2018Q3` &lt;dbl&gt;, `2018Q4` &lt;dbl&gt;,
+## #   `2019Q1` &lt;dbl&gt;, `2019Q2` &lt;dbl&gt;, `2019Q3` &lt;dbl&gt;, `2019Q4` &lt;dbl&gt;,
+## #   `2020Q1` &lt;dbl&gt;, `2020Q2` &lt;dbl&gt;, `2020Q3` &lt;dbl&gt;, `2020Q4` &lt;dbl&gt;,
+## #   `2021Q1` &lt;dbl&gt;</code></pre>
+</div>
+<div id="reshape" class="section level1">
+<h1>Reshape</h1>
+<p>Now that I have the data in place, I can reshape in using <code>dplyr()</code>.
+I can also parse the time measure, and save it as a tibble.</p>
+<pre class="r"><code>tbl1 &lt;- tbl1 %&gt;% 
+  gather(c(-Statistic, -Sex, -ILO.Economic.Status),
+         key=&#39;year&#39;,
+         value=&#39;value&#39;)  
+ 
+tbl1$year &lt;-   parse_date_time(tbl1$year, orders= &quot;Yq&quot;)
+
+tbl1 &lt;- tbl_df(tbl1) </code></pre>
+</div>
+<div id="graph" class="section level1">
+<h1>Graph</h1>
+<p>Now I can pick and chose which aspects of the data to use in a graph using <code>ggplot()</code>.
+If I want a general graph of employment data, I can specif this using <code>dplyr()</code> and then combine using <code>%&gt;%</code>.</p>
+<pre class="r"><code>tbl1 %&gt;% 
+  select(-Statistic) %&gt;% 
+  filter(Sex == &quot;Both sexes&quot;,
+         ILO.Economic.Status == &quot;In employment&quot;) %&gt;% 
+  ggplot(aes(x=year,y=value))+
+  geom_point()+
+  geom_line()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>This makes it easy to run a quick graph, but just as easily, I can split graphs by dimensions using <code>dplyr()</code>.
+For example by splitting things by gender.</p>
+<pre class="r"><code>tbl1 %&gt;% 
+  select(-Statistic) %&gt;% 
+  filter(Sex != &quot;Both sexes&quot;,
+         ILO.Economic.Status == &quot;In employment&quot;) %&gt;% 
+  ggplot(aes(x=year,y=value, col=Sex))+
+  geom_point(aes(col=Sex))+
+  geom_line(aes(col=Sex))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>As usual, you can also customise graphs and commands to make them more appealing and easier to interpret using <code>ggplot()</code>.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>

@@ -2,9 +2,10 @@
 title: CSO's R package csodata
 author: ''
 date: '2021-06-24'
+categories:
+  - ggplot
+  - packages
 slug: cso-s-r-package-csodata
-categories: []
-tags: []
 ---
 
 

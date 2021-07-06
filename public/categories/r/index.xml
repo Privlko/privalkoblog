@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on Privalko Blog</title>
+    <title>R on A Hugo website</title>
     <link>/categories/r/</link>
-    <description>Recent content in R on Privalko Blog</description>
+    <description>Recent content in R on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Visualising LME output</title>
-      <link>/2018/09/25/visualising-lme-output/</link>
-      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/09/25/visualising-lme-output/</guid>
-      <description>In this post I want to summarise a quick method for summarising random-effects output.
-I’ve been working with multi-level models recently. During grad school I spent a lot of time using fixed-effects methods, which are less prone to bias but drop lots of information between cluster groups. Random effects models also have issues, but new methods have made it easier to overcome these.
-There are tonnes of interesting courses and books on random effects modelling, which are worth reading.</description>
-    </item>
     
     <item>
       <title>Gender, occupations, and pay</title>
@@ -37,7 +26,7 @@ There are tonnes of interesting courses and books on random effects modelling, w
       <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/12/10/my-first-post/</guid>
-      <description>Thanks for visiting my blog. I’m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I’m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
+      <description>Thanks for visiting my blog. I&amp;rsquo;m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I&amp;rsquo;m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
     </item>
     
   </channel>

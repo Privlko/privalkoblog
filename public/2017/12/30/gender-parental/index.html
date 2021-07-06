@@ -6,8 +6,11 @@
 <meta name="generator" content="Hugo 0.72.0" />
 
 
-<title>Industry Differences in Pay - Privalko Blog</title>
-<meta property="og:title" content="Industry Differences in Pay - Privalko Blog">
+<title>Industry Differences in Pay - A Hugo website</title>
+<meta property="og:title" content="Industry Differences in Pay - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -20,14 +23,13 @@
 
 
 
-<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
 
 
 
 <link rel="stylesheet" href="/css/fonts.css" media="all">
 <link rel="stylesheet" href="/css/main.css" media="all">
 
-<script src="https://use.fontawesome.com/dc8f5495c2.js"></script>
 
 
   </head>
@@ -36,23 +38,27 @@
       <header class="header">
         <nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="/images/ggplot2.png"
+    <img src="/images/logo.png"
          width="50"
          height="50"
          alt="Logo">
   </a>
+
   <ul class="nav-links">
     
-    <li><a href="/about/"><i class="fa fa-bullhorn fa-lg fa-fw" aria-hidden="true"></i>&nbsp; About</a></li>
+    <li><a href="/about/">About</a></li>
     
-    <li><a href="https://www.linkedin.com/in/ivan-privalko-8a790743/"><i class="fa fa-linkedin fa-lg fa-fw" aria-hidden="true"></i>&nbsp; LinkedIn</a></li>
+    <li><a href="https://github.com/privlko">GitHub</a></li>
     
-    <li><a href="https://twitter.com/privlko"><i class="fa fa-twitter fa-lg fa-fw" aria-hidden="true"></i>&nbsp; Twitter</a></li>
+    <li><a href="https://scholar.google.com/citations?user=sMfmJCUAAAAJ&amp;hl=en">Scholar</a></li>
     
-    <li><a href="/workingpaper/"><i class="fa fa-battery-2 fa-lg fa-fw" aria-hidden="true"></i>&nbsp; Working Papers</a></li>
+    <li><a href="https://twitter.com/privlko">Twitter</a></li>
+    
+    <li><a href="/workingpaper/">Working paper</a></li>
     
   </ul>
 </nav>
+
       </header>
 
 
@@ -60,42 +66,160 @@
 
   <article class="article">
     
-    <span class="article-duration">3 min read</span>
+    <span class="article-duration">5 min read</span>
     
 
     <h1 class="article-title">Industry Differences in Pay</h1>
 
     
-    <span class="article-date">2017/12/30</span>
+    <span class="article-date">2017-12-30</span>
     
 
     <div class="article-content">
-      
-
-
-<p>In this post I outline industry differences in pay, with a special focus on gender. I already listed the occupational differences in a previous post. Here, I follow the same idea, but substitute industry for occupations.</p>
+      <p>In this post I outline industry differences in pay, with a special focus on gender. I already listed the occupational differences in a previous post. Here, I follow the same idea, but substitute industry for occupations.</p>
 <p>As before, I use the <a href="http://www.cpc.unc.edu/projects/rlms-hse">Russian Longitudinal Monitoring Survey</a> for data on participants in 2015. I use a measure for gender, industry, the number of weekly hours worked, and gross wages.</p>
 <p>I do not limit the industry codes, but focus on industry as it appears in the survey. I limit the analysis to women and men who work between thirty and sixty hours per week, although this experience is not representative of all women.</p>
-<p>I arrange the data in order of earnings and focus on gender differences in average pay by industry. The data is organised in the following way.</p>
-<pre class="r"><code>  gender_ind_earnings &lt;- gender %&gt;%
+<pre><code class="language-{r," data-lang="{r,">library(readxl)         # for reading in Excel data
+library(dplyr)          # for data manipulation
+library(tidyr)          # for data shaping
+library(ggplot2)        # for generating the visualizations
+
+gender &lt;- load(&quot;C:/Users/Administrator.admin-PC2/Desktop/Russian Inequality/blog/data/adult2015x.RData&quot;)
+
+gender &lt;- x %&gt;%
+  select(gndr = ixgender,
+         industry = ixpriind,
+         isco = ixilpjb8,
+         hours = ixpwrkwh, 
+         pay = ixpjpayt) %&gt;%
+  mutate(i10 = isco / 1000)
+
+</code></pre><pre><code class="language-{r," data-lang="{r,">
+gender$ind[gender$industry == 1] &lt;- &quot;LIGHT INDUSTRY, FOOD&quot;
+gender$ind[gender$industry == 2] &lt;- &quot;CIVIL MACHINE CONSTRUCTION&quot;
+gender$ind[gender$industry == 3] &lt;- &quot;MILITARY INDUSTRIAL COMPLEX&quot;
+gender$ind[gender$industry == 4] &lt;- &quot;OIL AND GAS INDUSTRY&quot;
+gender$ind[gender$industry == 5] &lt;- &quot;OTHER HEAVY INDUSTRY&quot;
+gender$ind[gender$industry == 6] &lt;- &quot;CONSTRUCTION&quot;
+gender$ind[gender$industry == 7] &lt;- &quot;TRANSPORTATION, COMMUNICATION&quot;
+gender$ind[gender$industry == 8] &lt;- &quot;AGRICULTURE&quot;
+gender$ind[gender$industry == 9] &lt;- &quot;GOVERNMENT AND PUBLIC ADMIN&quot;
+gender$ind[gender$industry == 10] &lt;- &quot;EDUCATION&quot;
+gender$ind[gender$industry == 11] &lt;- &quot;SCIENCE, CULTURE&quot;
+gender$ind[gender$industry == 12] &lt;- &quot;PUBLIC HEALTH&quot;
+gender$ind[gender$industry == 13] &lt;- &quot;ARMY, INTERNAL AFFAIRS, SECURITY&quot;
+gender$ind[gender$industry == 14] &lt;- &quot;TRADE, CONSUMER SERVICES&quot;
+gender$ind[gender$industry == 15] &lt;- &quot;FINANCES&quot;
+gender$ind[gender$industry == 16] &lt;- &quot;ENERGY/POWER&quot;
+gender$ind[gender$industry == 17] &lt;- &quot;HOUSING/COMMUNAL SERVICES&quot;
+gender$ind[gender$industry == 18] &lt;- &quot;REAL ESTATE&quot;
+gender$ind[gender$industry &gt; 19] &lt;- &quot;OTHER&quot;
+
+
+ gender$gndr1[gender$gndr==1 ] &lt;- &quot;Male&quot;
+ gender$gndr1[gender$gndr==2 ] &lt;- &quot;Female&quot;
+ 
+industry_income &lt;- gender %&gt;%
+   group_by(ind) %&gt;%
+   filter(hours &gt; 30 &amp; hours &lt; 60)%&gt;%
+   summarise(earnings = mean(pay, na.rm = TRUE)) %&gt;%
+   filter(!is.na(earnings)) %&gt;%
+   arrange(earnings) %&gt;%
+   mutate(industry = factor(ind, levels = .$ind)) 
+  
+
+ 
+
+</code></pre><p>I arrange the data in order of earnings and focus on gender differences in average pay by industry. The data is organised in the following way.</p>
+<pre><code class="language-{r}" data-lang="{r}">  gender_ind_earnings &lt;- gender %&gt;%
    group_by(ind, gndr1) %&gt;%
    filter(hours &gt; 30 &amp; hours &lt; 60) %&gt;%
    summarise(earnings = mean(pay, na.rm = TRUE)) %&gt;%
    filter(!is.na(earnings)) %&gt;%
    filter(!is.na(ind)) %&gt;%
    ungroup() %&gt;%
-   mutate(ind = factor(ind, levels = industry_income$ind))</code></pre>
-<p>The resulting graph looks like the plot in Figure <a href="#fig:dot">1</a>.</p>
-<div class="figure"><span id="fig:dot"></span>
-<img src="/post/2017-12-20-gender-and-industry_files/figure-html/dot-1.png" alt="Dot plot showing gender differences in pay" width="672" />
-<p class="caption">
-Figure 1: Dot plot showing gender differences in pay
-</p>
-</div>
-<p>A number of interesting differences are worth mentioning. First, women in each industry earn less than men (the only exception is education). This could be the product of differences in working time, women are more likely to work lower hours than men. Importantly, the data above does not consider part-time workers. Only those who work 30+ hours per week are included. However, differences in working time can also be at play, with money working fewer hours on the available scale.</p>
-<p>Second, there are several industries with higher premiums for men than women. Real estate, finances, and science and cutlural industries have the highest premiums. Here, the differences in pay may stem from differences in occupation. Women may rely on lower paid occupations in each industry, while the managerial roles may be more dominated by men. The results for finance, are not surprising, since the industry has a masculine culture, however the resutls for science are surprising. Here, I would expect a culture of meritocracy to keep wages equal between genders, instead men are often paid a 70% higher wage than women. A number of other industries contain smaller bonuses. The military sector typically rewards men more than women. This is interesting since the military typically relies on pay similar to public administration, yet that sector of the economy appears to have a smaller gender gap. Further, the industry “Army and internal affairs”, appears to have no pay differences.</p>
+   mutate(ind = factor(ind, levels = industry_income$ind))
+
+
+</code></pre><pre><code class="language-{r," data-lang="{r,">
+left_label &lt;- gender_ind_earnings %&gt;%
+   group_by(ind) %&gt;%
+   arrange(earnings) %&gt;%
+   slice(1)
+ 
+ right_label &lt;- gender_ind_earnings %&gt;%
+   group_by(ind) %&gt;%
+   arrange(earnings) %&gt;%
+   slice(2)
+ 
+
+ 
+ 
+ ggplot(gender_ind_earnings, aes(earnings, ind)) +
+   geom_line(aes(group = ind)) +
+   geom_point(aes(color = gndr1), size = 1.5) +
+   geom_text(data = left_label, aes(color = gndr1, label = round(earnings, 0)),
+             size = 3, hjust = 1.25) +
+   geom_text(data = right_label, aes(color = gndr1, label = round(earnings, 0)),
+             size = 3, hjust = -.33) +
+   scale_x_continuous(limits = c(-1500, 55000))
+ 
+ big_diff &lt;- gender_ind_earnings %&gt;% 
+   spread(gndr1, earnings) %&gt;% 
+   group_by(ind) %&gt;% 
+   mutate(Max = max(Female, Male),
+          Min = min(Female, Male),
+          Diff = Max / Min - 1) %&gt;% 
+   arrange(Diff) %&gt;%
+   filter(Diff &gt; .30)
+ 
+
+ 
+ right_label &lt;- filter(right_label, ind %in% big_diff$ind)
+ left_label &lt;- filter(left_label, ind %in% big_diff$ind)
+
+  highlight &lt;- filter(gender_ind_earnings, ind %in% big_diff$ind)
+  
+  
+  plot_label &lt;- big_diff %&gt;%
+   select(ind, earings = Max, Diff) %&gt;%
+   left_join(right_label)
+ 
+p &lt;-  ggplot(gender_ind_earnings, aes(earnings, ind)) +
+   geom_line(aes(group = ind), alpha=0.5) +
+   geom_point(aes(color = gndr1), size = 1.5) +
+   geom_line(data = highlight, aes(group = ind)) +
+   geom_point(data = highlight, aes(color = gndr1), size = 2) +
+   geom_text(data = plot_label, aes(color = gndr1, 
+                                   label = paste0(&quot;+&quot;, scales::percent(round(Diff, 2)))),
+            size = 3, hjust = -.25)
+
+</code></pre><p>The resulting graph looks like the plot in Figure @ref(fig:dot).</p>
+<pre><code class="language-{r" data-lang="{r">p + scale_color_discrete(labels = c(&quot;Female&quot;, &quot;Male&quot;)) +
+  scale_x_continuous(limits = c(-1000, 60000),
+                     breaks = seq(0, 50000, by = 15000))+
+  scale_y_discrete() +
+  labs(title = &quot;Total Earnings by Gender and Industry&quot;,
+       subtitle = &quot;Out of 18 industries (and a residual cat), eight have noticalble \npremiums for men (30% higher pay than women). Real estate \nand Construction have the largest differences.&quot;,
+       caption = &quot;Source: RLMS 2015 individual file&quot;) +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.title = element_blank(),
+        legend.justification = c(0, 0.5), 
+        legend.position = c(.1, 1.075),
+        legend.background = element_blank(),
+        legend.direction=&quot;horizontal&quot;,
+        plot.title = element_text(size = 10, color = &quot;darkslategrey&quot;, margin = margin(b = 5)),
+        plot.subtitle = element_text(size = 10, color = &quot;darkgrey&quot;, margin = margin(b = 25)),
+        plot.caption = element_text(size = 10, margin = margin(t = 10), color = &quot;grey70&quot;, hjust = 0)) 
+
+
+</code></pre><p>A number of interesting differences are worth mentioning. First, women in each industry earn less than men (the only exception is education). This could be the product of differences in working time, women are more likely to work lower hours than men. Importantly, the data above does not consider part-time workers. Only those who work 30+ hours per week are included. However, differences in working time can also be at play, with money working fewer hours on the available scale.</p>
+<p>Second, there are several industries with higher premiums for men than women. Real estate, finances, and science and cutlural industries have the highest premiums. Here, the differences in pay may stem from differences in occupation. Women may rely on lower paid occupations in each industry, while the managerial roles may be more dominated by men. The results for finance, are not surprising, since the industry has a masculine culture, however the resutls for science are surprising. Here, I would expect a culture of meritocracy to keep wages equal between genders, instead men are often paid a 70% higher wage than women. A number of other industries contain smaller bonuses. The military sector typically rewards men more than women. This is interesting since the military typically relies on pay similar to public administration, yet that sector of the economy appears to have a smaller gender gap. Further, the industry &ldquo;Army and internal affairs&rdquo;, appears to have no pay differences.</p>
 <p>Last, a number of sectors contain no large difference between genders. Public health, education, and public administration. Here the gap in pay between genders appear relatively minor.</p>
-<p>There are a number of other topics to research here. First, there may be gender differences in the numbers of hours worked. Second, it’s possible that women are facing increased discrimination in the labour market, where their labour is undervalued. Lastly, it may be that women receive less training and grooming for higher positions than men. I explore these in another post.</p>
+<p>There are a number of other topics to research here. First, there may be gender differences in the numbers of hours worked. Second, it&rsquo;s possible that women are facing increased discrimination in the labour market, where their labour is undervalued. Lastly, it may be that women receive less training and grooming for higher positions than men. I explore these in another post.</p>
 
     </div>
   </article>
@@ -111,7 +235,7 @@ Figure 1: Dot plot showing gender differences in pay
             <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
           </li>
           <li>
-            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" width="22" height="22"></a>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
           </li>
         </ul>
       </footer>
@@ -121,35 +245,22 @@ Figure 1: Dot plot showing gender differences in pay
 
 
 
-<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
 
 
-<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
-<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
 
 
 
     
 <script src="/js/math-code.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
     
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-112836068-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-
   </body>
 </html>
 

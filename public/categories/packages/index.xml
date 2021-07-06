@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>packages on A Hugo website</title>
+    <link>/categories/packages/</link>
+    <description>Recent content in packages on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 Jun 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/packages/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CSO&#39;s R package csodata</title>
+      <link>/2021/06/24/cso-s-r-package-csodata/</link>
+      <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/06/24/cso-s-r-package-csodata/</guid>
+      <description>I’ve heard a lot about the CSO’s r package used to pull data directly to R, but to date I haven’t tried it.I decided to take a look recently after having some trouble downloading the data and trying to move it from Excel into Stata or R, and then back into Word.It turns out the package is pretty easy to use and lets you simplify workflow quite a bit.</description>
+    </item>
+    
+  </channel>
+</rss>

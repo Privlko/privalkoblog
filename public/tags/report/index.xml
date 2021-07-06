@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>report on Privalko Blog</title>
+    <title>report on A Hugo website</title>
     <link>/tags/report/</link>
-    <description>Recent content in report on Privalko Blog</description>
+    <description>Recent content in report on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/report/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Origin and Integration, a new report using Census 2016 data</title>
-      <link>/2020/06/16/origin-and-integration-a-new-report-using-census-2016-data/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <title>Some recent reports</title>
+      <link>/2021/05/24/some-recent-reports/</link>
+      <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/16/origin-and-integration-a-new-report-using-census-2016-data/</guid>
-      <description>We have a new report!
-We recently launched Origin and Integration, a piece of work that looks at migrant integration in Ireland. Here, we look at education, english language ability, unemployment and occupational attianment for migrants from over 100+ countries of birth. It&amp;rsquo;s a really exciting project, one that uses the entire migrant population in Ireland. You can read it here!</description>
+      <guid>/2021/05/24/some-recent-reports/</guid>
+      <description>Hello! I want to write a quick post about some recent reports and publications that have come out during this year and last year.
+My paper on Russian job mobility was published in Economics of Transition and Institutional Change!The article looks at gender differences in mobility, before estimating what certain mobility types might mean for wages.I think there are some gaps in the article that could be addressed in a subsequent paper, like their strong marriage premiums that came up in the results and the strong effects of motherhood.</description>
     </item>
     
   </channel>

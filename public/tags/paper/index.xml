@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>paper on Privalko Blog</title>
+    <title>paper on A Hugo website</title>
     <link>/tags/paper/</link>
-    <description>Recent content in paper on Privalko Blog</description>
+    <description>Recent content in paper on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/paper/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>New Papers</title>
-      <link>/2019/09/16/new-papers/</link>
-      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      <title>Some recent reports</title>
+      <link>/2021/05/24/some-recent-reports/</link>
+      <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>/2019/09/16/new-papers/</guid>
-      <description>I wanted to include a small update on two recent publications. I know the blog is a bit neglected this is because I’ve started a postdoc and my first few reports are coming out. The first is about unpaid work in Ireland and its gender differences. I just caught the tail end of the work as I started, but I’m glad I had an input. Generally we find high levels of unpaid work in Ireland when compared to other countries in Europe.</description>
+      <guid>/2021/05/24/some-recent-reports/</guid>
+      <description>Hello! I want to write a quick post about some recent reports and publications that have come out during this year and last year.
+My paper on Russian job mobility was published in Economics of Transition and Institutional Change!The article looks at gender differences in mobility, before estimating what certain mobility types might mean for wages.I think there are some gaps in the article that could be addressed in a subsequent paper, like their strong marriage premiums that came up in the results and the strong effects of motherhood.</description>
     </item>
     
   </channel>

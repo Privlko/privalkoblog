@@ -1,11 +1,11 @@
 ---
-title: CSO's R package csodata
+title: "CSO's R package csodata"
 author: ''
 date: '2021-06-24'
-categories:
-  - ggplot
-  - packages
 slug: cso-s-r-package-csodata
+categories:
+- ggplot
+- packages
 ---
 
 
@@ -28,42 +28,7 @@ library(lubridate)</code></pre>
 For this post, I went to the CSO’s website and found some LFS figures <a href="https://data.cso.ie/table/QLF01">here</a>.
 Once I had the relevant code, I was able to pull the data straight into RStudio.</p>
 <pre class="r"><code>tbl1 &lt;- cso_get_data(&quot;QLF01&quot;) %&gt;% 
-  tbl_df()
-
-
-head(tbl1)</code></pre>
-<pre><code>## # A tibble: 6 x 96
-##   Statistic Sex   ILO.Economic.St~ `1998Q1` `1998Q2` `1998Q3` `1998Q4` `1999Q1`
-##   &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Persons ~ Both~ All ILO economi~    2857.    2872.    2888.    2900.    2906.
-## 2 Persons ~ Both~ In labour force     1701.    1713.    1769.    1726.    1756.
-## 3 Persons ~ Both~ In employment       1550.    1572.    1636.    1616.    1644.
-## 4 Persons ~ Both~ In employment f~    1283.    1302     1361     1347.    1364.
-## 5 Persons ~ Both~ In employment p~     268.     270.     275.     269      281.
-## 6 Persons ~ Both~ In employment p~      NA       NA       NA       NA       NA 
-## # ... with 88 more variables: `1999Q2` &lt;dbl&gt;, `1999Q3` &lt;dbl&gt;, `1999Q4` &lt;dbl&gt;,
-## #   `2000Q1` &lt;dbl&gt;, `2000Q2` &lt;dbl&gt;, `2000Q3` &lt;dbl&gt;, `2000Q4` &lt;dbl&gt;,
-## #   `2001Q1` &lt;dbl&gt;, `2001Q2` &lt;dbl&gt;, `2001Q3` &lt;dbl&gt;, `2001Q4` &lt;dbl&gt;,
-## #   `2002Q1` &lt;dbl&gt;, `2002Q2` &lt;dbl&gt;, `2002Q3` &lt;dbl&gt;, `2002Q4` &lt;dbl&gt;,
-## #   `2003Q1` &lt;dbl&gt;, `2003Q2` &lt;dbl&gt;, `2003Q3` &lt;dbl&gt;, `2003Q4` &lt;dbl&gt;,
-## #   `2004Q1` &lt;dbl&gt;, `2004Q2` &lt;dbl&gt;, `2004Q3` &lt;dbl&gt;, `2004Q4` &lt;dbl&gt;,
-## #   `2005Q1` &lt;dbl&gt;, `2005Q2` &lt;dbl&gt;, `2005Q3` &lt;dbl&gt;, `2005Q4` &lt;dbl&gt;,
-## #   `2006Q1` &lt;dbl&gt;, `2006Q2` &lt;dbl&gt;, `2006Q3` &lt;dbl&gt;, `2006Q4` &lt;dbl&gt;,
-## #   `2007Q1` &lt;dbl&gt;, `2007Q2` &lt;dbl&gt;, `2007Q3` &lt;dbl&gt;, `2007Q4` &lt;dbl&gt;,
-## #   `2008Q1` &lt;dbl&gt;, `2008Q2` &lt;dbl&gt;, `2008Q3` &lt;dbl&gt;, `2008Q4` &lt;dbl&gt;,
-## #   `2009Q1` &lt;dbl&gt;, `2009Q2` &lt;dbl&gt;, `2009Q3` &lt;dbl&gt;, `2009Q4` &lt;dbl&gt;,
-## #   `2010Q1` &lt;dbl&gt;, `2010Q2` &lt;dbl&gt;, `2010Q3` &lt;dbl&gt;, `2010Q4` &lt;dbl&gt;,
-## #   `2011Q1` &lt;dbl&gt;, `2011Q2` &lt;dbl&gt;, `2011Q3` &lt;dbl&gt;, `2011Q4` &lt;dbl&gt;,
-## #   `2012Q1` &lt;dbl&gt;, `2012Q2` &lt;dbl&gt;, `2012Q3` &lt;dbl&gt;, `2012Q4` &lt;dbl&gt;,
-## #   `2013Q1` &lt;dbl&gt;, `2013Q2` &lt;dbl&gt;, `2013Q3` &lt;dbl&gt;, `2013Q4` &lt;dbl&gt;,
-## #   `2014Q1` &lt;dbl&gt;, `2014Q2` &lt;dbl&gt;, `2014Q3` &lt;dbl&gt;, `2014Q4` &lt;dbl&gt;,
-## #   `2015Q1` &lt;dbl&gt;, `2015Q2` &lt;dbl&gt;, `2015Q3` &lt;dbl&gt;, `2015Q4` &lt;dbl&gt;,
-## #   `2016Q1` &lt;dbl&gt;, `2016Q2` &lt;dbl&gt;, `2016Q3` &lt;dbl&gt;, `2016Q4` &lt;dbl&gt;,
-## #   `2017Q1` &lt;dbl&gt;, `2017Q2` &lt;dbl&gt;, `2017Q3` &lt;dbl&gt;, `2017Q4` &lt;dbl&gt;,
-## #   `2018Q1` &lt;dbl&gt;, `2018Q2` &lt;dbl&gt;, `2018Q3` &lt;dbl&gt;, `2018Q4` &lt;dbl&gt;,
-## #   `2019Q1` &lt;dbl&gt;, `2019Q2` &lt;dbl&gt;, `2019Q3` &lt;dbl&gt;, `2019Q4` &lt;dbl&gt;,
-## #   `2020Q1` &lt;dbl&gt;, `2020Q2` &lt;dbl&gt;, `2020Q3` &lt;dbl&gt;, `2020Q4` &lt;dbl&gt;,
-## #   `2021Q1` &lt;dbl&gt;</code></pre>
+  tbl_df()</code></pre>
 </div>
 <div id="reshape" class="section level1">
 <h1>Reshape</h1>

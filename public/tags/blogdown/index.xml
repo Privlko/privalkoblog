@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>blogdown on Privalko Blog</title>
+    <title>blogdown on A Hugo website</title>
     <link>/tags/blogdown/</link>
-    <description>Recent content in blogdown on Privalko Blog</description>
+    <description>Recent content in blogdown on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 10 Dec 2017 00:00:00 +0000</lastBuildDate>
@@ -17,7 +17,7 @@
       <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/12/10/my-first-post/</guid>
-      <description>Thanks for visiting my blog. I’m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I’m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
+      <description>Thanks for visiting my blog. I&amp;rsquo;m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I&amp;rsquo;m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
     </item>
     
   </channel>

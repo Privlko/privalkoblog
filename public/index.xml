@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Privalko Blog</title>
+    <title>A Hugo website</title>
     <link>/</link>
-    <description>Recent content on Privalko Blog</description>
+    <description>Recent content on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Origin and Integration, a new report using Census 2016 data</title>
-      <link>/2020/06/16/origin-and-integration-a-new-report-using-census-2016-data/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <title>CSO&#39;s R package csodata</title>
+      <link>/2021/06/24/cso-s-r-package-csodata/</link>
+      <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/16/origin-and-integration-a-new-report-using-census-2016-data/</guid>
-      <description>We have a new report!
-We recently launched Origin and Integration, a piece of work that looks at migrant integration in Ireland. Here, we look at education, english language ability, unemployment and occupational attianment for migrants from over 100+ countries of birth. It&amp;rsquo;s a really exciting project, one that uses the entire migrant population in Ireland. You can read it here!</description>
+      <guid>/2021/06/24/cso-s-r-package-csodata/</guid>
+      <description>I’ve heard a lot about the CSO’s r package used to pull data directly to R, but to date I haven’t tried it.I decided to take a look recently after having some trouble downloading the data and trying to move it from Excel into Stata or R, and then back into Word.It turns out the package is pretty easy to use and lets you simplify workflow quite a bit.</description>
     </item>
     
     <item>
-      <title>Russian trust in police</title>
-      <link>/2020/06/16/russian-trust-in-police/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <title>Some recent reports</title>
+      <link>/2021/05/24/some-recent-reports/</link>
+      <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/16/russian-trust-in-police/</guid>
-      <description>In this post I look at ESS data to consider trust in police in Russia. I had the idea watching some of the responses to George FLoyd&amp;rsquo;s recent death. Black Lives Matter demonstrations in the US have been heavily criticised in the country, not only by Kremlin supporters and traditionalist voices, but perhaps more surprisingly, from liberal and libertarian writers too. This is especially confusing (to me personally, I guess) because centrists have seen significant harrasment from the police force, and libertarians in Moscow typically side with individual freedoms.</description>
+      <guid>/2021/05/24/some-recent-reports/</guid>
+      <description>Hello! I want to write a quick post about some recent reports and publications that have come out during this year and last year.
+My paper on Russian job mobility was published in Economics of Transition and Institutional Change!The article looks at gender differences in mobility, before estimating what certain mobility types might mean for wages.I think there are some gaps in the article that could be addressed in a subsequent paper, like their strong marriage premiums that came up in the results and the strong effects of motherhood.</description>
     </item>
     
     <item>
@@ -37,185 +37,6 @@ We recently launched Origin and Integration, a piece of work that looks at migra
       
       <guid>/2020/04/01/working-with-ess-data-in-r/</guid>
       <description>I came across a good step by step guide for using European Social Survey in R.I had some issues with the code, and in the end I found that tidyverse has some nice alternatives to the code preseneted, like the stuff on weighting, but in general this was a really interesting post.I want to walk through some of my workflow here.We can start by loading some of the ESS data for the Russian Federation.</description>
-    </item>
-    
-    <item>
-      <title>A Note of Appreciation for case_when</title>
-      <link>/2020/02/07/a-note-of-appreciation-for-case-when/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/02/07/a-note-of-appreciation-for-case-when/</guid>
-      <description>I wanted to make a quick post about the dplyr:: function, case_when().More for my own sanity than for public outreach.In Stata, recoding variables is relatively straight forward, at least to me.However, I’ve recently tried to use recode() in dplyr:: and could not get my head around it.Someone on stackoverflow suggested using case_when() which is somewhat understandable.
-Here’s an example.
-library(tidyverse)## -- Attaching packages ------------------- tidyverse 1.</description>
-    </item>
-    
-    <item>
-      <title>Visualising job changes using ggplot</title>
-      <link>/2020/01/18/visualising-job-changes-using-ggplot/</link>
-      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/01/18/visualising-job-changes-using-ggplot/</guid>
-      <description>I started working on a new paper, one that looks at job mobility in the RLMS data-set.In general, I’m really interested in the effects of job changes on wages, but often reviewers ask about predicting mobility and the factors that correlate with mobility, so in this paper I’m trying to look at both of these things, which can get a bit convoluted.
-Anyway, in this blog post I list a few visualisations from this paper which I’m including instead of tables.</description>
-    </item>
-    
-    <item>
-      <title>New Papers</title>
-      <link>/2019/09/16/new-papers/</link>
-      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/09/16/new-papers/</guid>
-      <description>I wanted to include a small update on two recent publications. I know the blog is a bit neglected this is because I’ve started a postdoc and my first few reports are coming out. The first is about unpaid work in Ireland and its gender differences. I just caught the tail end of the work as I started, but I’m glad I had an input. Generally we find high levels of unpaid work in Ireland when compared to other countries in Europe.</description>
-    </item>
-    
-    <item>
-      <title>Job mobility with promotions</title>
-      <link>/2019/05/05/job-mobility-with-promotions/</link>
-      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/05/05/job-mobility-with-promotions/</guid>
-      <description>I’ve been thinking a lot about capturing internal and external mobility types in the RLMS. I previously wrote a small note on one measure in the RLMS. That particular post was kind of disappointing, the data suggested that mobility was extremely uncommon, and although Russia is a famously immobile labour market, where respondents stay in the same job even when employers decide to stop paying wages, it seems like this question may be skewed somehow.</description>
-    </item>
-    
-    <item>
-      <title>Poverty, shoes, and Rosstat</title>
-      <link>/2019/04/08/poverty-shoes-and-rosstat/</link>
-      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/04/08/poverty-shoes-and-rosstat/</guid>
-      <description>Rosstat, Russia’s main authority on state figures, recently released a summary of poverty and deprivation. One of the main findings suggests that 33% of households cannot afford two pairs of seasonally appropriate shoes for everyone in the home. A few publications picked up on the finding, and the Kremlin supposedly rejects the body’s figures..
-Generally, Russia’s wages are famously low the median hourly wage works out at roughly 0.91 net per hour in British pounds.</description>
-    </item>
-    
-    <item>
-      <title>Marriage status and earnings</title>
-      <link>/2019/03/31/marriage-status-and-earnings/</link>
-      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/03/31/marriage-status-and-earnings/</guid>
-      <description>A common explanation for inequality among conservative types stresses the importance of marriage. The logic boils down to two basic points, one directly influential and one less directly influential.
-The first point claims married couples are more productive. Even those dependent on a single paycheck work together towards a common goal. Here, a wife looks after the home and children, while the husband earns a paycheck. Since they both focus on the long term development of the home they’re able to enssure that the primary earner, usually the man, is best place to secure higher earnings.</description>
-    </item>
-    
-    <item>
-      <title>Migration</title>
-      <link>/2019/02/16/migration/</link>
-      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/02/16/migration/</guid>
-      <description>In this post I look at migration figures released by Rosstat. A number of debates are happening in Russia about the inflow and outflow of migrants from former Soviet countries, and the effect these migrants have on wages. Separately, there is an argument that migration from Ukraine is falling, which likely has its own challenges. What do these inflows look like?
-Rosstat releases data on this, but it’s awkward for three reasons.</description>
-    </item>
-    
-    <item>
-      <title>Russian Opinion of Ukraine and Ukrainian Opinion of Russia</title>
-      <link>/2018/11/26/collective-opinion-in-russia-and-ukraine/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/11/26/collective-opinion-in-russia-and-ukraine/</guid>
-      <description>Levada recently updated statistics on what Russian and Ukrainian citizens think of each other. I saw the update but forgot to dig into the numbers; yesterday’s events in Kerch reminded me to revisit these.
-It seems like conflict between both countries is on the rise, but it’s worth looking back on how public opinion changed over the quieter months. In this post I merge the data gathered by Levada, and use some dplyr commands to simplify things, I then make a graph using ggplot.</description>
-    </item>
-    
-    <item>
-      <title>Job Mobility in Russia</title>
-      <link>/2018/10/07/job-mobility-in-russia/</link>
-      <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/10/07/job-mobility-in-russia/</guid>
-      <description>This post explores job mobility data in the Russian labour market. Sociologists tend to see country differences in job mobility as stemming from country differences in institutions. I think these can be summarised into three cateogries.
-First, there are differences in job protection and the freedom to fire or hire workers. Liberal countries, like the UK, have more mobility because hiring and firing workers is just easier. By the same token, coordinated economies like Germany, tend to have less mobility because firing workers, and the process of hiring, takes longer and contains more obstacles.</description>
-    </item>
-    
-    <item>
-      <title>Visualising LME output</title>
-      <link>/2018/09/25/visualising-lme-output/</link>
-      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/09/25/visualising-lme-output/</guid>
-      <description>In this post I want to summarise a quick method for summarising random-effects output.
-I’ve been working with multi-level models recently. During grad school I spent a lot of time using fixed-effects methods, which are less prone to bias but drop lots of information between cluster groups. Random effects models also have issues, but new methods have made it easier to overcome these.
-There are tonnes of interesting courses and books on random effects modelling, which are worth reading.</description>
-    </item>
-    
-    <item>
-      <title>Xenophobia towards migrants</title>
-      <link>/2018/08/27/xenophobia-towards-migrants/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/08/27/xenophobia-towards-migrants/</guid>
-      <description>In this post I want to look at data on xenophobia and attitudes to migrants; collected by the Levada center. This dataset was recently updated and widely shared, there are some interesting trends in the graphs below, some of which tell conflicting stories about migrants and ethnicities. Mainly, the graphs show an increase in xenophobic attitudes, after a period of falling xenophobia. However, subtle signs of acceptance also emerge, which could indicate a willingness to live and work with migrants once Russians get to know such (hypothetical) people.</description>
-    </item>
-    
-    <item>
-      <title>Parents&#39; Expectations 2004-2018</title>
-      <link>/2018/07/02/parents-expectations-2004-2018/</link>
-      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/07/02/parents-expectations-2004-2018/</guid>
-      <description>A recent post from Russia’s Levada Centre caught my attention. On the topic of school and future careers, parents are asked what they would like their children to do, what professions they prefer them to choose.
-Levada collected this data from 2004, so it’s possible to track parents’ expectations of their kids over time (somewhat).
-The format is not ideal, occuaptions seem to be in broad categories, not all of which are related.</description>
-    </item>
-    
-    <item>
-      <title>A Post About Alcohol</title>
-      <link>/2018/06/30/a-post-about-alcohol/</link>
-      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/06/30/a-post-about-alcohol/</guid>
-      <description>I started taking part in the #Tidytuesday challenge and have had a great time so far, working through the challenges and learning from others. I highly recommend getting involved, especially if you’re just starting out with ggplot and R studio.
-This week the data came from a FiveThirtyEight article on alcohol consumption. The data looked like this.
-## # A tibble: 193 x 5## country beer_servings spirit_servings wine_servings total_litres_of_~## &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;## 1 Afghanis~ 0 0 0 0 ## 2 Albania 89 132 54 4.</description>
-    </item>
-    
-    <item>
-      <title>Adding Observations in RLMS using R</title>
-      <link>/2018/06/03/adding-observations-in-rlms-using-r/</link>
-      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/06/03/adding-observations-in-rlms-using-r/</guid>
-      <description>In this update, I want to update the blog with a practical post. I’ll try to group observations in the Russian Longitudinal Monitoring Survey by individual. In a nutshell, every year, the survey asks people a series of questions, but some respondents are revisited and asked the same questions at another point in time. This is the basis for longitudinal data.
-I should add a disclaimer, I have a limited knowledge of the Russia Longitudinal Monitoring Survey, and it’s possible that other, better methods exist.</description>
-    </item>
-    
-    <item>
-      <title>Vacancy and the CSO</title>
-      <link>/2018/04/18/vacancy-and-the-cso/</link>
-      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/04/18/vacancy-and-the-cso/</guid>
-      <description>This post addresses the issue of housing vacancy. The views below are mine alone and represent my opinion and interpretation of the data; other interpretations exist.
-tl;drI think housing vacancy is misunderstood, and often over-simplified. The current government is pursuing vacant homes in an effort to increase social housing supply. The strategy is unlikely to yield significant returns in Dublin, since the nature of Dublin’s vacancy may be misunderstood.</description>
-    </item>
-    
-    <item>
-      <title>Rising Income, Rising Price</title>
-      <link>/2018/02/08/rising-income-rising-price/</link>
-      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/02/08/rising-income-rising-price/</guid>
-      <description>Rising Income, Rising PriceA recent report by myhome.ie (Q4 2017) listed several reasons for the sharp rise in house prices, especially in Dublin. The most noticeable was “rising incomes” and “strong job growth”. This may suggest the following; wages rose significantly in recent years, more disposable income meant more bidding between buyers which pushed the price of housing. I may be nitpicking; the report also lists other good reasons for the growth in price.</description>
-    </item>
-    
-    <item>
-      <title>Compensating Differentials and Premiums for &#34;Dangerous Work&#34;</title>
-      <link>/2018/02/04/compensating-differentials-and-premiums-for-dangerous-work/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/02/04/compensating-differentials-and-premiums-for-dangerous-work/</guid>
-      <description>A key theory predicting differences in pay, and explaining pay inequality, lies in compensating differentials. This is the idea that pay premiums are attached to jobs that have unfavourable or dangerous working conditions. Thus, workers who are at risk earn more than equally skilled workers in safer jobs. The theory often gets cited by critics of the gender pay gap. Here, it is argued that women accept lower pay in trying to “buy” better working conditions (or simply more favourable conditions).</description>
-    </item>
-    
-    <item>
-      <title>Public Thoughts on Politics and Government</title>
-      <link>/2018/01/28/public-thoughts-on-politics-and-government/</link>
-      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/01/28/public-thoughts-on-politics-and-government/</guid>
-      <description>The European Social Survey for 2016 lists variables on government and politics. These are worth exploring, especially with the rise of protests and public meetings against the Kremlin. Often, critics claim these are disingenuous movements, made to create media content in Europe and the States. Typically, they point to Putin’s high approval rating as a symbol that all is well, and the population holds pro-government views.
-In this post I explore some specifics, how do Russians feel about government, their ability to impact policy, and their ability to influence political outcomes?</description>
     </item>
     
     <item>
@@ -264,7 +85,7 @@ Separately, I&amp;rsquo;m trying to learn about R Studio, data viz, and longitud
       <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/12/10/my-first-post/</guid>
-      <description>Thanks for visiting my blog. I’m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I’m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
+      <description>Thanks for visiting my blog. I&amp;rsquo;m looking forward to writing some posts about Russia, and learning some much needed R skills here. My rationale for starting, was to learn more about R and blogdown. Since you typically need data for both of those things, I decided to focus on something I&amp;rsquo;m interested in; Russian Society, labour markets, and sociology. If nothing else, this might be a good exercise for learning blocks of code.</description>
     </item>
     
   </channel>

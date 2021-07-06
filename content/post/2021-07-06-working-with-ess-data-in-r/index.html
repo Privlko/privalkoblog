@@ -1,0 +1,69 @@
+---
+title: Working with ESS data in R
+author: Ivan
+date: '2020-04-01'
+slug: working-with-ess-data-in-r
+categories: []
+tags: [ESS]
+---
+
+
+
+<p>I came across a good step by step guide for using <a href="http://dimiter.eu/Visualizations_files/ESS/Visualizing_ESS_data.html">European Social Survey in R</a>.
+I had some issues with the code, and in the end I found that <code>tidyverse</code> has some nice alternatives to the code preseneted, like the stuff on weighting, but in general this was a really interesting post.
+I want to walk through some of my workflow here.
+We can start by loading some of the ESS data for the Russian Federation.</p>
+<pre class="r"><code>library(tidyverse)
+library(essurvey) # install from CRAN first
+set_email(&quot;privalki@tcd.ie&quot;) # set your registered email
+ru8 &lt;- import_country(country = &quot;Russian Federation&quot;,
+               rounds = c(8),
+               format = &#39;spss&#39;)</code></pre>
+<p>This is really easy with the new <code>essurvey</code> package which contains ESS data for all countries and all rounds considered.
+Importantly, I originally left the format option blank, and this lead the format to be loaded as Stata.
+I am not exactly sure why but this led me to problems later on in the analysis, so I changed it.</p>
+<p>We can then explore some of the measures and controls using functions from <code>labelled</code>. Here I want to look at measures which reference income.</p>
+<pre class="r"><code>library(labelled)
+# explore and label -------------------------------------------------------
+
+labelled::look_for(ru8, &#39;income&#39;)
+attributes(ru8$dfincac)
+summary(ru8$dweight) 
+attributes(ru8$hinctnta)
+summary(ru8$dweight) </code></pre>
+<p>Before we visualise, we can use the <code>to_factor()</code> command to create a factor with the appropriate labels.
+The code looks like this.</p>
+<pre class="r"><code># recode ------------------------------------------------------------------
+
+ru8$ineq &lt;- to_factor(ru8$dfincac, drop_unused_labels=TRUE, ordered=TRUE)
+table(ru8$ineq)
+
+
+ru8$incdecile &lt;- to_factor(ru8$hinctnta, drop_unused_labels=TRUE, ordered=TRUE)
+table(ru8$incdecile)</code></pre>
+<p>We can also simplify the income agreement measure into a simpler measure, I’m just using it arbitrarily as an example for now.</p>
+<pre class="r"><code># recode factor -----------------------------------------------------------
+
+ru8 &lt;- ru8 %&gt;% 
+  mutate(ineq = fct_recode(ineq, 
+                    &quot;agree&quot; =&quot;Agree strongly&quot;, 
+                    &quot;agree&quot; = &quot;Agree&quot;,
+                    &quot;disagree&quot; = &quot;Disagree&quot;,
+                    &quot;disagree&quot; = &quot;Disagree strongly&quot;)) </code></pre>
+<p>We can then turn to <code>srvyr</code> to include survey weights in our results, which are slightly cumbersome, but will lead to weighted output.</p>
+<pre class="r"><code># weighted data -----------------------------------------------------------
+library(srvyr)
+ru8_srvyr &lt;- ru8 %&gt;% 
+  filter(!is.na(ineq),
+         !is.na(incdecile)) %&gt;% 
+  as_survey_design(ids = 1,
+                   weight = pspwght)
+
+
+out &lt;- ru8_srvyr %&gt;%
+  group_by(incdecile, ineq) %&gt;% 
+  summarize(proportion = survey_mean(),
+            total = survey_total())</code></pre>
+<p>Having saved the weighted results of the proportion and survey total of the measure, we can then turn to graphing the results using <code>ggplot()</code></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>There are still several things I want to try here, but the main point is that ESS data can quickly be ported into R and quickly analysed using weights with <code>srvyr</code>.</p>

@@ -1,36 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>dplyr on Privalko Blog</title>
-    <link>/categories/dplyr/</link>
-    <description>Recent content in dplyr on Privalko Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/categories/dplyr/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>A Note of Appreciation for case_when</title>
-      <link>/2020/02/07/a-note-of-appreciation-for-case-when/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/02/07/a-note-of-appreciation-for-case-when/</guid>
-      <description>I wanted to make a quick post about the dplyr:: function, case_when().More for my own sanity than for public outreach.In Stata, recoding variables is relatively straight forward, at least to me.However, I’ve recently tried to use recode() in dplyr:: and could not get my head around it.Someone on stackoverflow suggested using case_when() which is somewhat understandable.
-Here’s an example.
-library(tidyverse)## -- Attaching packages ------------------- tidyverse 1.</description>
-    </item>
-    
-    <item>
-      <title>Job Mobility in Russia</title>
-      <link>/2018/10/07/job-mobility-in-russia/</link>
-      <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/10/07/job-mobility-in-russia/</guid>
-      <description>This post explores job mobility data in the Russian labour market. Sociologists tend to see country differences in job mobility as stemming from country differences in institutions. I think these can be summarised into three cateogries.
-First, there are differences in job protection and the freedom to fire or hire workers. Liberal countries, like the UK, have more mobility because hiring and firing workers is just easier. By the same token, coordinated economies like Germany, tend to have less mobility because firing workers, and the process of hiring, takes longer and contains more obstacles.</description>
-    </item>
-    
-  </channel>
-</rss>

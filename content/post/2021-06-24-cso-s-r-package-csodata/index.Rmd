@@ -1,11 +1,11 @@
 ---
-title: CSO's R package csodata
+title: "CSO's R package csodata"
 author: ''
 date: '2021-06-24'
-categories:
-  - ggplot
-  - packages
 slug: cso-s-r-package-csodata
+categories:
+- ggplot
+- packages
 ---
 
 
@@ -39,8 +39,6 @@ Once I had the relevant code, I was able to pull the data straight into RStudio.
 tbl1 <- cso_get_data("QLF01") %>% 
   tbl_df()
 
-
-head(tbl1)
 ```
 
 

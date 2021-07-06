@@ -1,0 +1,195 @@
+---
+title: Gender, occupations, and pay
+author: Ivan Privalko
+date: '2017-12-20'
+slug: gender-occupations-and-pay
+categories:
+  - R
+  - gender
+  - ggplot
+tags:
+  - gender
+  - pay
+  - occupations
+---
+
+In this post, I look at a small chart breaking down pay by gender and occupation. [Russian wages are particularly flexible](http://www.russia-direct.org/analysis/curious-case-russian-labor-market), employers have significant freedom in setting the earnings of “inefficient” workers. There’s also a lot of “hidden unemployment”, where workers see their hours deducted at times of low demand (or at the discretion of employers) and where unpaid leave is common. These reasons may contribute to [Russia’s gender pay gap](https://themoscowtimes.com/articles/russian-women-struggle-with-gender-pay-gap-ilo-report-shows-42010).
+
+Gender pay typically varies for several reasons, not all of these are tied to [statistical discrimination](https://www.thoughtco.com/the-economics-of-discrimination-1147202). Women are more likely to work part-time than men, they also more likely to join feminized occupations (like teaching and nursing). Further, women are expected to carry out the bulk of the work tied to parenting, especially in Russia, where traditional gender norms are strongly reinforced. Below, I explore some of these by unpacking pay by gender and occupation. Most noticeably, gender gaps still remain within most occupations, even when limiting the sample to women who work full time (30+ hours per week).
+
+I use the [Russian Longitudinal Monitoring Survey](http://www.cpc.unc.edu/projects/rlms-hse) for data on participants in 2015. Specifically, I use a measure for gender, occupation, the number of weekly hours worked, and gross wages.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+library(readxl)         # for reading in Excel data
+library(dplyr)          # for data manipulation
+library(tidyr)          # for data shaping
+library(ggplot2)        # for generating the visualizations
+
+
+
+gender <- load("C:/Users/ivan.privalko/Documents/Projects/ru_integration/integration project/Data/adult2015x.RData")
+
+
+### IXGENDER, ilopjb, IXPWRKHR, IXPJPAYT IWPWRKWH
+
+gender <- x %>%
+  select(gndr = ixgender,
+         isco = ixilpjb8,
+         hours = ixpwrkwh, 
+         pay = ixpjpayt) %>%
+  mutate(i10 = isco / 1000)
+
+
+
+# recode isco -------------------------------------------------------------------
+
+is.na(gender$y[gender$isco<99])
+gender$y[gender$isco>100 & gender$isco<1999 ] <- "Legislators, senior officials and managers"
+gender$y[gender$isco>2000 & gender$isco<2999 ] <- "Professionals"
+gender$y[gender$isco>3000 & gender$isco<3999 ] <- "Technicians"
+gender$y[gender$isco>4000 & gender$isco<4999 ] <- "Clerks"
+gender$y[gender$isco>5000 & gender$isco<5999 ] <- "Service Workers"
+gender$y[gender$isco>6000 & gender$isco<6999 ] <- "Agricultural worker"
+gender$y[gender$isco>7000 & gender$isco<7999 ] <- "Craft and related"
+gender$y[gender$isco>8000 & gender$isco<8999 ] <- "Plant and machinery"
+gender$y[gender$isco>9000 & gender$isco<9999 ] <- "Elementary"
+
+
+ gender$gndr1[gender$gndr==1 ] <- "Male"
+ gender$gndr1[gender$gndr==2 ] <- "Female"
+ 
+# all set up --------------------------------------------------------------
+
+ occupation_income <- gender %>%
+   group_by(y) %>%
+   filter(hours > 30 & hours < 60)%>%
+   filter(!is.na(y)) %>%
+   summarise(earnings = mean(pay, na.rm = TRUE)) %>%
+   arrange(earnings) %>%
+   mutate(occupation = factor(y, levels = .$y)) 
+
+
+
+ 
+
+ gender_occ_earnings <- gender %>%
+   group_by(y, gndr1) %>%
+   filter(!is.na(y)) %>%
+   filter(hours > 30 & hours < 60)%>%
+   summarise(earnings = mean(pay, na.rm = TRUE)) %>%
+   ungroup() %>%
+   mutate(occupation = factor(y, levels = occupation_income$occupation))
+ 
+ 
+ 
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+ left_label <- gender_occ_earnings %>%
+   group_by(occupation) %>%
+   arrange(earnings) %>%
+   slice(1)
+ 
+
+ 
+ right_label <- gender_occ_earnings %>%
+   group_by(occupation) %>%
+   arrange(earnings) %>%
+   slice(2)
+ 
+
+ 
+ ggplot(gender_occ_earnings, aes(earnings, occupation)) +
+   geom_line(aes(group = occupation)) +
+   geom_point(aes(color = gndr1), size = 1.5) +
+   geom_text(data = left_label, aes(color = gndr1, label = round(earnings, 0)),
+             size = 3, hjust = 1.25) +
+   geom_text(data = right_label, aes(color = gndr1, label = round(earnings, 0)),
+             size = 3, hjust = -.33) +
+   scale_x_continuous(limits = c(-1500, 55000))
+
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+big_diff <- gender_occ_earnings %>% 
+   spread(gndr1, earnings) %>% 
+   group_by(occupation) %>% 
+   mutate(Max = max(Female, Male),
+          Min = min(Female, Male),
+          Diff = Max / Min - 1) %>% 
+   arrange(Diff) %>%
+   filter(Diff > .25)
+ 
+ right_label <- filter(right_label, occupation %in% big_diff$occupation)
+ left_label <- filter(left_label, occupation %in% big_diff$occupation)
+ 
+ highlight <- filter(gender_occ_earnings, occupation %in% big_diff$occupation)
+ 
+ ggplot(gender_occ_earnings, aes(earnings, occupation)) +
+   geom_line(aes(group = occupation)) +
+   geom_point(aes(color = gndr1), size = 1.5) +
+   geom_line(data = highlight, aes(group = occupation)) +
+   geom_point(data = highlight, aes(color = gndr1), size = 2) +
+   geom_text(data = left_label, aes(color = gndr1, label = round(earnings, 0)),
+             size = 3, hjust = 1.25) +
+   geom_text(data = right_label, aes(color = gndr1, label = round(earnings, 0)),
+             size = 3, hjust = -.33) +
+   scale_x_continuous(limits = c(-1500, 55000))
+
+ 
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+ plot_label <- big_diff %>%
+   select(occupation, earings = Max, Diff) %>%
+   left_join(right_label)
+ 
+ p <-  ggplot(gender_occ_earnings, aes(earnings, occupation)) +
+   geom_line(aes(group = occupation), alpha=0.5) +
+   geom_point(aes(color = gndr1), size = 1.5) +
+   geom_line(data = highlight, aes(group = occupation)) +
+   geom_point(data = highlight, aes(color = gndr1), size = 2) +
+   geom_text(data = plot_label, aes(color = gndr1, 
+                                   label = paste0("+", scales::percent(round(Diff, 2)))),
+            size = 3, hjust = -.25)
+ 
+```
+
+I limit the 4 digit ISCO codes into their most basic categories, for clarity. I also drop those in the armed forces since these are not participating strictly in the labour market. I limit the analysis to women and men who work between thirty and sixty hours per week, although this experience is not representative of all women. The code below outlines the data used. I split earnings by occupation, limit the number of hours worked, drop missing values, calculate mean pay within occupations, and arrange in order of mean pay.
+
+Using this data frame, I can plot the data in a [Cleveland dot plot](http://uc-r.github.io/cleveland-dot-plots) The plot is shown below.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+p + scale_color_discrete(labels = c("Female", "Male")) +
+  scale_x_continuous(limits = c(-1000, 60000),
+                     breaks = seq(0, 50000, by = 15000))+
+  scale_y_discrete(expand = c(.1, 0)) +
+  labs(title = "Total Earnings by Gender \nand Occupation",
+       subtitle = "Out of nine occupations, seven have noticalble premiums \nfor men (25% higher pay than women). Craft, and \nAgricultural workers see both low wages and minor \ngender gaps. All workers in the sample work between \n30 and 60 hours per week.",
+       caption = "Source: Russia Longitudinal Monitoring Survey 2015") +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.title = element_blank(),
+        legend.justification = c(0, 1), 
+        legend.position = c(.1, 1.075),
+        legend.background = element_blank(),
+        legend.direction="horizontal",
+        plot.title = element_text(size = 15, margin = margin(b = 12)),
+        plot.subtitle = element_text(size = 13, color = "darkslategrey", margin = margin(b = 25)),
+        plot.caption = element_text(size = 11, margin = margin(t = 10), color = "grey70", hjust = 0)) 
+ 
+  
+```
+
+
+Comparing men and women within occupations reveals significant differences. In almost every occupation, men earn more than women. Surprisingly, the difference is particularly pronounced in Elementary or basic occupations, where pay varies little between workers. Yet in the chart above, men see a roughly 60% advantage over women, almost as high as the men in professional occupations.
+For some reason, agricultural workers see almost no difference in pay, possibly because earnings are particularly low, and where many workers earn the minimum (even lower the women in elementary occupations).
+Other sources of difference are worth noting in future posts. Women likely differ by marital status and the number of children in the home, these are the primary sources of gender difference. The tables above only consider all women together. Further, industry differences may play a part in earnings inequality. Women may simply be choosing occupations in less capital intensive industries, certainly professional classes are under-represented by women. These are topics for another post.

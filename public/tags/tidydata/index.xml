@@ -1,56 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>tidydata on Privalko Blog</title>
-    <link>/tags/tidydata/</link>
-    <description>Recent content in tidydata on Privalko Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/tidydata/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>A Note of Appreciation for case_when</title>
-      <link>/2020/02/07/a-note-of-appreciation-for-case-when/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/02/07/a-note-of-appreciation-for-case-when/</guid>
-      <description>I wanted to make a quick post about the dplyr:: function, case_when().More for my own sanity than for public outreach.In Stata, recoding variables is relatively straight forward, at least to me.However, I’ve recently tried to use recode() in dplyr:: and could not get my head around it.Someone on stackoverflow suggested using case_when() which is somewhat understandable.
-Here’s an example.
-library(tidyverse)## -- Attaching packages ------------------- tidyverse 1.</description>
-    </item>
-    
-    <item>
-      <title>Xenophobia towards migrants</title>
-      <link>/2018/08/27/xenophobia-towards-migrants/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/08/27/xenophobia-towards-migrants/</guid>
-      <description>In this post I want to look at data on xenophobia and attitudes to migrants; collected by the Levada center. This dataset was recently updated and widely shared, there are some interesting trends in the graphs below, some of which tell conflicting stories about migrants and ethnicities. Mainly, the graphs show an increase in xenophobic attitudes, after a period of falling xenophobia. However, subtle signs of acceptance also emerge, which could indicate a willingness to live and work with migrants once Russians get to know such (hypothetical) people.</description>
-    </item>
-    
-    <item>
-      <title>A Post About Alcohol</title>
-      <link>/2018/06/30/a-post-about-alcohol/</link>
-      <pubDate>Sat, 30 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/06/30/a-post-about-alcohol/</guid>
-      <description>I started taking part in the #Tidytuesday challenge and have had a great time so far, working through the challenges and learning from others. I highly recommend getting involved, especially if you’re just starting out with ggplot and R studio.
-This week the data came from a FiveThirtyEight article on alcohol consumption. The data looked like this.
-## # A tibble: 193 x 5## country beer_servings spirit_servings wine_servings total_litres_of_~## &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;## 1 Afghanis~ 0 0 0 0 ## 2 Albania 89 132 54 4.</description>
-    </item>
-    
-    <item>
-      <title>Adding Observations in RLMS using R</title>
-      <link>/2018/06/03/adding-observations-in-rlms-using-r/</link>
-      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/06/03/adding-observations-in-rlms-using-r/</guid>
-      <description>In this update, I want to update the blog with a practical post. I’ll try to group observations in the Russian Longitudinal Monitoring Survey by individual. In a nutshell, every year, the survey asks people a series of questions, but some respondents are revisited and asked the same questions at another point in time. This is the basis for longitudinal data.
-I should add a disclaimer, I have a limited knowledge of the Russia Longitudinal Monitoring Survey, and it’s possible that other, better methods exist.</description>
-    </item>
-    
-  </channel>
-</rss>

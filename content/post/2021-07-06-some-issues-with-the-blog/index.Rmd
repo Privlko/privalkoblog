@@ -1,0 +1,11 @@
+---
+title: Some issues with the blog
+author: ''
+date: '2021-07-06'
+slug: some-issues-with-the-blog
+categories: []
+tags: []
+---
+
+
+Hello there, I am returning to the blog after a few months of absence. 

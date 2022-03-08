@@ -1,6 +1,6 @@
 baseurl: /
 languageCode: en-us
-title: A Hugo website
+title: Ivan Privalko's Blog v3
 theme: hugo-lithium
 googleAnalytics: ''
 disqusShortname: ''
@@ -28,7 +28,7 @@ menu:
 params:
   MathJaxCDN: //cdnjs.cloudflare.com/ajax/libs
   MathJaxVersion: 2.7.5
-  description: A website built through Hugo and blogdown.
+  description: A website built through Hugo and blogdown, this is Ivan by the way.
   favicon: favicon.ico
   highlightjsCDN: //cdnjs.cloudflare.com/ajax/libs
   highlightjsLang:

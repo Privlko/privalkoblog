@@ -12,19 +12,19 @@ tags:
 In this post I want to build on [some recent work at the ESRI](https://www.esri.ie/publications/poverty-income-inequality-and-living-standards-in-ireland-0), which looks at income growth and income inequality  in Ireland using multiple surveys and sources. 
 In this report authors have combined three major sources of income data, cleaning and linking these to present a set of statistics on how income has developed in Ireland.
 In Russia there is already a linked and clean data source on income, named the [Russian Longitudinal Monitoring Survey](https://rlms-hse.cpc.unc.edu/) which considers data from the very early 1990's up to 2020. 
-I propose looking at this data here.
+I propose looking at similar trends using this data.
 
 
-Discussions of Russia's inequality overwhelmingly focus on the Ultra-rich. 
+As background, discussions of Russia's inequality overwhelmingly focus on the Ultra-rich. 
 Russia's oligarchy, a key group of business men who profited from the rapid privatization of the early 1990's, are often presented as obvious examples of the country's extreme inequality in wealth.
 Less often authors ask whether this inequality appears in measures of income, rather than wealth, and less often still authors ask whether wage inequality plays a role in Russia's unequal society. 
 Further, Russia's economy has grown significantly since the early 1990's, and it is worth considering (even if only descriptively) who benefited from this growth.
 Further still, given the massive sanctions that Russia is currently experiencing, sanctions which are even greater than those of the past eight years, Russia's current data offers clues as to who will be hit the hardest in the coming years in terms of income penalties and falls. 
 
-This post explores how incomes and income inequality have evolved in Russia between 1991 and 2020. 
+In general, I will split this topic into several parts, with the first part presented here, looking at the general trend in average income and average wages.
 I first show the growth in average disposable incomes, that is income after direct taxes have been paid and after all benefits have been received. 
 I then look at wages, showing the growth and change of disposable wage income since the 1990's which is not related to transfers, dividends, capital gains, and other revenue sources.
-For each measure, I will also look at patterns of growth across the distribution and the implications of these patterns for income inequality. 
+In later posts, I will also look at patterns of growth across the distribution and the implications of these patterns for income inequality. 
 
 
 

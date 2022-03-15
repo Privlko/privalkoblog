@@ -239,3 +239,5 @@ I want to build on this analysis further by considering group differences in the
 I further want to explore the differences in income measures between the RLMS and Rosstat, some of which I highlighted in a previous post. 
 For now, we can see the basic trends in income and wage patterns in Russia. 
 We will move on to measureing inequality in these and the group differences in this growth, in another blog post. 
+
+In the next post, I will consider some measures of inequality for these patterns. 

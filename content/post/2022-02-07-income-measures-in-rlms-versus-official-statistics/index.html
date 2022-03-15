@@ -7,6 +7,9 @@ categories: Blog
 tags:
 - data
 - generalisability
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
@@ -25,9 +28,7 @@ However, some of the income and wage stats in the dataset are different from est
 We’ll see that the median value for income and wages are about half of what is reported officially by Rosstat.
 The official website for the RLMS mentions that the sample is representable.</p>
 <p>I am using the full longitudinal data file, which has all of the years assembled together, however I’m taking just five years of this survey for my purposes here.</p>
-<p>Using the questionnaire, we see that the specific question tied to income reads “Try to remember, please: What is the total amount of money that you personally received in the last 30 days.
-Please include everything: wages, retirement pensions, premiums, profits, material aid, incidental earnings, and other receipts, including foreign currency, but convert the currency into rubles.”
-This suggests the earnings measure is person-specific, and hot a household measure.
+<p>Using the questionnaire, we see that the specific question tied to income reads “Try to remember, please: What is the total amount of money that you personally received in the last 30 days. Please include everything: wages, retirement pensions, premiums, profits, material aid, incidental earnings, and other receipts, including foreign currency, but convert the currency into rubles.” This suggests the earnings measure is person-specific, and hot a household measure.
 It also suggests it has not been adjusted for inflation or household size (this will become necessary in later analyses).</p>
 <p>This data is presented in the bloxplot below.</p>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>

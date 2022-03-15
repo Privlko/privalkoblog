@@ -1,0 +1,241 @@
+---
+title: 'Real Incomes and Income Growth: Part 1 Average Trends'
+author: "Ivan Privalko"
+date: '2022-03-10'
+slug: real-incomes-and-income-growth
+categories: Blog
+tags:
+- income
+- inequality
+---
+
+In this post I want to build on [some recent work at the ESRI](https://www.esri.ie/publications/poverty-income-inequality-and-living-standards-in-ireland-0), which looks at income growth and income inequality  in Ireland using multiple surveys and sources. 
+In this report authors have combined three major sources of income data, cleaning and linking these to present a set of statistics on how income has developed in Ireland.
+In Russia there is already a linked and clean data source on income, named the [Russian Longitudinal Monitoring Survey](https://rlms-hse.cpc.unc.edu/) which considers data from the very early 1990's up to 2020. 
+I propose looking at this data here.
+
+
+Discussions of Russia's inequality overwhelmingly focus on the Ultra-rich. 
+Russia's oligarchy, a key group of business men who profited from the rapid privatization of the early 1990's, are often presented as obvious examples of the country's extreme inequality in wealth.
+Less often authors ask whether this inequality appears in measures of income, rather than wealth, and less often still authors ask whether wage inequality plays a role in Russia's unequal society. 
+Further, Russia's economy has grown significantly since the early 1990's, and it is worth considering (even if only descriptively) who benefited from this growth.
+Further still, given the massive sanctions that Russia is currently experiencing, sanctions which are even greater than those of the past eight years, Russia's current data offers clues as to who will be hit the hardest in the coming years in terms of income penalties and falls. 
+
+This post explores how incomes and income inequality have evolved in Russia between 1991 and 2020. 
+I first show the growth in average disposable incomes, that is income after direct taxes have been paid and after all benefits have been received. 
+I then look at wages, showing the growth and change of disposable wage income since the 1990's which is not related to transfers, dividends, capital gains, and other revenue sources.
+For each measure, I will also look at patterns of growth across the distribution and the implications of these patterns for income inequality. 
+
+
+
+```{r Fig 1, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+library(data.table)
+library(tidyverse)
+
+# library(data.table) ## Don't forget to load the library
+#dat <-  fread('https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv')
+
+
+
+cpi = fread('C:/Users/Ivan/Documents/Projects/Stata2R/cpi ru.csv')
+cpi
+setDT(cpi)
+
+
+
+
+
+keys <- c('year', 'idind', 'ID_H', 'I1', 'I2', 'J1', 'J10', 'J60', 'age')
+keys
+
+
+ru = haven::read_dta("C:/Users/Ivan/Documents/Projects/RLMS/USER_RLMS-HSE_IND_1994_2020_v3_eng.dta",
+                     col_select = keys)
+
+setDT(ru)
+
+setorder(ru, year,idind) 
+
+setnames(ru, 'ID_H', 'hhid') 
+setnames(ru, 'idind', 'pid') 
+setnames(ru, 'I1', 'born') 
+setnames(ru, 'I2', 'cob')
+setnames(ru, 'J1', 'employed')
+setnames(ru, 'J10', 'wages')
+setnames(ru, 'J60', 'income')
+
+
+ru <- na.omit(ru, cols = c('pid', 'income', 'wages'))
+ru <- ru[(income > 0 & wages > 0 & income < 99999995 & wages < 99999995), ]
+
+
+
+
+ru[, income_denom := ifelse(year < 1998, income/1000, income)]
+
+ru[, wage_denom := ifelse(year < 1998, wages/1000, wages)]
+
+       
+
+ru[, income_quintile := cut(income_denom, 
+                        breaks =quantile(income_denom, probs = 0:5/5, na.rm=TRUE),
+                        labels = 1:5, right = FALSE), by=year]
+
+ru[, wage_quintile := cut(wage_denom, 
+                            breaks =quantile(wage_denom, probs = 0:5/5, na.rm=TRUE),
+                            labels = 1:5, right = FALSE), by=year]
+
+ru2 = ru[!is.na(income_quintile), .(mean_income=mean(income_denom, na.rm=TRUE),
+                                    mean_wages=mean(wage_denom,na.rm=TRUE),
+                                    median_income=median(income_denom,na.rm=TRUE),
+                                    median_wages=median(wage_denom, na.rm=TRUE)), by = .(year)]
+
+ru2 = melt(ru2, measure=patterns('m'))
+
+```
+
+
+
+Firstly, we can look at nominal earnings and wages.
+In the plot below, we adjust for the [change in the Ruble's denomination which happened in 1998](https://en.wikipedia.org/wiki/Monetary_reform_in_Russia,_1998), but we do not yet control for inflation. 
+This plot gives us the general outline of average incomes and wages, assuming the change in denomination was the norm.
+We see that nominal earnings rose quickly in the 1990's, slowed in the 2000's, and slowed again for the 2010 period leading up to 2020.
+Part of this was due to sanctions, and part of this was due to the slower economic growth which came after the fast paced growth of shock therapy reforms. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+ggplot(ru2, aes(y=value,
+                x=year,
+                group=variable))+
+  geom_point(aes(colour=variable)) + 
+  geom_line(aes(colour=variable)) +
+  scale_y_log10(labels=scales::comma) +
+  theme_minimal()+
+  labs(title="Trends in nominal earnings and wages (1994-2020)",
+       subtitle = "Without adjusting for inflation (but accounting for denominational change) \nnominal earnings have risen steadily since 1994",
+       x='Year',
+       y='Income Measure in Rubles',
+       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")+
+  scale_colour_discrete(name = "Income measure", labels = c("Mean income", 
+                                                        "Mean wages", 
+                                                        "Median income",
+                                                        "Median wages")) +
+  theme(
+    plot.title = element_text(hjust=0.5),
+    plot.subtitle = element_text(hjust=0.5))
+```
+ 
+
+```{r include=FALSE}
+
+cpi[1:200,]
+
+setnames(cpi, 'Year', 'year')
+cpi <- cpi[!is.na(CPI_2010)]
+
+
+cpi[, cpi_2010 := CPI_2010/CPI_2010[year==2010]]
+cpi[, cpi_2020 := CPI_2010/CPI_2010[year==2020]]
+
+ru2 <- ru2[cpi, on = .(year = year)]
+
+ru2[, cpi_value_2010 := value * (cpi_2010)]
+ru2[, cpi_value_2020 := value * cpi_2020]
+
+```
+
+
+If we adjust for inflation, by [considering the CPI index recorded by the world bank](https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=RU), and standardise this measure to 2020 values, we get a similar pattern for real incomes.
+During the 1990's earnings were minimal as the country recovered from the shock of market reforms.
+However, earnings rose quickly after these changes but slowed down from the id to late 2000's, and slowed again between 2010 and 2020. 
+In 2020, Mean income was 35,734 rubles per month while Mean wages stood at 31,059 rubles per monthl
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+ru2 %>% 
+  filter(!is.na(variable)) %>% 
+  ggplot(aes(y=cpi_value_2020,
+                x=year,
+                group=variable))+
+  geom_point(aes(colour=variable)) + 
+  geom_line(aes(colour=variable)) +
+  scale_y_log10(labels=scales::comma) +
+  theme_minimal()+
+  labs(title="Trends in real (adjusted for CPI) earnings and wages (1994-2020)",
+       subtitle = "Adjusting for inflation (and accounting for denominational change) \nreal earnings have risen rapidly since 1994",
+       x='Year',
+       y='Income in 2020 Rubles',
+       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")+
+  scale_colour_discrete(name = "Income measure", labels = c("Mean income", 
+                                                            "Mean wages", 
+                                                            "Median income",
+                                                            "Median wages")) +
+  theme(
+    plot.title = element_text(hjust=0.5),
+    plot.subtitle = element_text(hjust=0.5))
+
+```
+
+
+We can better illustrate these patterns by considering the year-on-year difference in income growth, as in the chart below. 
+We see that much of the growth happened in the 1990's after the point where incomes collapsed.
+Hoever, income growth was highest in the years leading up to the European recession. 
+In the years after recession and in the years after sanctions were implemented on the economy, income growth stalled significantly. 
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+ru2[, growth := cpi_value_2020/shift(cpi_value_2020, 1), by = variable]
+rect1 <- data.frame(xmin=1995, xmax=2000, ymin=0, ymax=Inf)
+rect2 <- data.frame(xmin=2008, xmax=2012, ymin=0, ymax=Inf)
+rect3 <- data.frame(xmin=2014, xmax=2020, ymin=0, ymax=Inf)
+
+ru2$var2 <- factor(ru2$variable, levels = c("mean_income", "mean_wages", 
+                                                "median_income", "median_wages"), 
+                  labels = c("Mean income", "Mean wages", "Median income", "Median wages"))
+
+
+
+ru2 %>%  
+  filter(!is.na(var2)) %>% 
+  ggplot(aes(y=growth,
+             x=year,
+             group=var2))+
+  geom_col(aes(group=var2,
+               fill=var2)) +
+  facet_wrap(. ~ var2) +
+  scale_y_log10(labels=scales::percent) +
+  theme_minimal()+
+  geom_rect(data=rect1, aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax),
+            color="grey20",
+            alpha=0.1,
+            inherit.aes = FALSE) +
+  geom_rect(data=rect2, aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax),
+            color="grey20",
+            alpha=0.1,
+            inherit.aes = FALSE) +
+  geom_rect(data=rect3, aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax),
+            color="grey20",
+            alpha=0.1,
+            inherit.aes = FALSE) +
+  labs(title="Year-on-year growth in real (adjusted for CPI) earnings and wages (1995-2020)",
+       subtitle = "Growth in income and wages has slowed. Conflict, sanctions, and recessions are roughly highlighted in grey. \nIncome growth is lowest in these periods.",
+       x='Year',
+       y='Year-on-year growth in income',
+       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko") +
+  scale_fill_discrete(name = "Income measure", labels = c("Mean income", 
+                                                            "Mean wages", 
+                                                            "Median income",
+                                                            "Median wages")) +
+  theme(
+    plot.title = element_text(hjust=0.5),
+    plot.subtitle = element_text(hjust=0.5))
+
+```
+
+
+I want to build on this analysis further by considering group differences in these income trends. 
+I further want to explore the differences in income measures between the RLMS and Rosstat, some of which I highlighted in a previous post. 
+For now, we can see the basic trends in income and wage patterns in Russia. 
+We will move on to measureing inequality in these and the group differences in this growth, in another blog post. 

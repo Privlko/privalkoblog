@@ -219,8 +219,8 @@ ru2 %>%
             color="grey20",
             alpha=0.1,
             inherit.aes = FALSE) +
-  labs(title="Year-on-year growth in real (adjusted for CPI) earnings and wages (1995-2020)",
-       subtitle = "Growth in income and wages has slowed. Conflict, sanctions, and recessions are roughly highlighted in grey. \nIncome growth is lowest in these periods.",
+  labs(title="Year-on-year growth in real (adjusted for CPI) \nearnings and wages (1995-2020)",
+       subtitle = "Growth in income and wages has slowed. \nConflict, sanctions, and recessions are roughly highlighted in grey. \nIncome growth is lowest in these periods.",
        x='Year',
        y='Year-on-year growth in income',
        caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko") +

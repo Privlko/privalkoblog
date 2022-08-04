@@ -51,22 +51,22 @@ ggplot(ru2, aes(y=mean_income,
 ```
 The differences between categories sometimes widen and sometimes narrow, but generally the results show that income increased for everyone drastically. 
 Specifically it is difficult to comment on inequality within years because of the log scale. 
-Instead, we will consider two measures of inequality statistics within years; specifically, the p90:p10 ratio and the top decile's share of total income for each year.  
+Instead, we will consider two measures of inequality statistics within years; the p90:p10 ratio and the top decile's share of total income for each year.  
 
 # Income differences between percentiles as they are
 
-Before considering these , we will briefly show the average earnings of each percentile for 2020 which are shown in 2020 rubles. 
+Before considering these, we will briefly show the average earnings of each percentile for 2020 which are shown in 2020 rubles. 
 This is shown in the figure below.
 The 3rd percentile, on average, earns just 10,221 rubles per month. 
-[We know from recent updates and policy reviews that the highest possible unemployment benefit was raised from 8,000 Russian rubles to 12,130 Russian rubles](https://www.statista.com/statistics/1291959/unemployment-benefits-russia/#:~:text=Changes%20in%20unemployment%20benefits%20due%20to%20COVID%2D19%20in%20Russia&text=In%20April%202020%2C%20the%20highest,increased%20to%204%2C500%20Russian%20rubles.). 
+[We know from recent updates and policy reviews that the highest possible unemployment benefit was raised from 8,000 Russian rubles to 12,130 Russian rubles](https://www.statista.com/statistics/1291959/unemployment-benefits-russia/#:~:text=Changes%20in%20unemployment%20benefits%20due%20to%20COVID%2D19%20in%20Russia&text=In%20April%202020%2C%20the%20highest,increased%20to%204%2C500%20Russian%20rubles.), so some of these respondents are likely earning unemployment benefit at most. 
 Further, the minimum possible unemployment benefit was increased to 4,500 Russian rubles.
 This is in line with the findings presented here, the lowest paid individuals are likely receiving income from benefits and support like unemployment.
 Given that the highest possible payment is higher than the amount that we consider here, this suggests we are capturing those on unemployment benefits well. 
-Further, we note that the 10th percentile earns 15,000 rubles a month, according to the data, which is useful for calculating the p90/p10 ratio.
+Further, we note that the 10th percentile earns 15,000 rubles a month according to the data, which is useful for calculating the p90/p10 ratio.
 Regarding top earners, we see that average earnings in the 97th percentile are 90,000 rubles per month, while the 90th percentile earns 60,000 rubles per month.
 Once again, these earnings are high and constitute a p90/p10 ratio of 4, which is above many European countries.
 For some perspective [the United States has a p90/p10 estimate of 6.3 while Japan has an estimate of 6.1](https://internationalcomparisons.org/social/income-distribution/); at the same time, Denmark (3.0), France(3.6), and Germany (3.6) have significantly lower estimates between these percentiles.
-The estimate presented here brings Russia closer to Canada (4.0) and Australia (4.3) in terms of income inequality.
+The estimate presented here brings Russia closer to Canada (4.0) and Australia (4.3) in terms of income inequality, which is closer aligned to many liberal market economies, than more egalitarian states like Finland, with whom Russia shares a border.
 A summary chart is listed below.
 
 
@@ -99,7 +99,7 @@ percent %>%
 
 
 We further explore this ratio later, for the moment it is worth noting the high rates of inequality between percentiles in 2020 data. 
-We also want to consider how these figures looked in 2012, when Russia had just began to recover form the financial crisis. 
+We also want to consider how these figures looked in 2012, when Russia had just began to recover from its financial crisis, partially caused by the wider European Debt Crisis. 
 
 We find that earnings were quite different in 2012, with far lower incomes in 2020 prices and seemingly fewer differences between groups.
 Specifically, we see that earners in the 3rd percentile have an average income of 3,049 rubles per month, which is far lower than the 3rd percentile in 2020 (roughly 29% of what is on offer in 2020). 
@@ -121,7 +121,7 @@ Given the extreme volatility of the Russian economy in the 1990's and the subseq
 The graph below looks at the rate of change of each percentile for several time points (for example 2020 versus 2012).
 The first graph considers four sets of time points; 2020 vs 2012, 2012 vs 2007, 2007 vs 2000, and 2000 vs 1995.
 The y-axis compares the size of the change between the two time points. 
-or example, for the 3rd percentile, income grew almost 25 times greater between 2000 and 2007; for the 97th percentile income grew almost 10 times greater during the same period. 
+For example, for the 3rd percentile, income grew almost 25 times greater between 2000 and 2007; for the 97th percentile income grew almost 10 times greater during the same period. 
 The most obvious difference in the plot is the gap in growth between 1995-2007 and 2007-2020.
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -134,7 +134,6 @@ For this reason, we split the two time points into separate graphs.
 Starting with 1995-2007, we first note the high levels of growth for each percentile over both periods, with incomes growing rapidly by a factors of 6-25 times greater.
 However, the period 2000-2007 was most beneficial to lower earning percentiles (whose income grew 24-15 times greater) and less beneficial to higher earning percentiles (whose income grew 8-12 times greater). 
 For the median earner (50th percentile) incomes grew by a factor of 15 in the seven year period.
-
 Regarding the period 1995-2000 we see few differences between percentile groups over the period, with all percentiles seeing a 15 or 18 factor increase in incomes during this time.
 
 
@@ -184,7 +183,7 @@ Further, the same statistics record a p50:p10 ratio of 2.2 for Russia, where we 
 Finally, we will consider the share of the top decile among Russia's total income. 
 As before this measure is tracked from 1994.
 This is listed below.
-The Figure shows that the top decile's share of total income has fallen slightly, but that the change has been less extremet that the percentile share differences recorded above. 
+The Figure shows that the top decile's share of total income has fallen slightly, but that the change has been less extreme than the percentile share differences recorded above. 
 
 
 
@@ -196,7 +195,7 @@ p6
 
 
 Finally, we can consider share of total income given to all deciles since 1994. We see that the top decile's share of total income has gradually declined as other deciles have grown. 
-However, despite this, the top decile also has the largest share of income 
+However, despite this, the top decile also has the largest share of total Russian income. 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 load(file = "~/Projects/Blog/Sandbox/p7")

@@ -17,7 +17,7 @@ library(viridis)
 load(file = "Sandbox/cpi.Rdata")
 
 
-#keys <- c('year', 'idind', 'ID_H', 'I1', 'I2', 'J1', 'J10', 'J60', 'age')
+#keys <- c('year', 'idind', 'ID_H', 'I1', 'I2', 'J1', 'J10', 'J60', 'age', 'H5')
 #keys
 
 
@@ -27,7 +27,7 @@ load(file = "Sandbox/cpi.Rdata")
 #setDT(ru)
 
 #setorder(ru, year,idind) 
-#ru[, ]
+ru[, ]
 
 
 #save(ru, file = "Sandbox/ru.Rdata")
@@ -48,6 +48,7 @@ setnames(ru, 'I2', 'cob')
 setnames(ru, 'J1', 'employed')
 setnames(ru, 'J10', 'wages')
 setnames(ru, 'J60', 'income')
+setnames(ru, 'H5', 'gender')
 
 ru
 
@@ -85,16 +86,11 @@ ru[, wage_decile := cut(wage_denom,
 
 
 
-ru[, median_pay := median(wage_denom), by=year] 
-ru[, bench := 0.6*median_pay, by=year]
-ru[, poverty := ifelse(wages < bench, 1, 0)]
-ru[]
+ru[, median_inc := median(income_denom), by=year] 
+ru[, bench := 0.6*median_inc, by=year]
+ru[, poverty := ifelse(income_denom < bench, 1, 0)]
+ru[, .(income_denom, median_inc, bench, poverty)]
 
-
-ru[, median_pay, by=year]
-ru[, .(p50 = mean(median_pay),
-       sdp50 = sd(median_pay),
-       mmp = mean(wage_denom)), by=year] 
 
 ru
 
@@ -119,40 +115,34 @@ ru[1:20]
 
 
 
-ru[, cpi_wage_2010 := wage_denom * (cpi_2010)]
-ru[, cpi_wage_2020 := wage_denom * cpi_2020]
+ru[, cpi_income_2010 := income_denom * (cpi_2010)]
+ru[, cpi_income_2020 := income_denom * cpi_2020]
 
-# group differences in quintiles over time --------------------------------
+# poverty risk over time --------------------------------
 
 
-setorder(ru, year, wage_decile)
+setorder(ru, year, poverty)
 
-ru2 <- ru[!is.na(wage_decile), 
-   .(mean_wage=mean(cpi_wage_2020, na.rm=TRUE)), 
-   by = .(year, wage_decile)]
+ru2 <- ru[!is.na(poverty), 
+   .(mean_poverty=mean(poverty, na.rm=TRUE)), 
+   by = .(year)]
 
 #save(ru2, file = "Sandbox/ru2.Rdata")
 
 
 ru2
 
-ggplot(ru2, aes(y=mean_wage,
-                x=year,
-                group=wage_decile))+
-  geom_point(aes(colour=wage_decile)) + 
-  geom_line(aes(colour=wage_decile)) +
-  scale_y_log10(labels=scales::comma) +
+ggplot(ru2, aes(y=mean_poverty,
+                x=year))+
+  geom_point(aes()) + 
+  geom_line(aes()) +
+  scale_y_continuous(labels=scales::percent) +
   theme_minimal()+
-  labs(title="Trends in real income using 2020 prices by quintile (1994-2020)",
-       subtitle = "Adjusting for inflation and accounting for denominational change, \nincome gaps have remained persistent over time",
+  labs(title="Trends in  at-risk of poverty rate",
+       subtitle = "\nTrend uses 60% of median income benchmark (1994-2020)",
        x='Year',
-       y='Rubles (2020 Prices CPI adjusted)',
-       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko") +
-scale_colour_discrete(name = "Income quintile", labels = c("Lowest", 
-                                                            "Second", 
-                                                            "Third",
-                                                            "Fourth",
-                                                            "Highest")) +
+       y='At-Risk of Poverty Rate %',
+       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")  +
   theme(
     plot.title = element_text(hjust=0.5),
     plot.subtitle = element_text(hjust=0.5))
@@ -160,91 +150,64 @@ scale_colour_discrete(name = "Income quintile", labels = c("Lowest",
 
 
 
-
-percent <-  ru[year==2020 | year==2000 | year==2007 | year==2012 | year==1995, 
-               as.list(quantile(cpi_wage_2020,probs = 0:100/100,na.rm=TRUE)), by=year]
-view(percent)
-
-percent <- pivot_longer(percent, cols = -year, names_to = 'percentile', values_to = 'wages')
-percent
-percent$percentile <-  as.numeric(gsub("[\\%,]", "", percent$percentile))
-percent
+# group differences over time ---------------------------------------------
 
 
-percent %>% 
-  filter(year==2020,
-         percentile <98 & percentile > 2) %>% 
-  arrange(desc(wages))
+ru3 <- ru[!is.na(poverty), 
+          .(mean_poverty=mean(poverty, na.rm=TRUE)), 
+          by = .(year, gender)]
 
-percent %>% 
-  filter(year==2020,
-         percentile <98 & percentile > 2)
-
-percent %>% 
-  filter(year==2012,
-         percentile <98 & percentile > 2) %>% 
-  arrange(desc(wages))
-
-percent %>% 
-  filter(year==2012,
-         percentile <98 & percentile > 2)
+ru3
 
 
 
-percent %>% 
-  filter(year==2020,
-         percentile <98 & percentile > 2) %>% 
-  ggplot(aes(x=percentile, 
-             y= wages,
-             group=percentile))+
-  geom_col()+
-  scale_y_continuous(labels=scales::comma) +
-  theme_minimal()+
-  labs(title="Average earnings by percentile for 2020",
-       subtitle = "Adjusting for inflation and accounting for denominational change. \nWe drop the bottom 2 and top 2 percentiles from our analysis",
-       x='Income percentile',
-       y='Rubles (2020 Prices CPI adjusted)',
-       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")+
+ggplot(ru3, aes(y=mean_poverty,
+                x=year,
+                group=gender)) +
+  geom_point(aes(colour=as.factor(gender))) + 
+  geom_line(aes(colour=as.factor(gender))) +
+  scale_y_continuous(labels=scales::percent) +
+  theme_minimal() +
+  labs(title="Trends in  at-risk of poverty rate for men and women",
+       subtitle = "\nTrend uses 60% of median income benchmark (1994-2020)",
+       x='Year',
+       y='At-Risk of Poverty Rate %',
+       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")  +
   theme(
     plot.title = element_text(hjust=0.5),
     plot.subtitle = element_text(hjust=0.5))
 
 
-percent %>% 
-  filter(year==2020 | year == 2012,
-         percentile <98 & percentile > 2)
-
-percent %>% 
-  filter(year==2020 | year == 2012,
-         percentile <98 & percentile > 2) %>% 
-  summarise(mea = mean(wages, na.rm=T), by=year)
 
 
+# group differences over time ---------------------------------------------
+
+
+ru3 <- ru[employed==1, 
+          .(mean_poverty=mean(poverty, na.rm=TRUE)), 
+          by = .(year, gender)]
+
+ru3
 
 
 
-
-p1 <- percent %>% 
-  filter(year==2020 | year == 2012,
-         percentile <98 & percentile > 2) %>% 
-  ggplot(aes(x=percentile, 
-             y= wages,
-             group=percentile))+
-  geom_col()+
-  facet_wrap(.~year) +
-  scale_y_continuous(labels=scales::comma) +
-  theme_minimal()+
-  labs(title="Average earnings by percentile for 2012 and 2020",
-       subtitle = "Adjusting for inflation and accounting for denominational change, \nincome has grown for each percentile. We drop the bottom 2 and top 2 percentiles from our analysis",
-       x='Income percentile',
-       y='Rubles (2020 Prices CPI adjusted)',
-       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")+
+ggplot(ru3, aes(y=mean_poverty,
+                x=year,
+                group=gender)) +
+  geom_point(aes(colour=as.factor(gender))) + 
+  geom_line(aes(colour=as.factor(gender))) +
+  scale_y_continuous(labels=scales::percent) +
+  theme_minimal() +
+  labs(title="Trends in at-risk of poverty rate for employed men and women",
+       subtitle = "\nTrend uses 60% of median income benchmark (1994-2020)",
+       x='Year',
+       y='At-Risk of Poverty Rate %',
+       caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")  +
   theme(
     plot.title = element_text(hjust=0.5),
     plot.subtitle = element_text(hjust=0.5))
 
-p1
-save(p1, file = "Sandbox/p1")
+
 
 
 

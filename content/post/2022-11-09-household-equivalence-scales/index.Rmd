@@ -1,0 +1,194 @@
+---
+title: 'Equivalence scales for household data in RLMS'
+author: ''
+date: '2022-11-09'
+slug: household-equivalence-scales
+categories: []
+tags: []
+---
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+
+library(data.table)
+library(tidyverse)
+library(viridis)
+library(gt)
+
+load(file = "C:\\Users\\Ivan\\Documents\\Projects\\Blog\\Sandbox\\ru.Rdata")
+
+# rename measures ---------------------------------------------------------
+
+
+setnames(ru, 'ID_H', 'hhid') 
+setnames(ru, 'idind', 'pid') 
+setnames(ru, 'I1', 'born') 
+setnames(ru, 'I2', 'cob')
+setnames(ru, 'J1', 'employed')
+setnames(ru, 'J10', 'wages')
+setnames(ru, 'J60', 'income')
+setnames(ru, 'H5', 'gender')
+
+
+
+
+# correct for extreme values ----------------------------------------------
+
+
+
+
+ru <-  ru %>% 
+  mutate(income = ifelse(income > 99999994, NA, income))
+
+ru[, income_denom := ifelse(year < 1998, income/1000, income)]
+
+ru[, wage_denom := ifelse(year < 1998, wages/1000, wages)]
+
+# sort --------------------------------------------------------------------
+setcolorder(ru, c("hhid", "year", "pid"))
+
+setorder(ru, hhid, year, pid)
+
+
+
+# equivalence scale B -----------------------------------------------------
+
+ru[, n_within_hhid := rowid(hhid, year)]
+
+
+ru[, equiv := case_when(n_within_hhid == 1 ~ 1,
+                        n_within_hhid > 1 & age > 18 ~ 0.5,
+                        n_within_hhid > 1 & age < 18 ~ 0.3)]
+
+ru[,  hh_equiv := sum(equiv) , by = .(hhid, year)]
+ru[,  hh_income := sum(income_denom, na.rm=T) , by = .(hhid, year)]
+ru[,  hh_equiv_income := hh_income/hh_equiv , by = .(hhid, year)]
+
+
+```
+
+
+
+
+# Introduction 
+
+
+In the last few posts, I listed measures of inequality using individual income, without adjusting for household size. 
+Other authors, especially authors who write about poverty and deprivation,  typically adjust for household size by considering a weight for total household income. These measures are usually presented in the data, but the RLMS does not consider them explicitly. 
+
+Equivalence scales help us assign a weight of “need” to different household types and to their total household income. 
+Authors typically consider three measures for calculating equivalence scales. 
+
+1. The size of the household 
+
+2. The age of its members (whether they are adults or children) 
+
+3. If using longitudinal data, the year that the data was collected
+
+In this post, I compare two scale the original "OECD scale", and the "OECD-modified scale".
+The OECD scale assigns a value of 1 to the first household member, of 0.7 to each additional adult and of 0.5 to each child. 
+The OECD Modified scale assigns a value of 1 to the household head, of 0.5 to each additional adult member and of 0.3 to each child. 
+Other scales exist, including scales developed by the OECD, but we ignore them here. 
+
+## A brief example
+
+Focusing on the modified scale, I show the basic shape of the equivalence scale and the household’s total equivalence weight below. 
+In this example, we look at just one household (hhid=10013) over several years (from 2010 to 2014 in this example). 
+Here, the first person is a 33 year old man with a personal ID marked 1001301. 
+This person gets a value of 1. 
+Every subsequent person aged over 18 in the household gets a value of 0.5, in this case this is the younger woman (pid 25026). 
+Lastly, there is a young 3 year old child in the home, and they receive a value of 0.3.  
+This brings the total equivalised weight to the household of 1.8 (1.0 + 0.5 + 0.3 = 1.8) for each household member, and each year.
+
+```{r, echo=FALSE}
+
+
+t1<- ru[hhid==10013 & year>2009, .(hhid, year, pid, gender, age, income, equiv, hh_equiv)]
+
+gt(t1) %>% 
+  tab_header(
+    title = md("**One household over time**"),
+  subtitle = "Following one household 2010-2020") %>% 
+  tab_source_note(source_note = "Source: RLMS analysis") %>% 
+  tab_spanner(label = "Identifiers",
+    columns = c(hhid, year, pid)) %>%
+  tab_spanner(label = "Demographics",
+    columns = c(gender, age, income)) %>% 
+  tab_spanner(label = "Equivalence scale",
+    columns = c(equiv, hh_equiv)) %>% 
+  fmt_number(
+    columns = c(income),
+    decimals = 0,
+    use_seps = TRUE)
+
+```
+
+
+If we consider this effect on income, we get the following data frame. 
+Again, I am looking at one household over time (10013). 
+In 2010, this household had three people living in it, and their equivalence scale added up to 1.8.
+Their total income came from the 33 year old male in 2010, who earned 22,000 rubles per month, and so their equivalised household income came to 12,222 rubles per month. 
+In 2011, this household saw a change in their income. 
+Although the man’s income remained the same (22,000) the woman’s income increased to 8,200 rubles per month. 
+As a result, their equivalised household income increased to 16,778 rubles per month.
+In short we are showing that the total household income is divided 1.8 ways. 
+
+
+```{r, echo=FALSE}
+
+
+t2 <- ru[hhid==10013 & year>2009, .(hhid, year, pid, gender, age,  hh_equiv, income, hh_equiv_income)]
+
+gt(t2) %>% 
+  tab_header(
+    title = md("**One household over time**"),
+  subtitle = "Following one household 2010-2020") %>% 
+  tab_source_note(source_note = "Source: RLMS analysis") %>% 
+  tab_spanner(label = "Identifiers",
+    columns = c(hhid, year, pid)) %>%
+  tab_spanner(label = "Demographics",
+    columns = c(gender, age)) %>% 
+  tab_spanner(label = "Income",
+    columns = c(hh_equiv, income, hh_equiv_income)) %>% 
+  fmt_number(
+    columns = c(income, hh_equiv_income),
+    decimals = 0,
+    use_seps = TRUE)
+
+
+```
+
+Moving forward with this example (the OECD modified scale), I show how the scale affects total household income, and compare it to individual level income.
+In previous posts, I would have focused on mean income but people tend to live in households which pool their income together, as shown by the trend in mean HH income.
+First, all of the three eates all rose over time. 
+Second, mean individual income is lower than total household income, for obvious reasons, and equivalised household income sits between these two measures as it adjusts for household size. 
+In total equivalised household income sits closer to individual measures of income than the household total. 
+
+
+```{r, echo=FALSE}
+
+load(file = "C:\\Users\\Ivan\\Documents\\Projects\\Blog\\Sandbox\\p_equiv")
+
+p_equiv
+
+
+```
+
+
+
+## Comparing two scales
+
+Finally, I want to briefly compare the two OECD measures of equivalisation. 
+How do they impact total household income?
+We see that the modified scales assumes a higher average amount of income, when comapred to the original scale. In this way the modified scale moves closer to the total and unadjusted household amount of income. 
+Which scale to use will have important implications for measures of poverty and income inequality, but it seems that most research have picked up the modified scale. 
+
+
+```{r, echo=FALSE}
+
+load(file = "C:\\Users\\Ivan\\Documents\\Projects\\Blog\\Sandbox\\comp")
+
+comp
+
+```

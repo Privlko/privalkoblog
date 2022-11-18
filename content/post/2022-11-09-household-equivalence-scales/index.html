@@ -1,0 +1,1481 @@
+---
+title: 'Equivalence scales for household data in RLMS'
+author: ''
+date: '2022-11-09'
+slug: household-equivalence-scales
+categories: []
+tags: []
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In the last few posts, I listed measures of inequality using individual income, without adjusting for household size.
+Other authors, especially authors who write about poverty and deprivation, typically adjust for household size by considering a weight for total household income. These measures are usually presented in the data, but the RLMS does not consider them explicitly.</p>
+<p>Equivalence scales help us assign a weight of “need” to different household types and to their total household income.
+Authors typically consider three measures for calculating equivalence scales.</p>
+<ol style="list-style-type: decimal">
+<li><p>The size of the household</p></li>
+<li><p>The age of its members (whether they are adults or children)</p></li>
+<li><p>If using longitudinal data, the year that the data was collected</p></li>
+</ol>
+<p>In this post, I compare two scale the original “OECD scale”, and the “OECD-modified scale”.
+The OECD scale assigns a value of 1 to the first household member, of 0.7 to each additional adult and of 0.5 to each child.
+The OECD Modified scale assigns a value of 1 to the household head, of 0.5 to each additional adult member and of 0.3 to each child.
+Other scales exist, including scales developed by the OECD, but we ignore them here.</p>
+<div id="a-brief-example" class="section level2">
+<h2>A brief example</h2>
+<p>Focusing on the modified scale, I show the basic shape of the equivalence scale and the household’s total equivalence weight below.
+In this example, we look at just one household (hhid=10013) over several years (from 2010 to 2014 in this example).
+Here, the first person is a 33 year old man with a personal ID marked 1001301.
+This person gets a value of 1.
+Every subsequent person aged over 18 in the household gets a value of 0.5, in this case this is the younger woman (pid 25026).
+Lastly, there is a young 3 year old child in the home, and they receive a value of 0.3.<br />
+This brings the total equivalised weight to the household of 1.8 (1.0 + 0.5 + 0.3 = 1.8) for each household member, and each year.</p>
+<div id="ozkmeeellz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ozkmeeellz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ozkmeeellz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ozkmeeellz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ozkmeeellz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ozkmeeellz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ozkmeeellz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ozkmeeellz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ozkmeeellz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ozkmeeellz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ozkmeeellz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ozkmeeellz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ozkmeeellz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ozkmeeellz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ozkmeeellz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ozkmeeellz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ozkmeeellz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ozkmeeellz .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ozkmeeellz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ozkmeeellz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ozkmeeellz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ozkmeeellz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ozkmeeellz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ozkmeeellz .gt_left {
+  text-align: left;
+}
+
+#ozkmeeellz .gt_center {
+  text-align: center;
+}
+
+#ozkmeeellz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ozkmeeellz .gt_font_normal {
+  font-weight: normal;
+}
+
+#ozkmeeellz .gt_font_bold {
+  font-weight: bold;
+}
+
+#ozkmeeellz .gt_font_italic {
+  font-style: italic;
+}
+
+#ozkmeeellz .gt_super {
+  font-size: 65%;
+}
+
+#ozkmeeellz .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#ozkmeeellz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ozkmeeellz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ozkmeeellz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ozkmeeellz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ozkmeeellz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ozkmeeellz .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <td colspan="8" class="gt_heading gt_title gt_font_normal" style><strong>One household over time</strong></td>
+    </tr>
+    <tr>
+      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Following one household 2010-2020</td>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup">
+        <span class="gt_column_spanner">Identifiers</span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup">
+        <span class="gt_column_spanner">Demographics</span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup">
+        <span class="gt_column_spanner">Equivalence scale</span>
+      </th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">hhid</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">pid</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">gender</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">age</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">income</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">equiv</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">hh_equiv</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2010</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">33</td>
+<td class="gt_row gt_right">22,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2010</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">29</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2010</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 3</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2011</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">34</td>
+<td class="gt_row gt_right">22,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2011</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">30</td>
+<td class="gt_row gt_right">8,200</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2011</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 4</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2012</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">35</td>
+<td class="gt_row gt_right">28,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2012</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">31</td>
+<td class="gt_row gt_right">9,500</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2012</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 5</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2013</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">36</td>
+<td class="gt_row gt_right">28,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2013</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">32</td>
+<td class="gt_row gt_right">9,000</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2013</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 6</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2014</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">37</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2014</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">33</td>
+<td class="gt_row gt_right">9,300</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2014</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 7</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2015</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">38</td>
+<td class="gt_row gt_right">28,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2015</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">34</td>
+<td class="gt_row gt_right">24,500</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2015</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2016</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">39</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2016</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">35</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2016</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 9</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">40</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">36</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">10</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2018</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">41</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2018</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">37</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2018</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">11</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">42</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">38</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">12</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2020</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">43</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2020</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">39</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">1.8</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2020</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">13</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.8</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="8">Source: RLMS analysis</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+<p>If we consider this effect on income, we get the following data frame.
+Again, I am looking at one household over time (10013).
+In 2010, this household had three people living in it, and their equivalence scale added up to 1.8.
+Their total income came from the 33 year old male in 2010, who earned 22,000 rubles per month, and so their equivalised household income came to 12,222 rubles per month.
+In 2011, this household saw a change in their income.
+Although the man’s income remained the same (22,000) the woman’s income increased to 8,200 rubles per month.
+As a result, their equivalised household income increased to 16,778 rubles per month.
+In short we are showing that the total household income is divided 1.8 ways.</p>
+<div id="nubxqibrzw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#nubxqibrzw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nubxqibrzw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nubxqibrzw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nubxqibrzw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nubxqibrzw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nubxqibrzw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nubxqibrzw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nubxqibrzw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nubxqibrzw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nubxqibrzw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nubxqibrzw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nubxqibrzw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nubxqibrzw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nubxqibrzw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nubxqibrzw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nubxqibrzw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nubxqibrzw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nubxqibrzw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nubxqibrzw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nubxqibrzw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nubxqibrzw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nubxqibrzw .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nubxqibrzw .gt_left {
+  text-align: left;
+}
+
+#nubxqibrzw .gt_center {
+  text-align: center;
+}
+
+#nubxqibrzw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nubxqibrzw .gt_font_normal {
+  font-weight: normal;
+}
+
+#nubxqibrzw .gt_font_bold {
+  font-weight: bold;
+}
+
+#nubxqibrzw .gt_font_italic {
+  font-style: italic;
+}
+
+#nubxqibrzw .gt_super {
+  font-size: 65%;
+}
+
+#nubxqibrzw .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#nubxqibrzw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nubxqibrzw .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#nubxqibrzw .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#nubxqibrzw .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#nubxqibrzw .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#nubxqibrzw .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <td colspan="8" class="gt_heading gt_title gt_font_normal" style><strong>One household over time</strong></td>
+    </tr>
+    <tr>
+      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Following one household 2010-2020</td>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup">
+        <span class="gt_column_spanner">Identifiers</span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup">
+        <span class="gt_column_spanner">Demographics</span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup">
+        <span class="gt_column_spanner">Income</span>
+      </th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">hhid</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">pid</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">gender</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">age</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">hh_equiv</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">income</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">hh_equiv_income</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2010</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">33</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">22,000</td>
+<td class="gt_row gt_right">12,222</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2010</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">29</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">12,222</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2010</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 3</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">12,222</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2011</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">34</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">22,000</td>
+<td class="gt_row gt_right">16,778</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2011</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">30</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">8,200</td>
+<td class="gt_row gt_right">16,778</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2011</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 4</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">16,778</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2012</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">35</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">28,000</td>
+<td class="gt_row gt_right">20,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2012</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">31</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">9,500</td>
+<td class="gt_row gt_right">20,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2012</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 5</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">20,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2013</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">36</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">28,000</td>
+<td class="gt_row gt_right">20,556</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2013</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">32</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">9,000</td>
+<td class="gt_row gt_right">20,556</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2013</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 6</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">20,556</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2014</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">37</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">24,611</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2014</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">33</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">9,300</td>
+<td class="gt_row gt_right">24,611</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2014</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 7</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">24,611</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2015</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">38</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">28,000</td>
+<td class="gt_row gt_right">29,167</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2015</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">34</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">24,500</td>
+<td class="gt_row gt_right">29,167</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2015</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 8</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">29,167</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2016</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">39</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2016</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">35</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2016</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center"> 9</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">40</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">36</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2017</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">10</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2018</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">41</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2018</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">37</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2018</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">11</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">42</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">38</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">20,500</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2019</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">12</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">30,833</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2020</td>
+<td class="gt_row gt_right">25025</td>
+<td class="gt_row gt_center">1</td>
+<td class="gt_row gt_center">43</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">35,000</td>
+<td class="gt_row gt_right">19,444</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2020</td>
+<td class="gt_row gt_right">25026</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">39</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">19,444</td></tr>
+    <tr><td class="gt_row gt_right">10013</td>
+<td class="gt_row gt_right">2020</td>
+<td class="gt_row gt_right">30114</td>
+<td class="gt_row gt_center">2</td>
+<td class="gt_row gt_center">13</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">19,444</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="8">Source: RLMS analysis</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+<p>Moving forward with this example (the OECD modified scale), I show how the scale affects total household income, and compare it to individual level income.
+In previous posts, I would have focused on mean income but people tend to live in households which pool their income together, as shown by the trend in mean HH income.
+First, all of the three eates all rose over time.
+Second, mean individual income is lower than total household income, for obvious reasons, and equivalised household income sits between these two measures as it adjusts for household size.
+In total equivalised household income sits closer to individual measures of income than the household total.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="comparing-two-scales" class="section level2">
+<h2>Comparing two scales</h2>
+<p>Finally, I want to briefly compare the two OECD measures of equivalisation.
+How do they impact total household income?
+We see that the modified scales assumes a higher average amount of income, when comapred to the original scale. In this way the modified scale moves closer to the total and unadjusted household amount of income.
+Which scale to use will have important implications for measures of poverty and income inequality, but it seems that most research have picked up the modified scale.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>

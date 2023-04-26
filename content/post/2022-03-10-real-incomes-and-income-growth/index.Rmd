@@ -1,8 +1,8 @@
 ---
 title: 'Real Incomes and Income Growth: Part 1 Average Trends'
 author: "Ivan Privalko"
-date: '2022-03-10'
-slug: real-incomes-and-income-growth
+date: "2022-03-10"
+slug: "real-incomes-and-income-growth"
 categories: Blog
 tags:
 - income

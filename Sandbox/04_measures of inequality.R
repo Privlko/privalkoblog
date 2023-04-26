@@ -38,9 +38,9 @@ load(file = "Sandbox/ru.Rdata")
 ru[, .(idind, year)]
 
 
+setDT(ru)
 
-# rename measures ---------------------------------------------------------
-
+setorder(ru, year,idind) 
 
 setnames(ru, 'ID_H', 'hhid') 
 setnames(ru, 'idind', 'pid') 
@@ -50,28 +50,10 @@ setnames(ru, 'J1', 'employed')
 setnames(ru, 'J10', 'wages')
 setnames(ru, 'J60', 'income')
 
-ru
 
-
-ru[1:200, .(pid, year, hhid, pid)] 
-
-
-
-
-ru[, year:income] 
-
-ru[, .SD, .SDcols=patterns('*id')]
-
-
-view(ru)
-
-
-ru <- ru[(income > 0 & wages > 0 & income < 99999995 & wages < 99999995), ]
 ru <- na.omit(ru, cols = c('pid', 'income', 'wages'))
+ru <- ru[(income > 0 & wages > 0 & income < 99999995 & wages < 99999995), ]
 
-
-
-# create new measures -----------------------------------------------------
 
 
 
@@ -80,12 +62,33 @@ ru[, income_denom := ifelse(year < 1998, income/1000, income)]
 ru[, wage_denom := ifelse(year < 1998, wages/1000, wages)]
 
 
-ru[, income_decile := cut(income_denom, 
-                            breaks =quantile(income_denom, probs = 0:10/10, na.rm=TRUE),
-                            labels = 1:10, right = FALSE), by=year]
+
+ru[, income_quintile := cut(income_denom, 
+                            breaks =quantile(income_denom, probs = 0:5/5, na.rm=TRUE),
+                            labels = 1:5, right = FALSE), by=year]
+
+ru[, wage_quintile := cut(wage_denom, 
+                          breaks =quantile(wage_denom, probs = 0:5/5, na.rm=TRUE),
+                          labels = 1:5, right = FALSE), by=year]
+
+ru2 = ru[!is.na(income_quintile), .(mean_income=mean(income_denom, na.rm=TRUE),
+                                    mean_wages=mean(wage_denom,na.rm=TRUE),
+                                    median_income=median(income_denom,na.rm=TRUE),
+                                    median_wages=median(wage_denom, na.rm=TRUE)), by = .(year)]
 
 
-ru[year==2020, .(mean=mean(cpi_income_2020, na.rm=T))]
+
+#  add cpi  ---------------------------------------------------------------
+
+
+cpi = fread('C:/Users/Ivan/Documents/Projects/Stata2R/cpi ru.csv')
+cpi
+setDT(cpi)
+
+
+cpi <- cpi[!is.na(CPI_2010)]
+
+
 
 cpi[1:200,]
 
@@ -96,27 +99,26 @@ cpi <- cpi[!is.na(CPI_2010)]
 cpi[, cpi_2010 := CPI_2010/CPI_2010[year==2010]]
 cpi[, cpi_2020 := CPI_2010/CPI_2010[year==2020]]
 
-
-cpi
-view (ru)
-ru
-
 ru <- ru[cpi, on = .(year = year)]
 
-ru[1:20]
+
+ru
+ru[, cpi_value_2010 := income_denom / (cpi_2010)]
+ru[, cpi_value_2020 := income_denom / cpi_2020]
 
 
 
-ru[, cpi_income_2010 := income_denom * (cpi_2010)]
-ru[, cpi_income_2020 := income_denom * cpi_2020]
 
 # group differences in quintiles over time --------------------------------
 
 
-setorder(ru, year, income_decile)
-ru2 <- ru[!is.na(income_decile), 
-   .(mean_income=mean(cpi_income_2020, na.rm=TRUE)), 
-   by = .(year, income_decile)]
+setorder(ru, year, income_quintile)
+
+
+
+ru2 <- ru[!is.na(income_quintile), 
+   .(mean_income=mean(cpi_value_2020, na.rm=TRUE)), 
+   by = .(year, income_quintile)]
 
 #save(ru2, file = "Sandbox/ru2.Rdata")
 
@@ -149,7 +151,7 @@ ggplot(ru2, aes(y=mean_income,
 
 
 percent <-  ru[year==2020 | year==2000 | year==2007 | year==2012 | year==1995, 
-               as.list(quantile(cpi_income_2020,probs = 0:100/100,na.rm=TRUE)), by=year]
+               as.list(quantile(cpi_value_2020,probs = 0:100/100,na.rm=TRUE)), by=year]
 view(percent)
 
 percent <- pivot_longer(percent, cols = -year, names_to = 'percentile', values_to = 'income')
@@ -233,7 +235,7 @@ p1 <- percent %>%
 
 save(p1, file = "Sandbox/p1")
 
-
+p1
 
 
 # compare time points -----------------------------------------------------
@@ -274,7 +276,7 @@ p2 <-  percent %>%
              linetype="dotted") +
   theme_minimal()+
   labs(title="Change in real income for each percentie by time points",
-       subtitle = "Adjusting for inflation and accounting for denominational change, \nincome has grown for each percentile. \nWe drop the bottom 2 and top 2 percentiles from our analysis",
+       subtitle = "Adjusting for inflation and accounting for denominational change, \nincome has grown for each percentile in two specific periods. \nWe drop the bottom 2 and top 2 percentiles from our analysis",
        x='Income percentile',
        y='Rubles (2020 Prices CPI adjusted)',
        caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")+
@@ -286,6 +288,7 @@ p2 <-  percent %>%
     plot.title = element_text(hjust=0.5),
     plot.subtitle = element_text(hjust=0.5))
 
+p2
 
 save(p2, file = "Sandbox/p2")
 
@@ -348,7 +351,7 @@ save(p3, file = "Sandbox/p3")
 
 # p90/p10 ratio ----------------------------------------------------------
 
-p90 <- ru[, as.list(quantile(cpi_income_2020,probs = 0:100/100,na.rm=TRUE)), by=. (year)]
+p90 <- ru[, as.list(quantile(cpi_value_2020,probs = 0:100/100,na.rm=TRUE)), by=. (year)]
 
 p90[, ]
 
@@ -363,7 +366,7 @@ p90[,]
 p90 <- p90[, .(year, p1, p10, p50, p90)]
 
 
-
+p90
 
 p90[, `:=` (p90_p10 = p90/p10, 
             p50_p10 = p50/p10,
@@ -379,6 +382,8 @@ m1 = melt(p90, id.vars = "year",
              measure.vars = c("p90_p10", 
                               "p50_p10",
                               "p90_p50"))
+m1
+
 
 p5 <- m1[!is.na(value),] %>% 
   ggplot(aes(x=year,
@@ -408,21 +413,22 @@ p5
 
 
 
- d90_share <- ru[, total := sum(cpi_income_2020, na.rm = T),
+d90_share <- ru[, total := sum(cpi_value_2020, na.rm = T),
           by=.(year)]
 
 d90_share[,]
 
 
-d90_share[, dec_total := sum(cpi_income_2020, na.rm=T),
-          by=.(year, income_decile)]
+d90_share[, dec_total := sum(cpi_value_2020, na.rm=T),
+          by=.(year, income_quintile)]
 
 
-d90_share <- d90_share[income_decile==10, 
+d90_share <- d90_share[income_quintile==10, 
           .(total_income= mean(total, na.rm=T),
             total_top_income= mean(dec_total, na.rm=T)), by=.(year)]
 
 d90_share[, top_income_share := total_top_income/total_income]
+
 
 
 d90_share
@@ -452,21 +458,23 @@ p6
 
 
 
-d90_share <- ru[, total := sum(cpi_income_2020, na.rm = T),
+d90_share <- ru[, total := sum(cpi_value_2020, na.rm = T),
                 by=.(year)]
 
 d90_share[,]
 
 
-d90_share[, dec_total := sum(cpi_income_2020, na.rm=T),
-          by=.(year, income_decile)]
+d90_share[, dec_total := sum(cpi_value_2020, na.rm=T),
+          by=.(year, income_quintile)]
 
 
 d90_share <- d90_share[,       .(total_income= mean(total, na.rm=T),
-                         total_top_income= mean(dec_total, na.rm=T)), by=.(year, income_decile)]
+                         total_top_income= mean(dec_total, na.rm=T)), by=.(year, income_quintile)]
+
+
 
 d90_share[, ratio := total_top_income/ total_income]
-d90_share[income_decile==10,] %>% 
+d90_share[income_quintile==10,] %>% 
   ggplot(aes(x=year,
              y=ratio))+
   geom_point()+
@@ -479,30 +487,36 @@ d90_share[income_decile==10,] %>%
 # stacked area chart
 
 d90_share
+d90_share[, p10 := cut(income, 
+                            breaks =quantile(income, 
+                                             probs = 0:10/10, 
+                                             na.rm=TRUE),
+                            labels = 1:12, 
+                       right = FALSE), by=year]
 
-p7 <- d90_share[!is.na(income_decile),] %>% 
+
+
+
+
+
+p7 <- d90_share[!is.na(income_quintile),] %>% 
   ggplot(aes(x=year,
              y=ratio,
-             fill=income_decile))+
-  geom_area(position = position_stack(reverse = T))+
+             fill=income_quintile))+
+  geom_area(position = position_stack(reverse = T)) +
   theme_minimal()+
-  labs(title="Change in income decile's share of total income since 1994",
-       subtitle = "Top earners have seen their share if total income decline over time",
+  labs(title="Change in income quintile's share of total income since 1994",
+       subtitle = "Top earners have seen their share of total income decline over time",
        x='Year',
        y='Share of total income',
        caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko") +
   scale_fill_viridis(discrete = TRUE,
                      guide = guide_legend(reverse = T),
-                        name = "Income Decile", labels = c("Bottom Decile",
+                        name = "Income Quintile", labels = c("Bottom Quintile",
                                                    "2",
                                                    "3",
                                                    "4",
-                                                   "5",
-                                                   "6",
-                                                   "7",
-                                                   "8",
-                                                   "9",
-                                                   "Top Decile")) +
+                                                   "Top Quintile")) +
   scale_y_continuous(labels=scales::label_percent())+
   theme(
     plot.title = element_text(hjust=0.5),
@@ -516,7 +530,10 @@ p7
 
 
 
-sd_measure <- ru[, .(sd= sd(cpi_income_2020, na.rm=T)), by=.(year)]
+sd_measure <- ru[, .(sd= sd(cpi_value_2020, na.rm=T)), by=.(year)]
+
+
+
 sd_measure[,] %>% 
   ggplot(aes(x=year,
              y=sd))+

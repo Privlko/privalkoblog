@@ -8,9 +8,9 @@ tags: []
 ---
 
 
-Building on the previous post, I want to look at group differences in these trends.
-We saw how incomes rose quickly since the 1990's but that this growth declined in later years, possibly due to recession, maturity, or sanctions. 
-However, these trend lines take the average rates for a given year and do not consider the change in inequality between groups over time.
+Building on the previous post, I want to look at group differences in trends tied to income over time.
+The previous post showed how incomes rose after the year 2000 and how this growth declined in later years, possibly due to recession, maturity, or sanctions. 
+These trend lines took the average rates for a given year and did not consider the change in inequality between groups over time.
 In this post, I want to focus more specifically on income, with the idea that I will focus on wages in a future post. 
 
 # Average income trends in quintiles
@@ -49,9 +49,9 @@ ggplot(ru2, aes(y=mean_income,
     plot.title = element_text(hjust=0.5),
     plot.subtitle = element_text(hjust=0.5))
 ```
-The differences between categories sometimes widen and sometimes narrow, but generally the results show that income increased for everyone drastically. 
-Specifically it is difficult to comment on inequality within years because of the log scale. 
-Instead, we will consider two measures of inequality statistics within years; the p90:p10 ratio and the top decile's share of total income for each year.  
+Here, the highest income quintile earned far above the average value.
+Over time, we see that differences between categories widen and narrow, but generally the results show that income increased for most respondents between 2000 and 2010.
+After 2010, incomes begin to plateau and even decline for certain groups.
 
 # Income differences between percentiles as they are
 
@@ -60,14 +60,16 @@ This is shown in the figure below.
 The 3rd percentile, on average, earns just 10,221 rubles per month. 
 [We know from recent updates and policy reviews that the highest possible unemployment benefit was raised from 8,000 Russian rubles to 12,130 Russian rubles](https://www.statista.com/statistics/1291959/unemployment-benefits-russia/#:~:text=Changes%20in%20unemployment%20benefits%20due%20to%20COVID%2D19%20in%20Russia&text=In%20April%202020%2C%20the%20highest,increased%20to%204%2C500%20Russian%20rubles.), so some of these respondents are likely earning unemployment benefit at most. 
 Further, the minimum possible unemployment benefit was increased to 4,500 Russian rubles.
+
 This is in line with the findings presented here, the lowest paid individuals are likely receiving income from benefits and support like unemployment.
 Given that the highest possible payment is higher than the amount that we consider here, this suggests we are capturing those on unemployment benefits well. 
 Further, we note that the 10th percentile earns 15,000 rubles a month according to the data, which is useful for calculating the p90/p10 ratio.
+
 Regarding top earners, we see that average earnings in the 97th percentile are 90,000 rubles per month, while the 90th percentile earns 60,000 rubles per month.
 Once again, these earnings are high and constitute a p90/p10 ratio of 4, which is above many European countries.
 For some perspective [the United States has a p90/p10 estimate of 6.3 while Japan has an estimate of 6.1](https://internationalcomparisons.org/social/income-distribution/); at the same time, Denmark (3.0), France(3.6), and Germany (3.6) have significantly lower estimates between these percentiles.
+
 The estimate presented here brings Russia closer to Canada (4.0) and Australia (4.3) in terms of income inequality, which is closer aligned to many liberal market economies, than more egalitarian states like Finland, with whom Russia shares a border.
-A summary chart is listed below.
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -99,14 +101,11 @@ percent %>%
 
 
 We further explore this ratio later, for the moment it is worth noting the high rates of inequality between percentiles in 2020 data. 
-We also want to consider how these figures looked in 2012, when Russia had just began to recover from its financial crisis, partially caused by the wider European Debt Crisis. 
+We also want to consider how these figures looked in 2010, when Russian growth began to slow.
+We find that earnings were similar in 2012, but that very high earners reported lower incomes in 2020 when compared to 2012. 
+The bottom 3rd percentile earned just 8,200 rubles per month, while the 97th percentile earned 98,300 rubles per month. 
 
-We find that earnings were quite different in 2012, with far lower incomes in 2020 prices and seemingly fewer differences between groups.
-Specifically, we see that earners in the 3rd percentile have an average income of 3,049 rubles per month, which is far lower than the 3rd percentile in 2020 (roughly 29% of what is on offer in 2020). 
-We also see that people in the 10th percentile earned 4,450 rubles per month in 2020 figures, which is again, roughly 66% of the same money in 2020. 
-Regarding top earners, we see that those in the 97th percentile on average earned 36,586 per month in 2020 currency, while those in the 90th percentile earned 24,391 per month in 2020 currency.
-This suggests a p90/p10 ratio of 5.5 for 2012. 
-
+In this way we note a fall in some of the very top incomes between 2012 and 2020, we now turn to these falls for top earners.
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -115,14 +114,13 @@ load(file = "~/Projects/Blog/Sandbox/p1")
 p1
 ```
 
-Before considering measures of inequality, we can also consider the changes in real income for each percentile. 
 In order to compare change over time, we can consider changes for percentiles between two time points. 
-Given the extreme volatility of the Russian economy in the 1990's and the subsequent shocks in the economy, it worth considering time point both overall and separately.
+Given the extreme volatility of the Russian economy in the 1990's and the subsequent shocks, it is worth considering time points both overall and separately.
 The graph below looks at the rate of change of each percentile for several time points (for example 2020 versus 2012).
 The first graph considers four sets of time points; 2020 vs 2012, 2012 vs 2007, 2007 vs 2000, and 2000 vs 1995.
 The y-axis compares the size of the change between the two time points. 
-For example, for the 3rd percentile, income grew almost 25 times greater between 2000 and 2007; for the 97th percentile income grew almost 10 times greater during the same period. 
-The most obvious difference in the plot is the gap in growth between 1995-2007 and 2007-2020.
+For example, for the 3rd percentile, income grew 4 times greater between 2000 and 2007; for the 97th percentile income grew almost 1.5 times greater during the same period. 
+
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 load(file = "~/Projects/Blog/Sandbox/p2")
@@ -130,12 +128,21 @@ load(file = "~/Projects/Blog/Sandbox/p2")
 p2
 ```
 
-For this reason, we split the two time points into separate graphs. 
-Starting with 1995-2007, we first note the high levels of growth for each percentile over both periods, with incomes growing rapidly by a factors of 6-25 times greater.
-However, the period 2000-2007 was most beneficial to lower earning percentiles (whose income grew 24-15 times greater) and less beneficial to higher earning percentiles (whose income grew 8-12 times greater). 
-For the median earner (50th percentile) incomes grew by a factor of 15 in the seven year period.
-Regarding the period 1995-2000 we see few differences between percentile groups over the period, with all percentiles seeing a 15 or 18 factor increase in incomes during this time.
+In two periods income grew for all percentiles, between 2000 and 2007, each percentile experienced an increase in income, though very low earners saw the greatest increase in income. 
+Between 2007 and 2012, there was more modest growth but crucially, the rate of growth was equal across the income distribution. 
+Between 2012 and 2020, income only gre for very poor respondents, remains in place for the middle class, and fell slightly for top earners. 
+Finally, between 1995 and 2000, incomes fell gradually during a time of economic upheaval. 
 
+
+Looking closely at the 2007-2012 we see growth of roughly 15%-60% depending on the income percentile, and some decline when looking at the results 2012-2020. 
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+load(file = "~/Projects/Blog/Sandbox/p4")
+
+p4
+```
+
+
+Looking at the older results, we see a decline in growth 1995-2000, followed by strong growth especially for low earners between 2000 and 2007. 
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -144,22 +151,10 @@ load(file = "~/Projects/Blog/Sandbox/p3")
 p3
 ```
 
-
-If we focus only on more recent years, like 2007-2020, we see a significant drop in the growth of income (most likely due to recessions and other limits on growth like sanctions). 
-However, here too, incomes are increasing by multiple factors in a very short space of time, and this benefits mostly those at the lower end of the income distribution, with lower percentiles seeing almost a four factor increase in incomes between 2007 and 2012, and between 2012 and 2020. 
-Those at the higher end of the distribution are seeing a three fold increase in income from 2007 to 2012 and a 2.5 factor increase between 2012 and 2020, according to these estimates.
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
-load(file = "~/Projects/Blog/Sandbox/p4")
-
-p4
-```
-
 # Percentile Ratios
 
 The results of each graph suggest that growth and development has benefited those on lower incomes more than it has benefited those on higher incomes. 
-In short this suggests that income inequality has decreased since the 1990's. 
+In short this suggests that income inequality decreased quickly after the year 2000, slowly after 2007, and plateaued to minor closures of the gap from 2012.  
 We can check this using the p90:p10 ratio mentioned earlier, which tracks the ratio between the 90th percentile income and the 10th percentile income.
 We can also build on this, adding additional ratios like the p50:p10, and the p90:p50.
 This is shown in the graph below.
@@ -180,11 +175,10 @@ Further, the same statistics record a p50:p10 ratio of 2.2 for Russia, where we 
 
 # Top decile share of income aan other decile shares
 
-Finally, we will consider the share of the top decile among Russia's total income. 
+Further, we will consider the share of the top decile among Russia's total income. 
 As before this measure is tracked from 1994.
 This is listed below.
-The Figure shows that the top decile's share of total income has fallen slightly, but that the change has been less extreme than the percentile share differences recorded above. 
-
+The Figure shows that the top decile's share of total income has fallen slightly, but that the change has been less extreme than the percentile share differences recorded above.
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -194,8 +188,9 @@ p6
 ```
 
 
-Finally, we can consider share of total income given to all deciles since 1994. We see that the top decile's share of total income has gradually declined as other deciles have grown. 
-However, despite this, the top decile also has the largest share of total Russian income. 
+Finally, we can consider share of total income given to all quintiles since 1994. 
+We see that the top earners' share of total income has gradually declined as other groups have grown. 
+However, despite this, the top earners also have the largest share of total Russian income, almost 20%. 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 load(file = "~/Projects/Blog/Sandbox/p7")

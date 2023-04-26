@@ -1,8 +1,8 @@
 ---
 title: 'Real Incomes and Income Growth: Part 2 Group Differences and Inequality'
 author: "Ivan Privalko"
-date: '2022-03-24'
-slug: real-incomes-and-income-growth-part-2-group-differences-and-inequality
+date: "2022-03-24"
+slug: "real-incomes-and-income-growth-part-2-group-differences-and-inequality"
 categories: inequality
 tags: []
 ---

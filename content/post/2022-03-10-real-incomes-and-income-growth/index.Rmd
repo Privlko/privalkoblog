@@ -12,10 +12,10 @@ tags:
 In this post I want to build on [some recent work at the ESRI](https://www.esri.ie/publications/poverty-income-inequality-and-living-standards-in-ireland-0), which looks at income growth and income inequality  in Ireland using multiple surveys and sources. 
 In this report authors have combined three major sources of income data, cleaning and linking these to present a set of statistics on how income has developed in Ireland.
 In Russia there is already a linked and clean data source on income, named the [Russian Longitudinal Monitoring Survey](https://rlms-hse.cpc.unc.edu/) which considers data from the very early 1990's up to 2020. 
-I propose looking at similar trends using this data.
+I look at some similar trends using this data.
 
 
-As background, discussions of Russia's inequality overwhelmingly focus on the Ultra-rich. 
+People who write about Russia's inequality focus on the Ultra-rich. 
 Russia's oligarchy, a key group of business men who profited from the rapid privatization of the early 1990's, are often presented as obvious examples of the country's extreme inequality in wealth.
 Less often authors ask whether this inequality appears in measures of income, rather than wealth, and less often still authors ask whether wage inequality plays a role in Russia's unequal society. 
 Further, Russia's economy has grown significantly since the early 1990's, and it is worth considering (even if only descriptively) who benefited from this growth.
@@ -97,7 +97,7 @@ ru2 = melt(ru2, measure=patterns('m'))
 
 
 
-Firstly, we can look at nominal earnings and wages.
+Firstly, we can look at basic earnings and wages.
 In the plot below, we adjust for the [change in the Ruble's denomination which happened in 1998](https://en.wikipedia.org/wiki/Monetary_reform_in_Russia,_1998), but we do not yet control for inflation. 
 This plot gives us the general outline of average incomes and wages, assuming the change in denomination was the norm.
 We see that nominal earnings rose quickly in the 1990's, slowed in the 2000's, and slowed again for the 2010 period leading up to 2020.
@@ -140,16 +140,16 @@ cpi[, cpi_2020 := CPI_2010/CPI_2010[year==2020]]
 
 ru2 <- ru2[cpi, on = .(year = year)]
 
-ru2[, cpi_value_2010 := value * (cpi_2010)]
-ru2[, cpi_value_2020 := value * cpi_2020]
+ru2[, cpi_value_2010 := value / (cpi_2010)]
+ru2[, cpi_value_2020 := value / cpi_2020]
 
 ```
 
 
-If we adjust for inflation, by [considering the CPI index recorded by the world bank](https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=RU), and standardise this measure to 2020 values, we get a similar pattern for real incomes.
+If we adjust for inflation, by [considering the CPI index recorded by the world bank](https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=RU), and standardise this measure to 2020 values, we get a different pattern.
 During the 1990's earnings were minimal as the country recovered from the shock of market reforms.
-However, earnings rose quickly after these changes but slowed down from the id to late 2000's, and slowed again between 2010 and 2020. 
-In 2020, Mean income was 35,734 rubles per month while Mean wages stood at 31,059 rubles per monthl
+However, earnings rose quickly after these changes but slowed down from 2010 onwards. 
+In 2020, Mean income was 35,734 rubles per month while Mean wages stood at 31,059 rubles per month.
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -164,7 +164,7 @@ ru2 %>%
   scale_y_log10(labels=scales::comma) +
   theme_minimal()+
   labs(title="Trends in real (adjusted for CPI) earnings and wages (1994-2020)",
-       subtitle = "Adjusting for inflation (and accounting for denominational change) \nreal earnings have risen rapidly since 1994",
+       subtitle = "Adjusting for inflation (and accounting for denominational change) \nreal earnings have risen since 2000",
        x='Year',
        y='Income in 2020 Rubles',
        caption = "Source: RLMS 1991-2020 \nAnalysis: Ivan Privalko")+
@@ -179,10 +179,7 @@ ru2 %>%
 ```
 
 
-We can better illustrate these patterns by considering the year-on-year difference in income growth, as in the chart below. 
-We see that much of the growth happened in the 1990's after the point where incomes collapsed.
-Hoever, income growth was highest in the years leading up to the European recession. 
-In the years after recession and in the years after sanctions were implemented on the economy, income growth stalled significantly. 
+We can better illustrate these patterns by considering the year-on-year difference in income growth, as in the chart below.
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}

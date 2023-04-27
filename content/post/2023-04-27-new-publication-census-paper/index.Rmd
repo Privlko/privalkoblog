@@ -1,0 +1,17 @@
+---
+title: "New publication- Census Paper"
+author: ''
+date: "2023-04-27"
+slug: "new-publication-census-paper"
+categories: []
+tags: []
+---
+
+
+Dr. Fran McGinnity and I have a new paper out in the Journal of Immigrant and Refugee Studies. 
+We use the full Irish Census to consider how migrants fare in the labour market. 
+One important finding shows that people who come through the international protection system are penalized, even when they have comparable human capital.
+
+This paper has been in the works for a long time, and stems from some of the reports we worked on using the full Irish Census.
+As far as we know, this is the first time the full Irish census was used in such a way. 
+[You can read the paper here, it's an open access publication.](https://www.tandfonline.com/doi/full/10.1080/15562948.2023.2196664)
